@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-06-16T17:41:00Z",
+  "mercury": {
+    "status": "ok",
+    "accounts": [
+      {
+        "id": "placeholder",
+        "name": "Mercury Checking",
+        "accountNumber": "1661",
+        "currentBalance": 111000,
+        "availableBalance": 111000,
+        "currency": "USD",
+        "type": "checking",
+        "status": "active",
+        "mtdInflows": 0,
+        "mtdOutflows": 0,
+        "recentTransactions": []
+      }
+    ]
+  },
+  "revolut": {
+    "status": "ok",
+    "total": 5000,
+    "usd": 4000,
+    "eur": 855,
+    "bgn": 0,
+    "accounts": [
+      { "id": "r-usd", "name": "USD Main", "currency": "USD", "balance": 4000, "available": 4000, "state": "active" },
+      { "id": "r-eur", "name": "EUR Main", "currency": "EUR", "balance": 855, "available": 855, "state": "active" },
+      { "id": "r-bgn", "name": "BGN Main", "currency": "BGN", "balance": 0, "available": 0, "state": "active" }
+    ]
+  },
+  "bulbank": {
+    "status": "ok",
+    "balance_bgn": 201356,
+    "balance_usd": 120390,
+    "note": "Manual — from MT940 statement Jun 1 2026"
+  },
+  "fx": { "eur_usd": 1.1696, "bgn_usd": 0.5979 },
+  "errors": []
+}

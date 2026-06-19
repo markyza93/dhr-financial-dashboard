@@ -1,0 +1,92 @@
+# .github/workflows/refresh-balances.yml
+#
+# Fetches live Mercury + Revolut balances daily and commits balances.json
+# so the public GitHub Pages dashboard always shows fresh data.
+#
+# Required GitHub Secrets (Settings → Secrets and variables → Actions → New repository secret):
+#   MERCURY_API_KEY          Your Mercury production API key
+#   REVOLUT_CLIENT_ID        Revolut Business client_id (UUID)
+#   REVOLUT_DOMAIN           Domain registered with Revolut (e.g. dhr.is — no https://)
+#   REVOLUT_PRIVATE_KEY      Full contents of revolut_private.pem (paste the whole file)
+#   REVOLUT_REFRESH_TOKEN    Current Revolut OAuth refresh token
+#   GH_PAT                   GitHub Personal Access Token with repo scope
+#                            (needed to update REVOLUT_REFRESH_TOKEN if Revolut rotates it)
+
+name: Refresh Balances
+
+on:
+  schedule:
+    # 07:00 UTC every day (10:00 Sofia / EET+3 in summer)
+    - cron: '0 7 * * *'
+  # Also allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    name: Fetch & commit balances.json
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed to commit balances.json
+
+    steps:
+      # ── 1. Check out the repo ──────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Use the PAT so the subsequent push is also authorised
+          token: ${{ secrets.GH_PAT }}
+
+      # ── 2. Python setup ───────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: pip install requests PyJWT cryptography
+
+      # ── 3. Fetch balances ─────────────────────────────────────────────────
+      - name: Run fetch_balances.py
+        env:
+          MERCURY_API_KEY:       ${{ secrets.MERCURY_API_KEY }}
+          REVOLUT_CLIENT_ID:     ${{ secrets.REVOLUT_CLIENT_ID }}
+          REVOLUT_DOMAIN:        ${{ secrets.REVOLUT_DOMAIN }}
+          REVOLUT_PRIVATE_KEY:   ${{ secrets.REVOLUT_PRIVATE_KEY }}
+          REVOLUT_REFRESH_TOKEN: ${{ secrets.REVOLUT_REFRESH_TOKEN }}
+        run: python fetch_balances.py
+
+      # ── 4. Rotate refresh token if Revolut issued a new one ───────────────
+      #    Revolut may return a new refresh_token on each call.
+      #    fetch_balances.py writes new_refresh_token.txt when this happens.
+      #    We update the GitHub Secret so the NEXT run uses the new token.
+      - name: Update REVOLUT_REFRESH_TOKEN secret (if rotated)
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -f new_refresh_token.txt ]; then
+            NEW_TOKEN=$(cat new_refresh_token.txt)
+            gh secret set REVOLUT_REFRESH_TOKEN --body "$NEW_TOKEN" \
+              --repo "${{ github.repository }}"
+            echo "✓ REVOLUT_REFRESH_TOKEN updated in GitHub Secrets"
+            # Remove the file so it is never committed
+            rm new_refresh_token.txt
+          else
+            echo "No token rotation — nothing to update"
+          fi
+
+      # ── 5. Commit balances.json ───────────────────────────────────────────
+      - name: Commit balances.json
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add balances.json
+          # Only commit if something actually changed
+          if git diff --cached --quiet; then
+            echo "balances.json unchanged — no commit needed"
+          else
+            git commit -m "chore: refresh balances $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+            echo "✓ balances.json committed and pushed"
+          fi
