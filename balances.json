@@ -1,16 +1,163 @@
 {
-  "timestamp": "2026-06-16T17:41:00Z",
+  "timestamp": "2026-06-19T14:31:55.018109+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
       {
-        "id": "placeholder",
-        "name": "Mercury Checking",
-        "accountNumber": "1661",
-        "currentBalance": 111000,
-        "availableBalance": 111000,
+        "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
+        "name": "Mercury Checking \u2022\u20221661",
+        "accountNumber": "202534271661",
+        "currentBalance": 60570.74,
+        "availableBalance": 60570.74,
         "currency": "USD",
-        "type": "checking",
+        "type": "mercury",
+        "status": "active",
+        "mtdInflows": 434158.76,
+        "mtdOutflows": -376031.74,
+        "recentTransactions": [
+          {
+            "date": "2026-06-17T14:35:23.005754Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -50000.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-12T14:09:15.736965Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -16500.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-12T14:16:52.755815Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -21750.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-12T14:19:48.814862Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -5500.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-12T14:15:30.929471Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -18000.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-12T01:09:06.050079Z",
+            "description": "IRS; USATAXPYMT; FINANCE MANAGER DHR IN",
+            "amount": -11158.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-11T18:20:39.067658Z",
+            "description": null,
+            "amount": 4.23,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-11T18:20:37.619791Z",
+            "description": "IO PAYMENT",
+            "amount": -282.33,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-11T12:50:29.549837Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -5200.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-11T01:06:16.814958Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -2018.58,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-11T01:06:15.619239Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -686.03,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-09T21:49:12.494606Z",
+            "description": null,
+            "amount": 18.55,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-09T21:49:11.10794Z",
+            "description": "IO PAYMENT",
+            "amount": -1235.8,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-09T01:14:52.490443Z",
+            "description": "DE DOR; DE DOR",
+            "amount": -3701.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-08T15:37:32.72248Z",
+            "description": "Durin Mining Tec; PAY3532466; DHR Inc",
+            "amount": 42091.44,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-05T15:32:35.599777Z",
+            "description": "Framework Automa; PAY3479843; DHR",
+            "amount": 116160.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-05T14:13:56.961906Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -240000.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-05T12:40:05.937432Z",
+            "description": "Framework Automa; PAY3465184; DHR",
+            "amount": 164998.14,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-05T12:39:55.054541Z",
+            "description": "Durin Mining Tec; PAY3467002; DHR Inc",
+            "amount": 110880.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-04T22:51:36.816691Z",
+            "description": null,
+            "amount": 6.4,
+            "kind": "other"
+          }
+        ]
+      },
+      {
+        "id": "db348c9a-e3cb-11ef-a011-8365816ffbf7",
+        "name": "Mercury Savings \u2022\u20224178",
+        "accountNumber": "202573194178",
+        "currentBalance": 0.0,
+        "availableBalance": 0.0,
+        "currency": "USD",
+        "type": "mercury",
+        "status": "active",
+        "mtdInflows": 0,
+        "mtdOutflows": 0,
+        "recentTransactions": []
+      },
+      {
+        "id": "a39dda22-605f-11f1-9ced-6fd9fea6557b",
+        "name": "Mercury Checking \u2022\u20225159",
+        "accountNumber": "677639289195159",
+        "currentBalance": 0.0,
+        "availableBalance": 0.0,
+        "currency": "USD",
+        "type": "mercury",
         "status": "active",
         "mtdInflows": 0,
         "mtdOutflows": 0,
@@ -20,22 +167,54 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 5000,
-    "usd": 4000,
-    "eur": 855,
-    "bgn": 0,
+    "total": 18361.13,
+    "usd": 1402.07,
+    "eur": 14499.88,
+    "bgn": 0.0,
     "accounts": [
-      { "id": "r-usd", "name": "USD Main", "currency": "USD", "balance": 4000, "available": 4000, "state": "active" },
-      { "id": "r-eur", "name": "EUR Main", "currency": "EUR", "balance": 855, "available": 855, "state": "active" },
-      { "id": "r-bgn", "name": "BGN Main", "currency": "BGN", "balance": 0, "available": 0, "state": "active" }
+      {
+        "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
+        "name": "Main",
+        "currency": "EUR",
+        "balance": 14499.88,
+        "available": 14499.88,
+        "state": "active"
+      },
+      {
+        "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
+        "name": "Main",
+        "currency": "USD",
+        "balance": 1402.07,
+        "available": 1402.07,
+        "state": "active"
+      },
+      {
+        "id": "fc5cd70b-2652-4bdc-af1a-30037ef257e7",
+        "name": "Main",
+        "currency": "GBP",
+        "balance": 0,
+        "available": 0,
+        "state": "active"
+      },
+      {
+        "id": "d2257e95-fa03-4ae3-9898-8ab1fe45d4f0",
+        "name": "MERCHANT-EUR-2",
+        "currency": "EUR",
+        "balance": 0,
+        "available": 0,
+        "state": "active"
+      }
     ]
   },
   "bulbank": {
     "status": "ok",
     "balance_bgn": 201356,
-    "balance_usd": 120390,
-    "note": "Manual — from MT940 statement Jun 1 2026"
+    "balance_usd": 120390.75,
+    "note": "Manual \u2014 from MT940 statement"
   },
-  "fx": { "eur_usd": 1.1696, "bgn_usd": 0.5979 },
+  "fx": {
+    "eur_usd": 1.1696,
+    "bgn_usd": 0.5979
+  },
   "errors": []
 }
