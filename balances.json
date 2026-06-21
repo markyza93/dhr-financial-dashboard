@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-20T12:26:18.016323+00:00",
+  "timestamp": "2026-06-21T13:26:28.450620+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -167,25 +167,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 18354.56,
-    "usd": 1402.07,
-    "eur": 14494.26,
+    "total": 18270.03,
+    "usd": 1382.07,
+    "eur": 14439.09,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 14494.26,
-        "available": 14494.26,
+        "balance": 14439.09,
+        "available": 14439.09,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 1402.07,
-        "available": 1402.07,
+        "balance": 1382.07,
+        "available": 1382.07,
         "state": "active"
       },
       {
