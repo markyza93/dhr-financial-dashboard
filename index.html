@@ -3493,6 +3493,9 @@ function fetchLiveData() {
   ];
   var wfColors = ['#60a5fa','#34d399','#f87171','#34d399','#fb923c','#f87171','#fbbf24','#38bdf8'];
   var wfLabels = ['Opening\nJan 1','Net Income\n(Jan–May)','AR Buildup\n(Jan–May)','Jun AR\nCollections','CapEx\n(investing)','Owner\nDistributions','Unexplained\nPlug (Jan–May)','Expected\nJun 20'];
+  // Signed changes per bar — Chart.js floating bars always have [lower,upper] so d[1]-d[0] is always positive.
+  // We must store the actual sign explicitly to show correct +/− in tooltips.
+  var wfChanges = [948162, 1604951, -699491, 434159, -388857, -250000, -832239, 816685];
 
   new Chart(cfCanvas, {
     type: 'bar',
@@ -3515,11 +3518,12 @@ function fetchLiveData() {
         tooltip: {
           callbacks: {
             label: function(ctx) {
+              var i = ctx.dataIndex;
               var d = ctx.raw;
-              var val = d[1] - d[0];
               var fmtK = function(v){ return '$' + Math.abs(Math.round(v/1000)).toLocaleString() + 'K'; };
-              if (ctx.dataIndex === 0 || ctx.dataIndex === 7) return ' Balance: ' + fmtK(d[1]);  // anchors: index 0 = Opening, index 7 = Expected Jun 20
-              return ' ' + (val >= 0 ? '+' : '−') + fmtK(Math.abs(val));
+              if (i === 0 || i === 7) return ' Balance: ' + fmtK(d[1]);
+              var chg = wfChanges[i];
+              return ' ' + (chg >= 0 ? '+' : '−') + fmtK(Math.abs(chg));
             }
           }
         }
