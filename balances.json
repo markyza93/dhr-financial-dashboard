@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-22T13:00:31.326773+00:00",
+  "timestamp": "2026-06-22T19:56:17.357838+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,26 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 60570.74,
-        "availableBalance": 60570.74,
+        "currentBalance": 59338.14,
+        "availableBalance": 59338.14,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 434158.76,
-        "mtdOutflows": -376031.74,
+        "mtdInflows": 323291.13,
+        "mtdOutflows": -377283.11,
         "recentTransactions": [
+          {
+            "date": "2026-06-22T15:21:30.576189Z",
+            "description": null,
+            "amount": 18.77,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-22T15:21:28.956171Z",
+            "description": "IO PAYMENT",
+            "amount": -1251.37,
+            "kind": "other"
+          },
           {
             "date": "2026-06-17T14:35:23.005754Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -121,18 +133,6 @@
             "date": "2026-06-05T12:40:05.937432Z",
             "description": "Framework Automa; PAY3465184; DHR",
             "amount": 164998.14,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-05T12:39:55.054541Z",
-            "description": "Durin Mining Tec; PAY3467002; DHR Inc",
-            "amount": 110880.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-04T22:51:36.816691Z",
-            "description": null,
-            "amount": 6.4,
             "kind": "other"
           }
         ]
