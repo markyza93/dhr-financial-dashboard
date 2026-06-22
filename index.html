@@ -327,6 +327,9 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <li class="nav-item" data-page="profitability">
         <span class="nav-icon">◈</span><span>Profitability</span>
       </li>
+      <li class="nav-item" data-page="cashflow">
+        <span class="nav-icon">⇌</span><span>Cash Flow</span>
+      </li>
       <li class="nav-item" data-page="cash">
         <span class="nav-icon">◎</span><span>Cash &amp; Banks</span>
       </li>
@@ -650,6 +653,204 @@ tbody tr:hover td { background: #f5f8fc !important; }
   <!-- BANK BALANCES -->
         </div>
       </div>
+      <!-- ── cashflow ── -->
+      <div class="page" id="page-cashflow">
+        <div class="main">
+          <div class="sec"><h2>Cash Flow Bridge</h2><div class="rule"></div></div>
+
+          <!-- Reconciliation note -->
+          <div class="card" style="margin-bottom:14px;padding:14px 18px;font-size:12px;color:var(--muted2);line-height:1.7;">
+            <strong style="color:var(--text);font-size:13px;">Profit-to-Cash Bridge: (Jan 1 &ndash; Jun 20, 2026)</strong><br>
+            Explains how $1.60M operating profit becomes $817K expected cash on hand by Jun 20.
+            <strong style="color:var(--text);">Net Income excludes CapEx</strong> ($389K land + equipment), capitalised as an investing outflow; the main P&amp;L dashboard expenses it directly &mdash; so P&amp;L profit ($1.22M) + CapEx ($0.39M) = CF net income ($1.60M).
+            <strong style="color:var(--text);">AR timing applies to Durin &amp; Framework only.</strong>
+            These clients are on service-date recognition: revenue is booked when work is performed, cash arrives later. Hadrian revenue is cash-basis (recognised on settlement date), so Hadrian contributes <em>zero</em> AR &mdash; every dollar earned equals a dollar received.
+          </div>
+
+          <!-- 4 KPI tiles -->
+          <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px;">
+            <div class="kpi k1">
+              <div class="kpi-label">Outstanding AR (Jun 20)</div>
+              <div class="kpi-value">$379K</div>
+              <div class="kpi-meta">Revenue earned, not yet collected &middot; down from $814K peak end of May</div>
+            </div>
+            <div class="kpi k3">
+              <div class="kpi-label">YTD Operating Cash Flow (to Jun 20)</div>
+              <div class="kpi-value">$1.34M</div>
+              <div class="kpi-meta">$1.60M net income (Jan&ndash;May) + $434K June AR collections &middot; net AR timing drag $265K</div>
+            </div>
+            <div class="kpi k4">
+              <div class="kpi-label">YTD CapEx</div>
+              <div class="kpi-value">$389K</div>
+              <div class="kpi-meta">Land purchases &middot; investing activity, capitalised not expensed in CF</div>
+            </div>
+            <div class="kpi k2">
+              <div class="kpi-label">YTD Owner Distributions</div>
+              <div class="kpi-value">$250K</div>
+              <div class="kpi-meta">Cash withdrawn by owners in May &middot; financing activity</div>
+            </div>
+          </div>
+
+          <!-- Waterfall chart -->
+          <div class="card" style="margin-bottom:14px;">
+            <div class="card-head">
+              <div>
+                <h3>Profit-to-Cash Waterfall</h3>
+                <p class="card-sub">How $1.60M operating profit becomes ~$817K expected cash by Jun 20 &middot; plug covers Jan&ndash;May only</p>
+              </div>
+            </div>
+            <div class="wrap h340"><canvas id="cfWaterfallChart"></canvas></div>
+          </div>
+
+          <!-- Two-column: Monthly CF table + AR Roll Forward -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
+            <!-- Monthly Cash Flow table -->
+            <div class="card">
+              <div class="card-head">
+                <div>
+                  <h3>Monthly Cash Flow Bridge</h3>
+                  <p class="card-sub">Jan&ndash;Jun 20, 2026 &middot; USD &middot; Jun = partial month (Hadrian invoices pending)</p>
+                </div>
+              </div>
+              <table class="cl-table" style="font-size:11.5px;">
+                <thead>
+                  <tr>
+                    <th style="text-align:left;"></th>
+                    <th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th>
+                    <th style="color:var(--green);">Jun&#42;</th>
+                    <th>YTD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Opening Cash</td>
+                    <td>$948K</td><td>$894K</td><td>$465K</td><td>$284K</td><td>$425K</td>
+                    <td style="color:var(--green);">$383K</td>
+                    <td style="color:var(--muted2);">$948K</td>
+                  </tr>
+                  <tr>
+                    <td>Net Income (operating)</td>
+                    <td class="pos">+$81K</td><td class="pos">+$443K</td><td class="pos">+$414K</td><td class="pos">+$266K</td><td class="pos">+$400K</td>
+                    <td style="color:var(--muted);">$0</td>
+                    <td class="pos">+$1,605K</td>
+                  </tr>
+                  <tr>
+                    <td>AR Change (cash timing)</td>
+                    <td class="neg">&minus;$10K</td><td class="neg">&minus;$213K</td><td class="neg">&minus;$114K</td><td class="pos">+$3K</td><td class="neg">&minus;$366K</td>
+                    <td class="pos" style="color:var(--green);font-weight:600;">+$434K &#10003;</td>
+                    <td class="neg">&minus;$265K</td>
+                  </tr>
+                  <tr>
+                    <td>CapEx (investing)</td>
+                    <td class="neg">&minus;$49K</td><td class="neg">&minus;$73K</td><td class="neg">&minus;$259K</td><td class="neg">&minus;$6K</td><td class="neg">&minus;$2K</td>
+                    <td style="color:var(--muted);">&mdash;</td>
+                    <td class="neg">&minus;$389K</td>
+                  </tr>
+                  <tr>
+                    <td>Owner Distributions</td>
+                    <td style="color:var(--muted);">&mdash;</td><td style="color:var(--muted);">&mdash;</td><td style="color:var(--muted);">&mdash;</td><td style="color:var(--muted);">&mdash;</td>
+                    <td class="neg">&minus;$250K</td>
+                    <td style="color:var(--muted);">&mdash;</td>
+                    <td class="neg">&minus;$250K</td>
+                  </tr>
+                  <tr>
+                    <td style="color:var(--amber);">&#9888; Unexplained plug</td>
+                    <td style="color:var(--amber);">&minus;$76K</td>
+                    <td style="color:var(--amber);">&minus;$587K</td>
+                    <td style="color:var(--amber);">&minus;$222K</td>
+                    <td style="color:var(--amber);">&minus;$122K</td>
+                    <td style="color:var(--amber);">+$175K</td>
+                    <td style="color:var(--muted);">pending</td>
+                    <td style="color:var(--amber);">&minus;$832K&#8224;</td>
+                  </tr>
+                  <tr class="total">
+                    <td>Closing Cash</td>
+                    <td>$894K</td><td>$465K</td><td>$284K</td><td>$425K</td><td>$383K</td>
+                    <td style="color:var(--green);">~$817K&#8224;</td>
+                    <td style="color:var(--muted2);">~$817K&#8224;</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.65;">
+                &#10003; $434K collected in June (Durin &amp; Framework) turned a -$699K AR drag into a net -$265K YTD.<br>
+                &#42; Jun = partial month to Jun 20. Hadrian invoices for June not yet issued (cash-basis, no AR impact).<br>
+                &#8224; Jun closing = $383K + $434K AR collections = $817K expected; plug for Jun pending bank confirmation.<br>
+                &#9888; <strong>Plug</strong>: model-vs-actual gap. Likely intercompany wires (DHR Inc &rarr; DHR EOOD), taxes, or SSOT timing items. Feb (&minus;$587K) is the largest single-month gap.
+              </div>
+            </div>
+
+            <!-- AR Roll Forward table -->
+            <div class="card">
+              <div class="card-head">
+                <div>
+                  <h3>AR Roll Forward</h3>
+                  <p class="card-sub">Dec 2025 &ndash; Jun 20, 2026 &middot; Durin &amp; Framework only &middot; Hadrian is cash-basis (no AR)</p>
+                </div>
+              </div>
+              <table class="cl-table">
+                <thead>
+                  <tr>
+                    <th style="text-align:left;">Month</th>
+                    <th>Opening AR</th>
+                    <th>+ Earned</th>
+                    <th>&minus; Collected</th>
+                    <th>Closing AR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dec 2025</td>
+                    <td>$66K</td><td class="pos">+$114K</td><td class="neg">&minus;$66K</td><td>$114K</td>
+                  </tr>
+                  <tr>
+                    <td>Jan 2026</td>
+                    <td>$114K</td><td class="pos">+$124K</td><td class="neg">&minus;$114K</td><td>$124K</td>
+                  </tr>
+                  <tr>
+                    <td>Feb 2026</td>
+                    <td>$124K</td><td class="pos">+$337K</td><td class="neg">&minus;$124K</td><td>$337K</td>
+                  </tr>
+                  <tr>
+                    <td>Mar 2026</td>
+                    <td>$337K</td><td class="pos">+$356K</td><td class="neg">&minus;$243K</td><td>$450K</td>
+                  </tr>
+                  <tr>
+                    <td>Apr 2026</td>
+                    <td>$450K</td><td class="pos">+$434K</td><td class="neg">&minus;$437K</td><td>$448K</td>
+                  </tr>
+                  <tr>
+                    <td>May 2026</td>
+                    <td>$448K</td><td class="pos">+$380K</td><td class="neg">&minus;$14K</td>
+                    <td style="color:var(--amber);font-weight:700;">$814K &#9650;</td>
+                  </tr>
+                  <tr style="background:rgba(248,113,113,0.07);border-top:1px solid var(--border2);">
+                    <td colspan="5" style="font-size:11px;color:var(--red);padding:8px 10px;text-align:left;">
+                      &#9660; <strong>Jan–May net AR increase: +$699K</strong>
+                      &nbsp;&middot;&nbsp; Opening Jan AR $114K &rarr; Closing May AR $814K = <strong>$699K buildup</strong> (cash not yet received).
+                      This is the red <em>&ldquo;AR Buildup (Jan–May)&rdquo;</em> bar in the waterfall chart above.
+                    </td>
+                  </tr>
+                  <tr style="background:rgba(52,211,153,0.06);">
+                    <td style="color:var(--green);font-weight:600;">Jun (to Jun 20)</td>
+                    <td style="color:var(--green);">$814K</td>
+                    <td style="color:var(--muted);">&mdash;</td>
+                    <td style="color:var(--green);font-weight:600;">&minus;$434K &#10003;</td>
+                    <td style="color:var(--green);font-weight:700;">$379K</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.65;">
+                &#10003; $434K collected in June (to Jun 20) — AR down from $814K peak to $379K.<br>
+                June earned = $0: Hadrian invoices for June not yet issued. Hadrian revenue is cash-basis &mdash; recognised on settlement date, so it never creates AR. The full AR balance represents Durin &amp; Framework invoices only.<br>
+                May closing AR of $814K was elevated due to minimal collections that month ($14K only).
+              </div>
+            </div>
+
+          </div><!-- end two-column grid -->
+        </div><!-- end .main -->
+      </div><!-- end page-cashflow -->
+
       <!-- ── cash ── -->
       <div class="page" id="page-cash">
         <div class="main">
@@ -3260,6 +3461,79 @@ function fetchLiveData() {
           ticks: {
             color: '#4e6680',
             callback: function(v) { return '$' + Math.round(v/1000) + 'K'; }
+          }
+        }
+      }
+    }
+  });
+})();
+
+// ── Cash Flow Waterfall Chart ──
+(function() {
+  var cfCanvas = document.getElementById('cfWaterfallChart');
+  if (!cfCanvas || typeof Chart === 'undefined') return;
+
+  // Waterfall through Jun 20: floating bars [yMin, yMax]
+  // Running: 948162 → +1604951 → 2553113
+  //          → -699491 → 1853622 (AR buildup Jan-May)
+  //          → +434159 → 2287781 (Jun AR collections)
+  //          → -388857 → 1898924 (CapEx)
+  //          → -250000 → 1648924 (Distributions)
+  //          → -832239 → 816685  (Plug Jan-May)
+  //          = 816685 expected Jun 20
+  var wfData = [
+    [0,       948162],   // Opening Jan 1 (anchor)
+    [948162, 2553113],   // +Net Income Jan-May +1,604,951
+    [1853622,2553113],   // -AR Buildup Jan-May -699,491 (falls)
+    [1853622,2287781],   // +Jun AR Collections +434,159 (rises)
+    [1898924,2287781],   // -CapEx -388,857 (falls)
+    [1648924,1898924],   // -Distributions -250,000 (falls)
+    [816685, 1648924],   // -Plug Jan-May -832,239 (falls)
+    [0,       816685],   // Expected Jun 20 (anchor)
+  ];
+  var wfColors = ['#60a5fa','#34d399','#f87171','#34d399','#fb923c','#f87171','#fbbf24','#38bdf8'];
+  var wfLabels = ['Opening\nJan 1','Net Income\n(Jan–May)','AR Buildup\n(Jan–May)','Jun AR\nCollections','CapEx\n(investing)','Owner\nDistributions','Unexplained\nPlug (Jan–May)','Expected\nJun 20'];
+
+  new Chart(cfCanvas, {
+    type: 'bar',
+    data: {
+      labels: wfLabels,
+      datasets: [{
+        data: wfData,
+        backgroundColor: wfColors.map(function(c){ return c + 'bb'; }),
+        borderColor: wfColors,
+        borderWidth: 1.5,
+        borderRadius: 5,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(ctx) {
+              var d = ctx.raw;
+              var val = d[1] - d[0];
+              var fmtK = function(v){ return '$' + Math.abs(Math.round(v/1000)).toLocaleString() + 'K'; };
+              if (ctx.dataIndex === 0 || ctx.dataIndex === 7) return ' Balance: ' + fmtK(d[1]);  // anchors: index 0 = Opening, index 7 = Expected Jun 20
+              return ' ' + (val >= 0 ? '+' : '−') + fmtK(Math.abs(val));
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(26,40,64,0.5)' },
+          ticks: { color: '#5a7094', font: { size: 11 }, maxRotation: 0 }
+        },
+        y: {
+          grid: { color: 'rgba(26,40,64,0.5)' },
+          ticks: {
+            color: '#5a7094', font: { size: 11 },
+            callback: function(v){ return '$' + Math.round(v/1000) + 'K'; }
           }
         }
       }
