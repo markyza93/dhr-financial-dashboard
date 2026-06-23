@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-22T19:56:17.357838+00:00",
+  "timestamp": "2026-06-23T16:16:07.549047+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 59338.14,
-        "availableBalance": 59338.14,
+        "currentBalance": 33338.14,
+        "availableBalance": 33338.14,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 323291.13,
-        "mtdOutflows": -377283.11,
+        "mtdInflows": 158292.99,
+        "mtdOutflows": -403283.11,
         "recentTransactions": [
+          {
+            "date": "2026-06-23T14:28:36.523334Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -26000.0,
+            "kind": "outgoingPayment"
+          },
           {
             "date": "2026-06-22T15:21:30.576189Z",
             "description": null,
@@ -128,12 +134,6 @@
             "description": "Send Money transaction initiated on Mercury",
             "amount": -240000.0,
             "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-06-05T12:40:05.937432Z",
-            "description": "Framework Automa; PAY3465184; DHR",
-            "amount": 164998.14,
-            "kind": "other"
           }
         ]
       },
@@ -167,25 +167,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 11191.22,
-    "usd": 1367.12,
-    "eur": 8399.54,
+    "total": 28414.46,
+    "usd": 26978.12,
+    "eur": 1228.06,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 8399.54,
-        "available": 8399.54,
+        "balance": 1228.06,
+        "available": 1228.06,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 1367.12,
-        "available": 1367.12,
+        "balance": 26978.12,
+        "available": 26978.12,
         "state": "active"
       },
       {
