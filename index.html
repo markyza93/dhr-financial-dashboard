@@ -308,7 +308,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
 
   <nav class="sidebar">
     <div class="sidebar-brand">
-      <div class="sidebar-wordmark">DHR Engineering</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:4px;">
+          <rect width="36" height="36" fill="#0a0a0a"/>
+          <text x="18" y="24" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="13" font-weight="900" fill="#ffffff" letter-spacing="1">DHR</text>
+        </svg>
+        <div class="sidebar-wordmark">DHR Engineering</div>
+      </div>
       <div class="sidebar-sub">Financial Dashboard<br>Consolidated · FY 2026</div>
     </div>
     <ul class="nav-menu">
@@ -348,6 +354,14 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <span id="refresh-icon">⟳</span> Refresh Live Data
       </button>
       <div style="margin-top:8px;font-size:10px;color:var(--muted2);">Data as of May 2026</div>
+      <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;">
+        <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Source Files</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <a href="https://docs.google.com/spreadsheets/d/16zDSAjKwrV5f4RHUf3WjeuR8tNL1FblHsufMzvlvf9M/edit?gid=1453115862#gid=1453115862" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:5px;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">&#9654; Profitability</a>
+          <a href="https://docs.google.com/spreadsheets/d/1268pkbrEID7cXtIaz7fkPo9u5YrPDRmUqTwZAjLyJDo/edit?gid=871230744#gid=871230744" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:5px;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">&#9654; Expenses</a>
+          <a href="https://docs.google.com/spreadsheets/d/1kWCdHaKeQ46n0AueWut4Saz8A9wvT24aYH3KUOfE5W8/edit?gid=871230744#gid=871230744" target="_blank" style="font-size:10px;color:var(--blue);text-decoration:none;display:flex;align-items:center;gap:5px;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">&#9654; Revenues</a>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -359,11 +373,11 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Expenses YTD</div>
-        <div class="top-kpi-value" style="color:var(--red)">$1.90M</div>
+        <div class="top-kpi-value" style="color:var(--red)">$2.21M</div>
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Gross Profit</div>
-        <div class="top-kpi-value" style="color:var(--green)">$1.22M</div>
+        <div class="top-kpi-value" style="color:var(--green)">$908K</div>
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Total Cash</div>
@@ -371,7 +385,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Est. Tax</div>
-        <div class="top-kpi-value" style="color:#c084fc">$315K</div>
+        <div class="top-kpi-value" style="color:#c084fc">$276K</div>
       </div>
     </div>
     <div class="pages-wrap">
@@ -387,13 +401,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
     </div>
     <div class="kpi k2">
       <div class="kpi-label">Expenses YTD — Full Actual (Jan–May)</div>
-      <div class="kpi-value" style="color:var(--red)">$1.90M</div>
+      <div class="kpi-value" style="color:var(--red)">$2.21M</div>
       <div class="kpi-meta">EOOD materials (EUR→USD, net VAT refund) + US ops + BG payroll/SS/taxes + 3DHR + Land</div>
     </div>
     <div class="kpi k3">
       <div class="kpi-label">Gross Profit YTD (Jan–May)</div>
-      <div class="kpi-value">$1.22M</div>
-      <div class="kpi-meta"><span class="up">39.0% margin</span> · Revenue $3.12M minus $1.90M full actual costs</div>
+      <div class="kpi-value">$908K</div>
+      <div class="kpi-meta"><span class="up">29.1% margin</span> · Revenue $3.12M minus $2.21M full actual costs</div>
     </div>
     <div class="kpi k4">
       <div class="kpi-label">Total Cash — All Banks</div>
@@ -408,15 +422,15 @@ tbody tr:hover td { background: #f5f8fc !important; }
 
     <div class="kpi k5">
       <div class="kpi-label">Est. Tax Liability YTD — Both Entities</div>
-      <div class="kpi-value" style="color:#c084fc">$315K</div>
+      <div class="kpi-value" style="color:#c084fc">$276K</div>
       <div class="kpi-meta">
-        <span style="color:#a78bfa">BG (DHR EOOD)</span> $97K &nbsp;·&nbsp;
+        <span style="color:#a78bfa">BG (DHR EOOD)</span> $58K &nbsp;·&nbsp;
         <span style="color:#60a5fa">US (DHR Inc)</span> $217K
       </div>
       <div style="margin-top:8px;">
         <div style="display:flex;gap:4px;align-items:center;margin-bottom:4px;">
-          <div style="height:6px;border-radius:3px;background:#a78bfa;width:30.9%"></div>
-          <div style="height:6px;border-radius:3px;background:#60a5fa;width:69.1%"></div>
+          <div style="height:6px;border-radius:3px;background:#a78bfa;width:21.1%"></div>
+          <div style="height:6px;border-radius:3px;background:#60a5fa;width:78.9%"></div>
         </div>
         <div style="font-size:10px;color:var(--muted2);">BG 10% rate · US 42.5% blended rate</div>
       </div>
@@ -661,8 +675,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <!-- Reconciliation note -->
           <div class="card" style="margin-bottom:14px;padding:14px 18px;font-size:12px;color:var(--muted2);line-height:1.7;">
             <strong style="color:var(--text);font-size:13px;">Profit-to-Cash Bridge: (Jan 1 &ndash; Jun 20, 2026)</strong><br>
-            Explains how $1.60M operating profit becomes $817K expected cash on hand by Jun 20.
-            <strong style="color:var(--text);">Net Income excludes CapEx</strong> ($389K land + equipment), capitalised as an investing outflow; the main P&amp;L dashboard expenses it directly &mdash; so P&amp;L profit ($1.22M) + CapEx ($0.39M) = CF net income ($1.60M).
+            Explains how $1.30M operating profit becomes $817K expected cash on hand by Jun 20.
+            <strong style="color:var(--text);">Net Income excludes CapEx</strong> ($389K land + equipment), capitalised as an investing outflow; the main P&amp;L dashboard expenses it directly &mdash; so P&amp;L profit ($0.91M) + CapEx ($0.39M) = CF net income ($1.30M).
             <strong style="color:var(--text);">AR timing applies to Durin &amp; Framework only.</strong>
             These clients are on service-date recognition: revenue is booked when work is performed, cash arrives later. Hadrian revenue is cash-basis (recognised on settlement date), so Hadrian contributes <em>zero</em> AR &mdash; every dollar earned equals a dollar received.
           </div>
@@ -676,8 +690,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
             </div>
             <div class="kpi k3">
               <div class="kpi-label">YTD Operating Cash Flow (to Jun 20)</div>
-              <div class="kpi-value">$1.34M</div>
-              <div class="kpi-meta">$1.60M net income (Jan&ndash;May) + $434K June AR collections &middot; net AR timing drag $265K</div>
+              <div class="kpi-value">$1.03M</div>
+              <div class="kpi-meta">$1.30M net income (Jan&ndash;May) + $434K June AR collections &middot; net AR timing drag $265K</div>
             </div>
             <div class="kpi k4">
               <div class="kpi-label">YTD CapEx</div>
@@ -696,7 +710,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
             <div class="card-head">
               <div>
                 <h3>Profit-to-Cash Waterfall</h3>
-                <p class="card-sub">How $1.60M operating profit becomes ~$817K expected cash by Jun 20 &middot; plug covers Jan&ndash;May only</p>
+                <p class="card-sub">How $1.30M operating profit becomes ~$817K expected cash by Jun 20 &middot; plug covers Jan&ndash;May only</p>
               </div>
             </div>
             <div class="wrap h340"><canvas id="cfWaterfallChart"></canvas></div>
@@ -731,9 +745,9 @@ tbody tr:hover td { background: #f5f8fc !important; }
                   </tr>
                   <tr>
                     <td>Net Income (operating)</td>
-                    <td class="pos">+$81K</td><td class="pos">+$443K</td><td class="pos">+$414K</td><td class="pos">+$266K</td><td class="pos">+$400K</td>
+                    <td class="pos">+$70K</td><td class="pos">+$443K</td><td class="pos">+$117K</td><td class="pos">+$266K</td><td class="pos">+$400K</td>
                     <td style="color:var(--muted);">$0</td>
-                    <td class="pos">+$1,605K</td>
+                    <td class="pos">+$1,297K</td>
                   </tr>
                   <tr>
                     <td>AR Change (cash timing)</td>
@@ -756,13 +770,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
                   </tr>
                   <tr>
                     <td style="color:var(--amber);">&#9888; Unexplained plug</td>
-                    <td style="color:var(--amber);">&minus;$76K</td>
+                    <td style="color:var(--amber);">&minus;$65K</td>
                     <td style="color:var(--amber);">&minus;$587K</td>
-                    <td style="color:var(--amber);">&minus;$222K</td>
+                    <td style="color:var(--amber);">+$75K</td>
                     <td style="color:var(--amber);">&minus;$122K</td>
                     <td style="color:var(--amber);">+$175K</td>
                     <td style="color:var(--muted);">pending</td>
-                    <td style="color:var(--amber);">&minus;$832K&#8224;</td>
+                    <td style="color:var(--amber);">&minus;$525K&#8224;</td>
                   </tr>
                   <tr class="total">
                     <td>Closing Cash</td>
@@ -776,7 +790,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
                 &#10003; $434K collected in June (Durin &amp; Framework) turned a -$699K AR drag into a net -$265K YTD.<br>
                 &#42; Jun = partial month to Jun 20. Hadrian invoices for June not yet issued (cash-basis, no AR impact).<br>
                 &#8224; Jun closing = $383K + $434K AR collections = $817K expected; plug for Jun pending bank confirmation.<br>
-                &#9888; <strong>Plug</strong>: model-vs-actual gap. Likely intercompany wires (DHR Inc &rarr; DHR EOOD), taxes, or SSOT timing items. Feb (&minus;$587K) is the largest single-month gap.
+                &#9888; <strong>Plug</strong>: model-vs-actual gap. Likely intercompany wires (DHR Inc &rarr; DHR EOOD), taxes, or SSOT timing items. Feb (&minus;$587K) is the largest single-month gap. Mar plug now positive (+$75K) after Bambu Lab reclassification from Jun&rarr;Mar.
               </div>
             </div>
 
@@ -1000,7 +1014,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <div style="font-size:11px;color:var(--muted2);margin-top:2px;">Amounts in USD · Jan–May 2026 YTD</div>
         </div>
         <div style="text-align:right;">
-          <div style="font-size:22px;font-weight:800;color:#a78bfa;letter-spacing:-1px;">$97,177</div>
+          <div style="font-size:22px;font-weight:800;color:#a78bfa;letter-spacing:-1px;">$58,205</div>
           <div style="font-size:10px;color:var(--muted2);">Estimated liability</div>
         </div>
       </div>
@@ -1020,13 +1034,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
           </tr>
           <tr style="border-bottom:1px solid var(--border);">
             <td style="padding:8px 8px;color:var(--muted2);">Expenses</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:600;color:var(--red);">($1,614,112)</td>
+            <td style="padding:8px 8px;text-align:right;font-weight:600;color:var(--red);">($2,003,829)</td>
             <td style="padding:8px 8px;font-size:11px;color:var(--muted2);">EOOD Expenses SSOT + Unicredit Bulbank (materials, payroll, BG ops, land)</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);">
             <td style="padding:8px 8px;font-weight:600;">Profit Before Tax</td>
-            <td style="padding:8px 8px;text-align:right;font-weight:700;color:var(--green);">$971,771</td>
-            <td style="padding:8px 8px;font-size:11px;color:var(--muted2);">37.6% margin</td>
+            <td style="padding:8px 8px;text-align:right;font-weight:700;color:var(--green);">$582,053</td>
+            <td style="padding:8px 8px;font-size:11px;color:var(--muted2);">22.5% margin</td>
           </tr>
           <tr style="border-bottom:1px solid var(--border);">
             <td style="padding:8px 8px;color:var(--muted2);">Tax Rate</td>
@@ -1035,7 +1049,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
           </tr>
           <tr style="background:rgba(167,139,250,0.08);">
             <td style="padding:10px 8px;font-weight:700;color:#c084fc;">Est. Tax Liability</td>
-            <td style="padding:10px 8px;text-align:right;font-weight:800;font-size:16px;color:#c084fc;">$97,177</td>
+            <td style="padding:10px 8px;text-align:right;font-weight:800;font-size:16px;color:#c084fc;">$58,205</td>
             <td style="padding:10px 8px;font-size:11px;color:var(--muted2);">Due annually — no quarterly installments required at this scale</td>
           </tr>
         </tbody>
@@ -1100,13 +1114,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <div style="font-weight:700;font-size:13px;">Combined Estimated Tax Liability — DHR Global</div>
         <div style="font-size:11px;color:var(--muted2);margin-top:2px;">Both entities · YTD Jan–May 2026 · USD</div>
       </div>
-      <div style="font-size:28px;font-weight:800;color:#c084fc;letter-spacing:-1.5px;">$314,564</div>
+      <div style="font-size:28px;font-weight:800;color:#c084fc;letter-spacing:-1.5px;">$275,593</div>
     </div>
     <div style="display:flex;gap:0;border-radius:6px;overflow:hidden;height:18px;margin-bottom:8px;">
-      <div style="width:30.9%;background:#a78bfa;display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:10px;font-weight:700;color:white;">BG $97K</span>
+      <div style="width:21.1%;background:#a78bfa;display:flex;align-items:center;justify-content:center;">
+        <span style="font-size:10px;font-weight:700;color:white;">BG $58K</span>
       </div>
-      <div style="width:69.1%;background:#3b82f6;display:flex;align-items:center;justify-content:center;">
+      <div style="width:78.9%;background:#3b82f6;display:flex;align-items:center;justify-content:center;">
         <span style="font-size:10px;font-weight:700;color:white;">US $217K</span>
       </div>
     </div>
@@ -1128,7 +1142,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Materials Breakdown - By Vendor</h3>
-        <p>Jan–May 2026 (May 2026) · Source: DHR EOOD Expenses ledger · All months shown side by side</p>
+        <p>Jan–May 2026 (May 2026) · Source: DHR EOOD Expenses ledger · All months shown side by side · <strong style="color:var(--amber);">Amounts include VAT (gross)</strong></p>
       </div>
     </div>
 
@@ -1138,7 +1152,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 8px;">Top 5 Vendors by Monthly Spend (EUR) + Others</div>
     <div style="font-size:11px;color:var(--muted2);margin-bottom:10px;">Each month's top-5 vendors ranked by that month's spend · segment labels shown on bars where space allows · hover for vendor name &amp; amount</div>
     <div class="wrap" style="height:260px;"><canvas id="eoodVendorChart"></canvas></div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Values in EUR · "Others" = all remaining vendors incl. client-attributed materials · Source: Expenses - DHR Global (3).xlsx · Summary by Vendor</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Values in EUR · Amounts include VAT (gross) · "Others" = all remaining vendors incl. client-attributed materials · Source: Expenses - DHR Global (3).xlsx · Summary by Vendor</div>
 
     <!-- Top Vendors table — months as columns, sorted by YTD EUR spend -->
     <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Top 20 Vendors by YTD Spend (EUR) — shown in original currency</div>
@@ -1659,14 +1673,14 @@ const monthlyExp   = 191806;  // model baseline (used for projection only)
 // EOOD values in EUR → USD at monthly FX: Jan 1.1743 · Feb 1.1823 · Mar 1.1568 · Apr 1.1696 · May 1.1684
 // BG Ops = Bulbank payroll + SS + banking fees + taxes ONLY (marketing/rent moved to Materials; double-counted Gregore/Djobs excluded)
 // May: BG Ops = $0 (no Bulbank May stmt yet) · US Ops = $1,547 (rent + registration only)
-const eoodExp = [141744,189779,203234,149080,-82179];  // Materials (EOOD net VAT ×2) — actExp matches Expenses row 84
+const eoodExp = [143029,190108,203233,149080,-82178];  // Materials (EOOD net VAT ×2) — actExp matches Expenses row 84
 const usExp   = [7885,50,0,110252,40466];  // US Ops — Source: SSOT (22)   // US Ops — Source: Expenses - DHR Global (19).xlsx Row 20   // May: Office Rent $950 + Registration $597 + Equipment & Robotics $33,501 — Source: Expenses - DHR Global (17).xlsx Row 20
 // US April breakdown: IRS $57,803 + CA Dept Tax $16,837 + Delaware DOR $27,756 + office/travel/fees $7,856
 // BG Entity operational costs — Bulbank statements N1–N4 2026. Jan low: Dec 2025 salaries in Feb (arrears)
-const bgOps   = [119726,156845,361584,198861,221373];  // BG Ops incl. Land (Jan $49,321, Mar $185,088) — Source: Expenses (27) Row 45
+const bgOps   = [128815,156845,361584,198861,221373];  // BG Ops incl. Land (Jan $49,321, Mar $185,088) — Source: Expenses (32) Row 45
 // 3DHR (3dhr.eu): sheet metal/laser (Ангел Стоилов) + 3D printing farm + Mario & Georgi payroll
-const dhrExp  = [2748,9060,22765,15877,30947];  // 3DHR — Source: SSOT (22)   // 3DHR — Source: Expenses - DHR Global (19).xlsx Row 81   // May: Laser $7.7K + Farm $19.2K + Payroll $3.9K + Logistics $0.2K
-const actExp  = eoodExp.map((e,i) => e + usExp[i] + bgOps[i] + dhrExp[i]); // $272K·$356K·$588K·$474K·$211K  YTD: $1.90M  (incl. Land purchases Jan+Mar)
+const dhrExp  = [3578,9060,319554,15877,30947];  // 3DHR — Source: Expenses (32) Row 81   // Mar: Bambu Lab 3D Printer €256,560 reclassified from Jun→Mar (3DHR Materials - 3D Farm)
+const actExp  = eoodExp.map((e,i) => e + usExp[i] + bgOps[i] + dhrExp[i]); // $283K·$356K·$884K·$474K·$211K  YTD: $2.21M  (incl. Land purchases Jan+Mar)
 
 // Profit/loss using ACTUAL costs (not model) — Jan–Apr only
 const profit2026 = total2026.map((r,i) => r - actExp[i]);
@@ -2178,7 +2192,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var matMarketing   = [11049,12236,11479,11696,12836];  // BG Ops - Marketing & Branding — SSOT (22) // BG Ops - Marketing & Branding — Source: Expenses (19) rows 36-37
   var matITSoftware  = [2034,16703,22518,11301,8480];  // BG Ops - IT & Software — SSOT (22) // BG Ops - IT & Software — Source: Expenses (19) rows 33-35
   var matOfficeRent  = [7573,17789,12651,19966,9751];  // BG Ops - Office Rent (item only, not subcat total) — Expenses (24)  // BG Ops - Rent & Facilities — SSOT (22) // BG Ops - Office Rent — Source: Expenses (19) row 40
-  var dhr3Materials  = [2748,5490,18917,11986,26829];  // 3DHR - Materials — SSOT (22) // 3DHR - Materials (Structural + 3D Farm) — Source: Expenses (19)
+  var dhr3Materials  = [3578,5490,315705,11986,26829];  // 3DHR - Materials — Source: Expenses (32) // Mar: Bambu Lab €256,560 (3D Farm) reclassified from Jun→Mar
   var dhr3Pay        = [0,3570,3848,3891,3887];  // 3DHR - Payroll — SSOT (22) // 3DHR - Payroll Expense — Source: Expenses (19) row 78
   var dhr3Ops        = [0,0,0,0,232];  // 3DHR - Ops — SSOT (22) // 3DHR - Operations — Source: Expenses (19) row 81
   var matLogistics   = [23382,54060,6223,25926,19838];  // Materials - Logistics — SSOT (22) // Materials - Logistics — Source: Expenses (19) row 70
@@ -2206,7 +2220,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var matConstCons  = [ 68,  0,  0,  0,  262];  // Consumables: Construction — SSOT (22)
   var matVATRefund   = [-35535,-20650,-34070,-27285,-170483];  // Materials - VAT Refund (negative) — SSOT (22) // Materials - BG VAT Refund — Source: Expenses (19) row 75
   // matGrossForChart = eoodExp + |matVATRefund|  — always positive, used in All-tab category bar
-  var matGrossForChart = [177279, 210429, 237304, 176365, 88304];  // Materials gross spend before VAT credit
+  var matGrossForChart = [178564, 210758, 237303, 176365, 88305];  // Materials gross spend before VAT credit
 
   // ── Electrical sub-items (rows 37–45, USD, Source: Expenses - DHR Global (9).xlsx) ──
   var elecCables    = [30714, 13121,  7405, 72904, 10495]; // Cables & Cable Management
@@ -3474,28 +3488,28 @@ function fetchLiveData() {
   if (!cfCanvas || typeof Chart === 'undefined') return;
 
   // Waterfall through Jun 20: floating bars [yMin, yMax]
-  // Running: 948162 → +1604951 → 2553113
-  //          → -699491 → 1853622 (AR buildup Jan-May)
-  //          → +434159 → 2287781 (Jun AR collections)
-  //          → -388857 → 1898924 (CapEx)
-  //          → -250000 → 1648924 (Distributions)
-  //          → -832239 → 816685  (Plug Jan-May)
+  // Running: 948162 → +1296631 → 2244793
+  //          → -699491 → 1545302 (AR buildup Jan-May)
+  //          → +434159 → 1979461 (Jun AR collections)
+  //          → -388857 → 1590604 (CapEx)
+  //          → -250000 → 1340604 (Distributions)
+  //          → -523919 → 816685  (Plug Jan-May)
   //          = 816685 expected Jun 20
   var wfData = [
     [0,       948162],   // Opening Jan 1 (anchor)
-    [948162, 2553113],   // +Net Income Jan-May +1,604,951
-    [1853622,2553113],   // -AR Buildup Jan-May -699,491 (falls)
-    [1853622,2287781],   // +Jun AR Collections +434,159 (rises)
-    [1898924,2287781],   // -CapEx -388,857 (falls)
-    [1648924,1898924],   // -Distributions -250,000 (falls)
-    [816685, 1648924],   // -Plug Jan-May -832,239 (falls)
+    [948162, 2244793],   // +Net Income Jan-May +1,296,631
+    [1545302,2244793],   // -AR Buildup Jan-May -699,491 (falls)
+    [1545302,1979461],   // +Jun AR Collections +434,159 (rises)
+    [1590604,1979461],   // -CapEx -388,857 (falls)
+    [1340604,1590604],   // -Distributions -250,000 (falls)
+    [816685, 1340604],   // -Plug Jan-May -523,919 (falls)
     [0,       816685],   // Expected Jun 20 (anchor)
   ];
   var wfColors = ['#60a5fa','#34d399','#f87171','#34d399','#fb923c','#f87171','#fbbf24','#38bdf8'];
   var wfLabels = ['Opening\nJan 1','Net Income\n(Jan–May)','AR Buildup\n(Jan–May)','Jun AR\nCollections','CapEx\n(investing)','Owner\nDistributions','Unexplained\nPlug (Jan–May)','Expected\nJun 20'];
   // Signed changes per bar — Chart.js floating bars always have [lower,upper] so d[1]-d[0] is always positive.
   // We must store the actual sign explicitly to show correct +/− in tooltips.
-  var wfChanges = [948162, 1604951, -699491, 434159, -388857, -250000, -832239, 816685];
+  var wfChanges = [948162, 1296631, -699491, 434159, -388857, -250000, -523919, 816685];
 
   new Chart(cfCanvas, {
     type: 'bar',

@@ -306,9 +306,15 @@ body { padding: 24px 32px; min-height: 100vh; }
 </head>
 <body>
 <div class="standalone-header">
-  <div>
-    <h1>&#11835; DHR Inc &mdash; Vendor Expense Breakdown</h1>
-    <div style="margin-top:4px;font-size:11px;color:var(--muted2);">Jan&ndash;May 2026 &nbsp;&middot;&nbsp; Source: 2026 DHR EOOD Expenses ledger &nbsp;&middot;&nbsp; Confidential</div>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;border-radius:4px;">
+      <rect width="40" height="40" fill="#0a0a0a"/>
+      <text x="20" y="26" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="14" font-weight="900" fill="#ffffff" letter-spacing="1">DHR</text>
+    </svg>
+    <div>
+      <h1>&#11835; DHR Inc &mdash; Vendor Expense Breakdown</h1>
+      <div style="margin-top:4px;font-size:11px;color:var(--muted2);">Jan&ndash;May 2026 &nbsp;&middot;&nbsp; Source: 2026 DHR EOOD Expenses ledger &nbsp;&middot;&nbsp; Confidential</div>
+    </div>
   </div>
   <div style="text-align:right;">
     <div style="font-size:10px;color:var(--muted);">Source file</div>
@@ -816,14 +822,14 @@ const months5      = ['Jan','Feb','Mar','Apr','May'];
 (function() {
   // Top-5 vendors per month (EUR, ranked by that month's spend) — Source: Materials By Vendor sheet, Expenses (22)
   // [Jan, Feb, Mar, Apr, May]
-  var v1 = [23140, 45419, 60500, 57354, 10585];
-  var v2 = [22886, 28161, 24509, 17330, 10471];
-  var v3 = [19786, 18150, 24290, 12021, 10071];
-  var v4 = [16068, 11539, 15508, 9898, 7264];
-  var v5 = [13544, 10831, 15495, 9748, 6569];
+  var v1 = [23140, 45419, 256560, 57354, 10585];
+  var v2 = [22886, 28161, 60500, 17330, 10471];
+  var v3 = [19786, 18150, 24509, 12021, 10071];
+  var v4 = [16068, 11539, 24290, 9898, 7264];
+  var v5 = [13544, 10831, 15508, 9748, 6569];
 
   // Total materials per month (EUR) — Source: Materials By Vendor sheet total row
-  var projTotal = [153307, 182627, 221491, 161039, 98539];
+  var projTotal = [155107, 182904, 478051, 161039, 98539];
 
   // Others = total - top5 sum
   var vOther = projTotal.map(function(t, i) {
@@ -832,11 +838,11 @@ const months5      = ['Jan','Feb','Mar','Apr','May'];
 
   // Vendor name lookup per rank per month: [Jan, Feb, Mar, Apr, May]
   var vendorNames = [
-    ["Бюра за развити", "WTO", "ФАНУК БЪЛГАРИЯ ", "ЕХНАТОН БЪЛГАРИ", "РАСТ 3Д ЕООД"],
-    ["Филкаб", "KUKA", "ЕХНАТОН БЪЛГАРИ", "WTO", "КА-Лес 24"],
-    ["ифм електроник ", "ФАНУК БЪЛГАРИЯ ", "БЛИК 99 ЕООД", "МАТИК МОУШЪН ЕО", "МАТИК МОУШЪН ЕО"],
-    ["WTO", "САМУДРА ИМПЕКС ", "Бактрейд ООД", "Филкаб", "Димекслифт Груп"],
-    ["Вайд Бул ЕООД", "ТЕКУНИ ЕООД", "Диометран ООД", "БЛИК 99 ЕООД", "Ангел Стоилов"],
+    ["Бюра за развити", "WTO", "ЕЙТ СЕЛ ООД", "ЕХНАТОН БЪЛГАРИ", "РАСТ 3Д ЕООД"],
+    ["Филкаб", "KUKA", "ФАНУК БЪЛГАРИЯ ", "WTO", "КА-Лес 24"],
+    ["ифм електроник ", "ФАНУК БЪЛГАРИЯ ", "ЕХНАТОН БЪЛГАРИ", "МАТИК МОУШЪН ЕО", "МАТИК МОУШЪН ЕО"],
+    ["WTO", "САМУДРА ИМПЕКС ", "БЛИК 99 ЕООД", "Филкаб", "Димекслифт Груп"],
+    ["Вайд Бул ЕООД", "ТЕКУНИ ЕООД", "Бактрейд ООД", "БЛИК 99 ЕООД", "Ангел Стоилов"],
     ['Others', 'Others', 'Others', 'Others', 'Others'],
   ];
 
