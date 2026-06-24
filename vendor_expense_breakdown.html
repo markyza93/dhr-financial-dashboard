@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DHR Inc — Vendor Expense Breakdown</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #070c18;
+  --card: #0d1526;
+  --border: #1a2840;
+  --border2: #243352;
+  --text: #e2e8f4;
+  --muted: #5a7094;
+  --muted2: #8da3be;
+  --blue: #38bdf8;
+  --indigo: #818cf8;
+  --green: #34d399;
+  --red: #f87171;
+  --orange: #fb923c;
+  --amber: #fbbf24;
+  --purple: #c084fc;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* HEADER */
+.header { background: #07090c; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 0 48px; display: flex; align-items: stretch; justify-content: space-between; position: sticky; top: 0; z-index: 100; min-height: 64px; }
+.logo { display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 14px 0; border-right: 1px solid rgba(255,255,255,0.07); padding-right: 32px; margin-right: 0; }
+.logo-wordmark { font-size: 19px; font-weight: 900; letter-spacing: 5px; color: #ffffff; text-transform: uppercase; line-height: 1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.logo-sub { font-size: 9.5px; font-weight: 600; letter-spacing: 3.5px; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-top: 4px; }
+.header-right { display: flex; align-items: center; gap: 12px; padding: 0 0 0 32px; }
+.badge { padding: 4px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 600; }
+.badge-green { background: rgba(52,211,153,.12); color: var(--green); border: 1px solid rgba(52,211,153,.25); }
+.badge-blue { background: rgba(56,189,248,.1); color: var(--blue); border: 1px solid rgba(56,189,248,.2); }
+.updated { font-size: 11.5px; color: var(--muted); }
+
+/* LAYOUT */
+.main { padding: 36px 48px 64px; max-width: 1560px; margin: 0 auto; }
+.sec { display: flex; align-items: center; gap: 12px; margin: 36px 0 18px; }
+.sec h2 { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; }
+.sec .rule { flex: 1; height: 1px; background: var(--border); }
+
+/* KPI GRID */
+.kpi-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; }
+.kpi { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px 24px; position: relative; overflow: hidden; }
+.kpi::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 16px 16px 0 0; }
+.k1::after { background: linear-gradient(90deg,#38bdf8,#818cf8); }
+.k2::after { background: linear-gradient(90deg,#f87171,#fb923c); }
+.k3::after { background: linear-gradient(90deg,#34d399,#6ee7b7); }
+.k4::after { background: linear-gradient(90deg,#fbbf24,#fb923c); }
+.k5::after { background: linear-gradient(90deg,#c084fc,#818cf8); }
+.kpi-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
+.kpi-value { font-size: 34px; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 10px; }
+.kpi-meta { font-size: 12px; color: var(--muted2); }
+.up { color: var(--green); } .dn { color: var(--red); } .wa { color: var(--amber); }
+
+/* CARDS */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid32 { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+.card-head h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.card-head p { font-size: 12px; color: var(--muted2); }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+.leg { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted2); }
+.dot { width: 9px; height: 9px; border-radius: 50%; }
+.ln { width: 18px; height: 2.5px; border-radius: 1px; }
+.lnd { width: 22px; height: 0; border-top: 2.5px dashed; }
+.wrap { position: relative; }
+.h380 { height: 380px; } .h340 { height: 340px; } .h300 { height: 300px; } .h280 { height: 280px; } .h240 { height: 240px; } .h200 { height: 200px; } .h180 { height: 180px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+
+/* BANK CARDS */
+.bank-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.bank-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 26px; }
+.bank-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.bank-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+.ic-mercury { background: rgba(56,189,248,.1); }
+.ic-unicredit { background: rgba(248,113,113,.1); }
+.ic-revolut { background: rgba(192,132,252,.1); }
+.bank-name { font-size: 14px; font-weight: 700; }
+.bank-sub { font-size: 11.5px; color: var(--muted2); margin-top: 2px; }
+.bank-amount { font-size: 30px; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 6px; }
+.bank-detail { font-size: 11.5px; color: var(--muted2); line-height: 1.7; }
+.bank-tags { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.tag { font-size: 10.5px; font-weight: 600; padding: 3px 9px; border-radius: 8px; }
+.tag-green { background: rgba(52,211,153,.1); color: var(--green); border: 1px solid rgba(52,211,153,.2); }
+.tag-amber { background: rgba(251,191,36,.1); color: var(--amber); border: 1px solid rgba(251,191,36,.2); }
+.tag-blue  { background: rgba(56,189,248,.1);  color: var(--blue);  border: 1px solid rgba(56,189,248,.2); }
+.tag-red   { background: rgba(248,113,113,.1); color: var(--red);   border: 1px solid rgba(248,113,113,.2); }
+.tag-purple{ background: rgba(192,132,252,.1); color: var(--purple);border: 1px solid rgba(192,132,252,.2); }
+
+/* CASH SUMMARY BAR */
+.cash-summary { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 14px; }
+.cs-main { }
+.cs-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; font-weight: 600; margin-bottom: 6px; }
+.cs-value { font-size: 30px; font-weight: 800; letter-spacing: -1.5px; }
+.cs-sub { font-size: 12px; color: var(--muted2); margin-top: 4px; }
+.cs-breakdown { display: flex; gap: 28px; }
+.cs-item { text-align: center; }
+.cs-item-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
+.cs-item-val { font-size: 20px; font-weight: 800; letter-spacing: -.5px; }
+.cs-item-note { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+.divider { width: 1px; background: var(--border); }
+
+/* CLIENT TABLE */
+.cl-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cl-table th { font-size: 10.5px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; padding: 0 10px 12px; text-align: right; border-bottom: 1px solid var(--border); }
+.cl-table th:first-child { text-align: left; }
+.cl-table td { padding: 11px 10px; text-align: right; border-bottom: 1px solid rgba(26,40,64,.7); }
+.cl-table td:first-child { text-align: left; }
+.cl-table tr.total td { border-bottom: none; font-weight: 800; color: var(--blue); border-top: 1px solid var(--border2); padding-top: 14px; }
+.cd { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+.tag-sm { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 1px 7px; border-radius: 7px; margin-left: 5px; vertical-align: middle; }
+
+/* EXPENSE BAR ROWS */
+.exp-rows { display: flex; flex-direction: column; gap: 12px; }
+.exp-row { display: grid; grid-template-columns: 160px 1fr 70px 40px; align-items: center; gap: 10px; }
+.exp-lbl { font-size: 12.5px; color: var(--muted2); }
+.exp-track { background: var(--border); border-radius: 4px; height: 8px; overflow: hidden; }
+.exp-fill { height: 100%; border-radius: 4px; }
+.exp-amount { font-size: 13px; font-weight: 600; text-align: right; }
+.exp-pct { font-size: 11px; color: var(--muted); text-align: right; }
+.exp-total-row { display: flex; justify-content: space-between; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+.exp-total-row span { font-size: 12px; color: var(--muted2); }
+.exp-total-row strong { font-size: 18px; font-weight: 800; }
+
+/* NOTICES */
+.notices { display: flex; flex-direction: column; gap: 10px; }
+.notice { padding: 12px 16px; border-radius: 10px; font-size: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.notice-amber { background: rgba(251,191,36,.06); border: 1px solid rgba(251,191,36,.18); color: var(--amber); }
+.notice-green { background: rgba(52,211,153,.06); border: 1px solid rgba(52,211,153,.18); color: var(--green); }
+.notice-red { background: rgba(248,113,113,.06); border: 1px solid rgba(248,113,113,.18); color: var(--red); }
+
+/* FOOTER */
+.footer { margin-top: 48px; padding: 22px 48px 36px; border-top: 1px solid var(--border); display: flex; gap: 48px; align-items: flex-start; }
+.footer-left { flex-shrink: 0; }
+.footer-brand { font-size: 11px; font-weight: 600; color: var(--muted2); margin-bottom: 5px; }
+.footer-date  { font-size: 10.5px; color: var(--muted); }
+.footer-sources-hdr { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 7px; }
+.footer-src-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.footer-src-list li { font-size: 10.5px; color: var(--muted); display: flex; align-items: baseline; gap: 6px; }
+.footer-src-list li::before { content: '·'; color: var(--border2); flex-shrink: 0; }
+
+  /* ── Collapsible sections ── */
+  .sec-toggle {
+    background: none; border: none; cursor: pointer;
+    font-size: 13px; color: var(--muted); padding: 0 0 0 8px;
+    line-height: 1; vertical-align: middle; opacity: 0.6;
+    transition: opacity 0.15s, transform 0.2s;
+    display: inline-block;
+  }
+  .sec-toggle:hover { opacity: 1; }
+  .sec-toggle.collapsed { transform: rotate(-90deg); }
+  .section-body { transition: none; }
+  .section-body.hidden { display: none !important; }
+
+/* ── LEFT-NAV LAYOUT ── */
+html, body { height:100%; overflow:hidden; }
+.app-shell { display:flex; height:100vh; width:100vw; overflow:hidden; background:var(--bg); }
+.sidebar {
+  width:210px; min-width:210px;
+  background:#07090c;
+  border-right:1px solid rgba(255,255,255,0.07);
+  display:flex; flex-direction:column; overflow:hidden;
+}
+.sidebar-brand { padding:22px 20px 18px; border-bottom:1px solid rgba(255,255,255,0.07); }
+.sidebar-wordmark { font-size:15px; font-weight:700; color:var(--fg); letter-spacing:0.3px; }
+.sidebar-sub { font-size:11px; color:var(--muted2); margin-top:3px; line-height:1.5; }
+.nav-menu { list-style:none; margin:0; padding:10px 0; flex:1; overflow-y:auto; }
+.nav-item {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 16px; margin:2px 8px; border-radius:8px;
+  font-size:13px; color:#8da3be;
+  cursor:pointer; user-select:none;
+  transition:background 0.12s, color 0.12s;
+}
+.nav-item:hover { background:rgba(255,255,255,0.05); color:var(--fg); }
+.nav-item.is-active { background:rgba(59,130,246,0.15); color:#60a5fa; font-weight:600; }
+.nav-icon { font-size:15px; width:20px; text-align:center; flex-shrink:0; }
+.sidebar-btm {
+  padding:14px 16px; border-top:1px solid rgba(255,255,255,0.07);
+  font-size:11px; color:var(--muted2);
+}
+.sidebar-btm-refresh {
+  background:var(--card); border:1px solid var(--border); border-radius:7px;
+  color:var(--fg); font-size:11px; padding:5px 12px; cursor:pointer;
+  display:flex; align-items:center; gap:5px; width:100%; margin-top:8px;
+  transition:border-color .2s;
+}
+.content-main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
+.kpi-topbar {
+  display:flex; align-items:center;
+  background:#07090c; border-bottom:1px solid rgba(255,255,255,0.07);
+  padding:0 28px; height:50px; flex-shrink:0; gap:0;
+}
+.top-kpi {
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 20px; border-right:1px solid rgba(255,255,255,0.07);
+}
+.top-kpi:first-child { padding-left:0; }
+.top-kpi:last-child { border-right:none; }
+.top-kpi-label { font-size:9px; color:var(--muted2); text-transform:uppercase; letter-spacing:0.6px; }
+.top-kpi-value { font-size:14px; font-weight:700; color:var(--fg); line-height:1.3; }
+.pages-wrap { flex:1; overflow-y:auto; }
+.page { display:none; }
+.page.is-active { display:block; }
+.page > .main { max-width:1400px; padding:24px 32px 32px; margin:0 auto; }
+
+
+/* ═══════════════ LIGHT THEME OVERRIDES ═══════════════ */
+
+/* CSS variables — apply to the whole page */
+:root {
+  --bg:      #f0f4f8;
+  --card:    #ffffff;
+  --border:  #dde3ec;
+  --border2: #c8d2e0;
+  --text:    #0f1f2e;
+  --muted:   #4e6680;
+  --muted2:  #637d96;
+  --blue:    #1d6aeb;
+  --indigo:  #4338ca;
+  --green:   #1a9e62;
+  --red:     #dc2626;
+  --orange:  #d45e0a;
+  --amber:   #b45309;
+  --purple:  #7c3aed;
+}
+
+/* ── Sidebar: KEEP DARK (identical to original dark dashboard) ── */
+.sidebar {
+  background: #07090c !important;
+  border-right: 1px solid rgba(255,255,255,0.07) !important;
+}
+.sidebar-brand { border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
+.sidebar-wordmark { color: #e2e8f4 !important; }
+.sidebar-sub      { color: #5a7094 !important; }
+.nav-section{ color: #2a3f58 !important; }
+.nav-item   { color: #8da3be !important; }
+.nav-item.is-active { background: rgba(59,130,246,0.15) !important; color: #60a5fa !important; font-weight:600; }
+.nav-item:hover     { background: rgba(255,255,255,0.05) !important; color: #8da3be !important; }
+.sidebar-btm { border-top: 1px solid rgba(255,255,255,0.06) !important; }
+.sidebar-btm * { color: #5a7094 !important; }
+#live-dot   { box-shadow: 0 0 6px #34d399; }
+
+/* ── KPI top-bar: white ── */
+.kpi-topbar {
+  background: #ffffff !important;
+  border-bottom: 1px solid #dde3ec !important;
+}
+.kpi-val    { color: #0f1f2e !important; }
+.kpi-label  { color: #4e6680 !important; }
+.kpi-div    { background: #dde3ec !important; }
+#refresh-btn{ background: #1d6aeb !important; color: #ffffff !important; border: none !important; }
+
+/* ── Content area: light ── */
+html, body { background: #f0f4f8 !important; }
+.content-main, .pages-wrap { background: #f0f4f8 !important; }
+
+/* Section headers */
+.sec h2 { color: #0f1f2e !important; }
+.rule   { background: #dde3ec !important; }
+
+/* Cards */
+.card {
+  background: #ffffff !important;
+  border: 1px solid #dde3ec !important;
+  box-shadow: 0 1px 4px rgba(15,31,46,0.07) !important;
+}
+.card-head h3 { color: #0f1f2e !important; }
+.card-head p  { color: #4e6680 !important; }
+.card-foot    { color: #4e6680 !important; border-top-color: #dde3ec !important; }
+
+/* Tables */
+thead th   { color: #4e6680 !important; border-bottom-color: #dde3ec !important; background: #f5f8fc !important; }
+tbody td   { color: #0f1f2e !important; border-bottom-color: #eef2f7 !important; }
+tbody tr:hover td { background: #f5f8fc !important; }
+.tbl-amt   { color: #0f1f2e !important; }
+.neg       { color: #dc2626 !important; }
+.pos       { color: #1a9e62 !important; }
+.wa        { color: #b45309 !important; }
+
+/* Pills */
+.pill-bar button        { background: #eef2f7 !important; color: #4e6680 !important; border: 1px solid #dde3ec !important; }
+.pill-bar button.active { background: #1d6aeb !important; color: #fff  !important; border-color: #1d6aeb !important; }
+</style>
+<style>
+/* Standalone overrides — undo main-dashboard layout locks */
+html, body { height: auto !important; overflow: visible !important; margin: 0; padding: 0; background: var(--bg); }
+body { padding: 24px 32px; min-height: 100vh; }
+.app-shell, .content-main { overflow: visible !important; height: auto !important; }
+.standalone-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.standalone-header h1 { font-size: 18px; font-weight: 700; color: var(--text); margin: 0; }
+.standalone-header a { font-size: 11px; color: var(--blue); text-decoration: none; }
+.standalone-header a:hover { opacity: .7; }
+#page-materials { display: block !important; background: transparent; padding: 0; }
+#page-materials .main { padding: 0; max-width: 100%; }
+</style>
+</head>
+<body>
+<div class="standalone-header">
+  <div>
+    <h1>&#11835; DHR Inc &mdash; Vendor Expense Breakdown</h1>
+    <div style="margin-top:4px;font-size:11px;color:var(--muted2);">Jan&ndash;May 2026 &nbsp;&middot;&nbsp; Source: 2026 DHR EOOD Expenses ledger &nbsp;&middot;&nbsp; Confidential</div>
+  </div>
+  <div style="text-align:right;">
+    <div style="font-size:10px;color:var(--muted);">Source file</div>
+    <a href="https://docs.google.com/spreadsheets/d/1268pkbrEID7cXtIaz7fkPo9u5YrPDRmUqTwZAjLyJDo/edit?gid=871230744#gid=871230744" target="_blank">&#9654; Expenses spreadsheet</a>
+  </div>
+</div>
+
+<!-- ── materials ── -->
+      <div id="page-materials">
+        <div class="main">
+          <div class="sec"><h2>Materials</h2><div class="rule"></div></div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-head">
+      <div>
+        <h3>Materials Breakdown - By Vendor</h3>
+        <p>Jan–May 2026 (May 2026) · Source: DHR EOOD Expenses ledger · All months shown side by side · <strong style="color:var(--amber);">Amounts include VAT (gross)</strong></p>
+      </div>
+    </div>
+
+    <!-- By Project table — months as columns -->
+
+    <!-- Top 5 Vendors Bar Chart -->
+    <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 8px;">Top 5 Vendors by Monthly Spend (EUR) + Others</div>
+    <div style="font-size:11px;color:var(--muted2);margin-bottom:10px;">Each month's top-5 vendors ranked by that month's spend · segment labels shown on bars where space allows · hover for vendor name &amp; amount</div>
+    <div class="wrap" style="height:260px;"><canvas id="eoodVendorChart"></canvas></div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Values in EUR · Amounts include VAT (gross) · "Others" = all remaining vendors incl. client-attributed materials · Source: Expenses - DHR Global (3).xlsx · Summary by Vendor</div>
+
+    <!-- Top Vendors table — months as columns, sorted by YTD EUR spend -->
+    <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Top 20 Vendors by YTD Spend (EUR) — shown in original currency</div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;">
+      <thead>
+        <tr style="border-bottom:1px solid var(--border);">
+          <th style="text-align:left;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Vendor</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Jan</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Feb</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Mar</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Apr</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">May</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">YTD</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ЕХНАТОН БЪЛГАРИЯ АД</td><td style="padding:3px 8px;text-align:right;">€7,067</td><td style="padding:3px 8px;text-align:right;">€2,038</td><td style="padding:3px 8px;text-align:right;">€24,509</td><td style="padding:3px 8px;text-align:right;">€57,354</td><td style="padding:3px 8px;text-align:right;">€159</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€91,127</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">WTO</td><td style="padding:3px 8px;text-align:right;">€16,068</td><td style="padding:3px 8px;text-align:right;">€45,419</td><td style="padding:3px 8px;text-align:right;">€1,391</td><td style="padding:3px 8px;text-align:right;">€17,330</td><td style="padding:3px 8px;text-align:right;">€4,430</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€84,639</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ФАНУК БЪЛГАРИЯ ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€18,150</td><td style="padding:3px 8px;text-align:right;">€60,500</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€78,650</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Филкаб</td><td style="padding:3px 8px;text-align:right;">€22,886</td><td style="padding:3px 8px;text-align:right;">€4,108</td><td style="padding:3px 8px;text-align:right;">€4,426</td><td style="padding:3px 8px;text-align:right;">€9,898</td><td style="padding:3px 8px;text-align:right;">€1,378</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€42,697</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Диометран ООД</td><td style="padding:3px 8px;text-align:right;">€7,512</td><td style="padding:3px 8px;text-align:right;">€10,195</td><td style="padding:3px 8px;text-align:right;">€15,495</td><td style="padding:3px 8px;text-align:right;">€5,571</td><td style="padding:3px 8px;text-align:right;">€3,355</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€42,128</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">БЛИК 99 ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€24,290</td><td style="padding:3px 8px;text-align:right;">€9,748</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€34,037</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Вайд Бул ЕООД</td><td style="padding:3px 8px;text-align:right;">€13,544</td><td style="padding:3px 8px;text-align:right;">€6,164</td><td style="padding:3px 8px;text-align:right;">€5,545</td><td style="padding:3px 8px;text-align:right;">€5,160</td><td style="padding:3px 8px;text-align:right;">€2,820</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€33,233</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">KUKA</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€28,161</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€28,161</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бюра за развитие и техника ЕООД</td><td style="padding:3px 8px;text-align:right;">€23,140</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,157</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€27,297</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Ангел Стоилов</td><td style="padding:3px 8px;text-align:right;">€2,304</td><td style="padding:3px 8px;text-align:right;">€3,202</td><td style="padding:3px 8px;text-align:right;">€10,947</td><td style="padding:3px 8px;text-align:right;">€3,125</td><td style="padding:3px 8px;text-align:right;">€6,569</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€26,148</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ифм електроник ЕООД</td><td style="padding:3px 8px;text-align:right;">€19,786</td><td style="padding:3px 8px;text-align:right;">€1,617</td><td style="padding:3px 8px;text-align:right;">€3,719</td><td style="padding:3px 8px;text-align:right;">€84</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€25,205</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">САМУДРА ИМПЕКС ЕООД</td><td style="padding:3px 8px;text-align:right;">€12,681</td><td style="padding:3px 8px;text-align:right;">€11,539</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€24,220</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">МАТИК МОУШЪН ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€12,021</td><td style="padding:3px 8px;text-align:right;">€10,071</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€22,092</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бактрейд ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€15,508</td><td style="padding:3px 8px;text-align:right;">€1,173</td><td style="padding:3px 8px;text-align:right;">€4,387</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€21,069</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">КА-Лес 24</td><td style="padding:3px 8px;text-align:right;">€2,741</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€3,337</td><td style="padding:3px 8px;text-align:right;">€2,318</td><td style="padding:3px 8px;text-align:right;">€10,471</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€18,868</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Димекслифт Груп АД</td><td style="padding:3px 8px;text-align:right;">€430</td><td style="padding:3px 8px;text-align:right;">€1,077</td><td style="padding:3px 8px;text-align:right;">€8,284</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€7,264</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€17,054</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Empty</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€8,834</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,902</td><td style="padding:3px 8px;text-align:right;">€832</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€14,567</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ТЕКУНИ ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€10,831</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€10,831</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Хенлих ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,165</td><td style="padding:3px 8px;text-align:right;">€5,750</td><td style="padding:3px 8px;text-align:right;">€749</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€10,663</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">РАСТ 3Д ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€10,585</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€10,585</td></tr>
+        <tr style="border-top:2px solid var(--border);background:rgba(26,40,64,0.04);"><td style="padding:3px 8px;color:var(--muted2);font-style:italic;">Others</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€25,148</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€31,292</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€39,375</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€26,605</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€31,312</td><td style="padding:3px 8px;text-align:right;font-weight:600;color:var(--muted2);">€153,732</td></tr>
+      
+      </tbody>
+    </table>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Source: Expenses - DHR Global (4).xlsx · Materials EOOD Expenses — Summary by Vendor · Sorted by YTD EUR spend · "—" = no spend that month · FX: Jan 1.1743 · Feb 1.1823 · Mar 1.1568 · Apr 1.1696 · May 1.1684</div>
+    <!-- Month-Toggle Vendor Detail Table -->
+    <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
+      <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Expense by Vendor — Monthly Detail</div>
+      <div id="vdTabBar" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">
+        <button onclick="vdShow(0)" id="vdTab0" class="vd-tab vd-active">Jan</button>
+        <button onclick="vdShow(1)" id="vdTab1" class="vd-tab">Feb</button>
+        <button onclick="vdShow(2)" id="vdTab2" class="vd-tab">Mar</button>
+        <button onclick="vdShow(3)" id="vdTab3" class="vd-tab">Apr</button>
+        <button onclick="vdShow(4)" id="vdTab4" class="vd-tab">May</button>
+        <button onclick="vdToggle()" id="vdCollapseBtn" style="margin-left:auto;font-size:10px;padding:3px 10px;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--muted2);cursor:pointer;">Hide ▲</button>
+      </div>
+      <div id="vdPanel">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border);">
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">#</th>
+              <th style="text-align:left;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Vendor</th>
+              <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Amount (EUR)</th>
+              <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">% of Month</th>
+            </tr>
+          </thead>
+          <tbody id="vdBody"></tbody>
+        </table>
+        <div id="vdFooter" style="margin-top:8px;font-size:11px;color:var(--muted2);text-align:right;"></div>
+      </div>
+    </div>
+    <style>
+      .vd-tab {
+        padding: 4px 14px;
+        font-size: 11px;
+        font-weight: 600;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        background: transparent;
+        color: var(--muted2);
+        cursor: pointer;
+        transition: background .15s, color .15s;
+      }
+      .vd-tab:hover { background: rgba(56,189,248,0.1); color: var(--blue); }
+      .vd-tab.vd-active {
+        background: rgba(56,189,248,0.15);
+        border-color: rgba(56,189,248,0.5);
+        color: var(--blue);
+      }
+      .txn-pill {
+        padding: 4px 14px;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-size: 12px;
+        cursor: pointer;
+        transition: all .15s;
+      }
+      .txn-pill:hover { color: var(--fg); border-color: var(--blue); }
+      .txn-pill-active {
+        background: var(--blue);
+        color: #0f172a;
+        border-color: var(--blue);
+        font-weight: 600;
+      }
+      .cat-tab {
+        padding: 4px 14px;
+        border-radius: 5px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--muted);
+        font-size: 11.5px;
+        cursor: pointer;
+        transition: all .15s;
+      }
+      .cat-tab:hover { color: var(--fg); border-color: rgba(148,163,184,0.6); }
+      .cat-tab-active {
+        background: rgba(148,163,184,0.15);
+        color: var(--fg);
+        border-color: rgba(148,163,184,0.5);
+        font-weight: 600;
+      }
+    </style>
+    <script>
+    (function() {
+      var vdData = [
+    ["ЕХНАТОН БЪЛГАРИЯ АД", 7067, 2038, 24509, 57354, 159],
+    ["WTO", 16068, 45419, 1391, 17330, 4430],
+    ["ФАНУК БЪЛГАРИЯ ЕООД", 0, 18150, 60500, 0, 0],
+    ["Филкаб", 22886, 4108, 4426, 9898, 1378],
+    ["Диометран ООД", 7512, 10195, 15495, 5571, 3355],
+    ["БЛИК 99 ЕООД", 0, 0, 24290, 9748, 0],
+    ["Вайд Бул ЕООД", 13544, 6164, 5545, 5160, 2820],
+    ["KUKA", 0, 28161, 0, 0, 0],
+    ["Бюра за развитие и техника ЕООД", 23140, 0, 0, 0, 4157],
+    ["Ангел Стоилов", 2304, 3202, 10947, 3125, 6569],
+    ["ифм електроник ЕООД", 19786, 1617, 3719, 84, 0],
+    ["САМУДРА ИМПЕКС ЕООД", 12681, 11539, 0, 0, 0],
+    ["МАТИК МОУШЪН ЕООД", 0, 0, 0, 12021, 10071],
+    ["Бактрейд ООД", 0, 0, 15508, 1173, 4387],
+    ["КА-Лес 24", 2741, 0, 3337, 2318, 10471],
+    ["Димекслифт Груп АД", 430, 1077, 8284, 0, 7264],
+    ["Empty", 0, 8834, 0, 4902, 832],
+    ["ТЕКУНИ ЕООД", 0, 10831, 0, 0, 0],
+    ["Хенлих ООД", 0, 0, 4165, 5750, 749],
+    ["РАСТ 3Д ЕООД", 0, 0, 0, 0, 10585],
+    ["ТОМИС ЕООД", 306, 1952, 986, 698, 4881],
+    ["БЕЛОПИТОВ АД", 368, 6921, 0, 855, 0],
+    ["РИТБУЛ ЕООД", 4799, 847, 760, 319, 176],
+    ["Техноком Ко ЕООД", 0, 61, 3487, 890, 2278],
+    ["В И В - ИЗОМАТИК ООД", 4638, 1358, 0, 399, 0],
+    ["Хидравлика ЕООД", 1503, 1818, 2344, 0, 445],
+    ["Темпа Систем БГ ООД", 5246, 0, 502, 251, 0],
+    ["Мираж 2000 ЕООД ", 0, 0, 2300, 0, 3642],
+    ["Тежко Машиностроене ИЗ АД", 0, 0, 5400, 0, 0],
+    ["Launhardt", 0, 0, 0, 5220, 0],
+    ["ИТТ България", 474, 293, 1237, 1587, 1328],
+    ["Валтроник ЕООД", 0, 1522, 91, 8, 2645],
+    ["Ем Ви Ес Строй ЕООД", 624, 0, 276, 1500, 1800],
+    ["Вал Плюс ООД", 110, 775, 2640, 458, 0],
+    ["Гиргинови ЕООД", 1464, 102, 718, 788, 479],
+    ["ВАЛЛДЕР ЕООД", 76, 120, 112, 258, 2942],
+    ["Suzhou Xinchangsheng Laser", 0, 0, 3458, 0, 0],
+    ["ШУНК ИНТЕК ЕООД", 0, 0, 3248, 0, 0],
+    ["МАГНИ СПРЕЙ ООД", 0, 0, 2700, 0, 0],
+    ["ИН ТАЙМ ООД", 706, 0, 0, 1796, 196],
+    ["Ка Матик ", 34, 180, 73, 2150, 0],
+    ["Mouser Electronics", 601, 570, 374, 501, 352],
+    ["ПЛДЖ Меркези ЕООД", 0, 2280, 0, 0, 0],
+    ["Улмер ДМ ЕООД", 0, 0, 0, 612, 1603],
+    ["Кинтрейд ЕООД", 418, 0, 0, 0, 1520],
+    ["Куков и Ко ООД", 0, 0, 1841, 0, 0],
+    ["Shandong", 0, 1760, 0, 0, 0],
+    ["Сладур ЕООД", 0, 202, 850, 169, 311],
+    ["ЕЙТ СЕЛ ООД", 0, 1442, 0, 0, 0],
+    ["GTW Developments", 0, 1441, 0, 0, 0],
+    ["ФЕСТО ЕООД", 0, 1055, 156, 0, 0],
+    ["ТРИТ ТЕХ ЕООД", 0, 0, 158, 477, 502],
+    ["Спиди", 41, 274, 334, 204, 284],
+    ["КАМ-04 ООД", 0, 278, 0, 314, 528],
+    ["Сейнт Джордж Груп", 0, 448, 213, 340, 111],
+    ["СИАД България ЕООД", 0, 234, 277, 365, 235],
+    ["БГ Машини ООД", 0, 976, 43, 59, 21],
+    ["Макстехник - ЕООД", 0, 539, 449, 0, 0],
+    ["ЛИНЕСТА ЕООД", 0, 0, 0, 962, 0],
+    ["Changzhou", 0, 0, 0, 0, 954],
+    ["Техномаркет България ЕАД", 0, 0, 0, 940, 0],
+    ["РЕДКО ООД", 216, 466, 74, 127, 52],
+    ["Festo EOOD", 0, 0, 852, 0, 0],
+    ["БЕСТ БРАНД ГРУП ООД", 0, 0, 0, 0, 838],
+    ["РЕКА България ЕООД", 816, 0, 21, 0, 0],
+    ["Квазер", 8, 564, 66, 175, 0],
+    ["Алекс Сервиз ООД", 0, 0, 0, 128, 660],
+    ["ДАЙРЕКС ЕАД", 501, 0, 238, 19, 0],
+    ["NINGBO HAISHU HUAHUI METAL PRODUCTS CO., LTD", 0, 0, 0, 624, 0],
+    ["Бултех ЕООД", 153, 22, 158, 51, 233],
+    ["Пневмотехника 2002 ЕООД", 0, 311, 70, 214, 0],
+    ["НЕОН.БГ ООД", 0, 0, 0, 0, 565],
+    ["Захари Захариев", 0, 0, 521, 0, 0],
+    ["НИТ Конслутинг ЕООД", 0, 0, 515, 0, 0],
+    ["Ташев Галвинг ООД", 0, 171, 132, 44, 167],
+    ["Екзалто ЕООД", 48, 0, 0, 423, 0],
+    ["Мотокар Сервиз-Терзиеви и Узунов ООД", 0, 461, 0, 0, 0],
+    ["ДЕ ЕФ БЕ МЕТАЛ ТЕХНИК ЕООД", 444, 0, 0, 0, 0],
+    ["ЕТ Гейт - Захари Захариев", 0, 58, 0, 379, 0],
+    ["Практикер", 86, 0, 0, 77, 250],
+    ["VOERF POWER TECHNOLOGY (WUXI) CO., LTD.", 0, 0, 375, 0, 0],
+    ["ХАНЗА-ФЛЕКС БЪЛГАРИЯ - ООД", 80, 0, 0, 0, 288],
+    ["Викиват ООД", 9, 8, 304, 40, 0],
+    ["СОЛИС ЛУКС ГРУП ЕООД", 0, 353, 0, 0, 0],
+    ["Ви Газ България", 70, 35, 107, 89, 44],
+    ["АЛИТЕХ ЕООД", 0, 0, 282, 38, 0],
+    ["Цеян ООД", 0, 0, 0, 311, 0],
+    ["ХИД-ТЕК ЕООД", 0, 202, 0, 104, 0],
+    ["ЮЗ ПЛАСТ ООД", 0, 0, 0, 272, 0],
+    ["Илчеви Крепежи ЕООД", 18, 0, 0, 218, 24],
+    ["ЦЕНТЪР ЗА ЛАЗЕРНИ ТЕХНОЛОГИИ", 260, 0, 0, 0, 0],
+    ["РОТА ЕКСПЕРТ ЕООД", 121, 0, 18, 24, 93],
+    ["Александрис Инженеринг ЕООД", 232, 0, 0, 11, 0],
+    ["Еконт ", 117, 31, 22, 38, 32],
+    ["МИП-ТС ООД", 0, 239, 0, 0, 0],
+    ["IPS-ELECTRONICS", 0, 0, 0, 224, 0],
+    ["СТОЙЧЕВ И СИНОВЕ ООД", 0, 0, 0, 0, 210],
+    ["Нибора ЕООД", 0, 0, 0, 175, 30],
+    ["ТМТ Елком ООД", 0, 0, 187, 0, 0],
+    ["Digi-Key Electronics", 52, 0, 0, 93, 38],
+    ["ЮНИМАСТЪРС ЛОДЖИСТИКС ЕС СИ ЕС ЕООД", 0, 0, 0, 177, 0],
+    ["Сенетик България ЕООД", 0, 174, 0, 0, 0],
+    ["JiaLiChuang (HongKong) Co., Limited", 0, 0, 0, 165, 0],
+    ["ВВМ - М ООД", 0, 161, 0, 0, 0],
+    ["ТОМИКА ЕООД", 0, 148, 0, 0, 0],
+    ["РОМСТАЛ БЪЛГАРИЯ ЕООД", 0, 0, 0, 127, 0],
+    ["ЕТ МАРИЯ КАМЕНОВА", 0, 0, 122, 0, 0],
+    ["КРЕПЕЖ ГРУП ООБ", 104, 0, 0, 15, 0],
+    ["Лидл България", 0, 112, 0, 0, 0],
+    ["ЕМВЕКО АД", 31, 60, 0, 0, 0],
+    ["завод за пружини АД", 87, 0, 0, 0, 0],
+    ["Роял Електроникс Трейд ЕООД", 0, 0, 0, 0, 82],
+    ["АЛФА БОЛТ ЕООД", 0, 0, 0, 0, 81],
+    ["ДХР Инженеринг - ЕООД", 0, 0, 0, 0, 78],
+    ["ЗАВОД ЗА АБРАЗИВНИ ИНСТРУМЕНТИ АД", 0, 0, 73, 0, 0],
+    ["Вюрт-България ЕООД", 72, 0, 0, 0, 0],
+    ["МЕТАЛ - М - СОФИЯ ООД", 0, 0, 0, 0, 71],
+    ["РМБМ ЕООД", 0, 71, 0, 0, 0],
+    ["Статекс ООД", 0, 0, 66, 0, 0],
+    ["GEBO Tools", 0, 58, 0, 0, 0],
+    ["АККОН СД България ООД", 0, 0, 0, 28, 28],
+    ["Декатлон", 0, 20, 31, 0, 0],
+    ["ЛД ООД", 0, 47, 0, 0, 0],
+    ["ЕЛЕКТРО ПЛЮС ООД", 0, 0, 46, 0, 0],
+    ["Баумакс България ООД", 46, 0, 0, 0, 0],
+    ["Еко България", 0, 0, 0, 0, 44],
+    ["МАГСИ БЪЛГАРИЯ ООД", 0, 0, 0, 0, 42],
+    ["Гебра 80 ЕООД", 0, 38, 0, 0, 0],
+    ["ТЕДИ ТЪРГОВИЯ НА ДРЕБНО", 36, 0, 0, 0, 0],
+    ["Shenzhen Zhenxing Communication Shares Co., Ltd.", 0, 0, 0, 0, 34],
+    ["Datadog", 0, 0, 0, 16, 16],
+    ["Ексанто ЕООД", 0, 0, 0, 0, 32],
+    ["Ен Ти Ен - България ЕООД", 29, 0, 0, 0, 0],
+    ["Български пощи", 0, 0, 27, 0, 0],
+    ["ДИ СИ 2008 ООД", 0, 0, 24, 0, 0],
+    ["Краско-Ко ООД", 24, 0, 0, 0, 0],
+    ["Мерит ООД", 24, 0, 0, 0, 0],
+    ["ЗАИ АД", 0, 24, 0, 0, 0],
+    ["Крос 3", 0, 0, 0, 23, 0],
+    ["Баухаус България ЕООД", 23, 0, 0, 0, 0],
+    ["ПАРТНЪРС ООД", 22, 0, 0, 0, 0],
+    ["А1 България ЕАД", 0, 0, 9, 11, 0],
+    ["Маркита 1 ООД", 0, 0, 0, 0, 20],
+    ["МИКРОАСУ ЕООД", 0, 0, 0, 14, 0],
+    ["Елимекс Инженеринг ЕООД", 0, 0, 0, 0, 12],
+    ["Рила 1 ЕООД", 0, 0, 0, 11, 0],
+    ["Протон", 10, 0, 0, 0, 0],
+    ["Хидролукс Груп ЕООД", 0, 9, 0, 0, 0],
+    ["ХУБАТА СИЙЛС СТОР ЕООД", 0, 0, 6, 0, 0],
+    ["БАЛКАН ЮГ ООД", 0, 0, 0, 0, 6],
+    ["Valtronic", 0, 0, 0, 0, 5],
+    ["ПроЕксТийм ЕООД", 0, 0, 0, 0, 3],
+    ["Роси ЕООД", 0, 0, 0, 2, 0],
+    ];
+      var vdMonthTotals = [162739, 221171, 281206, 175563, 99268];
+      var vdCurrent = 0;
+      var vdVisible = true;
+
+      window.vdShow = function(mi) {
+        vdCurrent = mi;
+        ['vdTab0','vdTab1','vdTab2','vdTab3','vdTab4'].forEach(function(id, i) {
+          document.getElementById(id).classList.toggle('vd-active', i === mi);
+        });
+        vdRender();
+      };
+
+      window.vdToggle = function() {
+        vdVisible = !vdVisible;
+        document.getElementById('vdPanel').style.display = vdVisible ? '' : 'none';
+        document.getElementById('vdCollapseBtn').textContent = vdVisible ? 'Hide ▲' : 'Show ▼';
+      };
+
+      window.vdExpandedMonths = {};
+
+      window.vdRender = function() {
+        var mi = vdCurrent;
+        var rows = vdData
+          .filter(function(r) { return r[mi + 1] > 0; })
+          .sort(function(a, b) { return b[mi + 1] - a[mi + 1]; });
+        var total = vdMonthTotals[mi];
+        var tbody = document.getElementById('vdBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        var PAGE = 20;
+        var expanded = !!vdExpandedMonths[mi];
+        var visible = expanded ? rows : rows.slice(0, PAGE);
+        var hidden  = rows.length - PAGE;
+
+        var runningSum = 0;
+        visible.forEach(function(r, i) {
+          var amt = r[mi + 1];
+          runningSum += amt;
+          var pct = total > 0 ? (amt / total * 100).toFixed(1) : '0.0';
+          var tr = document.createElement('tr');
+          tr.style.borderBottom = '1px solid rgba(26,40,64,0.3)';
+          var rankStyle = i < 5 ? 'font-weight:600;' : '';
+          tr.innerHTML =
+            '<td style="padding:3px 8px;color:var(--muted);font-size:10px;">' + (i + 1) + '</td>' +
+            '<td style="padding:3px 8px;' + rankStyle + '">' + r[0] + '</td>' +
+            '<td style="padding:3px 8px;text-align:right;' + rankStyle + '">€' + Math.round(amt).toLocaleString() + '</td>' +
+            '<td style="padding:3px 8px;text-align:right;color:var(--muted);">' + pct + '%</td>';
+          tbody.appendChild(tr);
+        });
+
+        if (rows.length > PAGE) {
+          var texp = document.createElement('tr');
+          texp.innerHTML = expanded
+            ? '<td colspan="4" style="padding:7px 8px;text-align:center;">' +
+              '<button onclick="vdExpandedMonths[' + mi + ']=false;vdRender();" ' +
+              'style="background:none;border:1px solid var(--border);color:var(--muted);font-size:11px;padding:4px 16px;border-radius:4px;cursor:pointer;">▲ Show top 20 only</button></td>'
+            : '<td colspan="4" style="padding:7px 8px;text-align:center;">' +
+              '<button onclick="vdExpandedMonths[' + mi + ']=true;vdRender();" ' +
+              'style="background:none;border:1px solid var(--border);color:var(--muted);font-size:11px;padding:4px 16px;border-radius:4px;cursor:pointer;">Show all ' + hidden + ' more vendors ▼</button></td>';
+          tbody.appendChild(texp);
+        }
+
+        var allSum = rows.reduce(function(s, r) { return s + r[mi + 1]; }, 0);
+        var tfoot = document.createElement('tr');
+        tfoot.style.cssText = 'border-top:2px solid rgba(56,189,248,0.2);background:rgba(56,189,248,0.04);';
+        tfoot.innerHTML =
+          '<td style="padding:5px 8px;font-weight:700;" colspan="2">Vendor total (tracked)</td>' +
+          '<td style="padding:5px 8px;text-align:right;font-weight:700;">€' + Math.round(allSum).toLocaleString() + '</td>' +
+          '<td style="padding:5px 8px;text-align:right;color:var(--muted);">' + (total > 0 ? (allSum/total*100).toFixed(1) : '100.0') + '%</td>';
+        tbody.appendChild(tfoot);
+        document.getElementById('vdFooter').textContent =
+          'Project total (incl. client materials): €' + total.toLocaleString() + ' · Vendors with spend this month: ' + rows.length +
+          (rows.length > PAGE && !expanded ? ' (showing top ' + PAGE + ')' : '');
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { vdRender(); });
+      } else {
+        setTimeout(vdRender, 0);
+      }
+    })();
+    </script>
+  </div>
+        </div>
+      </div>
+<div class="footer">
+    <div class="footer-left">
+      <div class="footer-brand">DHR Inc · Financial Dashboard · Confidential</div>
+      <div class="footer-date">Data as of May 2026</div>
+    </div>
+    <div>
+      <div class="footer-sources-hdr">Sources</div>
+      <ul class="footer-src-list">
+        <li>Mercury Monthly Statements Jan–Apr 2026 (DHR Inc ···1661)</li>
+        <li>Revolut Account Statement Jan 2025–Jun 1, 2026 (DHR Engineering EOOD)</li>
+        <li>UniCredit Bulbank Statements N1–N5 2026 (IBAN BG86UNCR70001526136673, Jan–May 2026, Stmt N5 issued June 1 2026)</li>
+        <li>Revenue - DHR Global (4).xlsx</li>
+        <li>2026 DHR EOOD Expenses.xlsx (Summary View, materials only)</li>
+        <li>Profitability by Project.xlsx · Durin / Framework / Hadrian Hardware Tracker v3</li>
+        <li>Revolut vs SSOT Review (Jun 2026 pull)</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+    
+
+<script>
+Chart.defaults.color = '#4e6680';
+Chart.defaults.borderColor = '#dde3ec';
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+Chart.defaults.font.size = 12;
+// ── Global tooltip styling — fully opaque, dark card ──
+Chart.defaults.plugins.tooltip.backgroundColor  = 'rgb(8,16,32)';
+Chart.defaults.plugins.tooltip.borderColor       = 'rgba(56,189,248,0.22)';
+Chart.defaults.plugins.tooltip.borderWidth       = 1;
+Chart.defaults.plugins.tooltip.padding           = { top:9, right:13, bottom:9, left:13 };
+Chart.defaults.plugins.tooltip.titleColor        = 'rgba(226,232,244,0.97)';
+Chart.defaults.plugins.tooltip.bodyColor         = 'rgba(194,210,235,0.88)';
+Chart.defaults.plugins.tooltip.titleFont         = { size:12, weight:'600' };
+Chart.defaults.plugins.tooltip.bodyFont          = { size:11 };
+Chart.defaults.plugins.tooltip.caretPadding      = 8;
+Chart.defaults.plugins.tooltip.boxPadding        = 4;
+Chart.defaults.plugins.tooltip.position          = 'nearest';
+// Push tooltip below the cursor so it doesn't overlay the stack-total labels drawn above bars
+Chart.defaults.plugins.tooltip.yAlign            = 'top';
+
+// ── PLUGIN: Total Labels — draws values on top of stacked/grouped bars ──
+// stackTotalsPlugin — reads options from chart._stp (direct property) to bypass
+// Chart.js 4.x option-resolution which drops functions and transforms arrays.
+// Usage: after creating chart, set chart._stp = { totals:[], color:'...', fmt:fn, colors:[], stackLabels:[] }
+// To update totals: chart._stp.totals = newArray; chart.update();
+const stackTotalsPlugin = {
+  id: 'stackTotals',
+  afterDatasetsDraw: function(chart) {
+    try {
+      var opts = chart._stp;
+      if (!opts) return;
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.font = 'bold 11px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      // Simple mode: one label per x-index, above the highest visible bar
+      if (opts.totals) {
+        var fmt = opts.fmt || function(v){ return '$'+Math.round(Math.abs(v)/1000)+'K'; };
+        opts.totals.forEach(function(val, i) {
+          if (val == null) return;
+          var topY = Infinity, x = null;
+          chart.data.datasets.forEach(function(ds, dsIdx) {
+            if (ds.type === 'line') return;
+            if (!chart.isDatasetVisible(dsIdx)) return;
+            var meta = chart.getDatasetMeta(dsIdx);
+            var el = meta.data[i];
+            if (!el) return;
+            var raw = ds.data[i];
+            if (raw == null || raw === 0) return;
+            if (x === null) x = el.x;
+            if (el.y < topY) topY = el.y;
+          });
+          if (x === null || topY === Infinity) return;
+          var col = (opts.colors && opts.colors[i] != null) ? opts.colors[i] : (opts.color || 'rgba(15,31,46,0.82)');
+          ctx.fillStyle = col;
+          ctx.fillText(fmt(val), x, topY - 6);
+        });
+      }
+      // Stack-specific mode: draw label above (or below) top of a particular dataset's bar
+      if (opts.stackLabels) {
+        opts.stackLabels.forEach(function(cfg) {
+          if (!chart.isDatasetVisible(cfg.datasetIndex)) return;
+          var meta = chart.getDatasetMeta(cfg.datasetIndex);
+          if (!meta) return;
+          var fmtFn = cfg.fmt || function(v){ return '$'+Math.round(Math.abs(v)/1000)+'K'; };
+          cfg.totals.forEach(function(val, i) {
+            if (val == null) return;
+            var el = meta.data[i];
+            if (!el) return;
+            ctx.fillStyle = (cfg.colors && cfg.colors[i] != null) ? cfg.colors[i] : (cfg.color || 'rgba(15,31,46,0.82)');
+            if (cfg.belowBar) {
+              ctx.textBaseline = 'top';
+              var belowY = (el.base !== undefined && el.y < el.base) ? el.base + 4 : el.y + 4;
+              ctx.fillText(fmtFn(val), el.x, belowY);
+              ctx.textBaseline = 'bottom';
+            } else {
+              ctx.fillText(fmtFn(val), el.x, el.y - 6);
+            }
+          });
+        });
+      }
+      ctx.restore();
+    } catch(e) {
+      console.error('[stackTotalsPlugin error]', e);
+    }
+  }
+};
+
+const months5      = ['Jan','Feb','Mar','Apr','May'];
+</script>
+<script>
+(function() {
+  // Top-5 vendors per month (EUR, ranked by that month's spend) — Source: Materials By Vendor sheet, Expenses (22)
+  // [Jan, Feb, Mar, Apr, May]
+  var v1 = [23140, 45419, 60500, 57354, 10585];
+  var v2 = [22886, 28161, 24509, 17330, 10471];
+  var v3 = [19786, 18150, 24290, 12021, 10071];
+  var v4 = [16068, 11539, 15508, 9898, 7264];
+  var v5 = [13544, 10831, 15495, 9748, 6569];
+
+  // Total materials per month (EUR) — Source: Materials By Vendor sheet total row
+  var projTotal = [153307, 182627, 221491, 161039, 98539];
+
+  // Others = total - top5 sum
+  var vOther = projTotal.map(function(t, i) {
+    return t - v1[i] - v2[i] - v3[i] - v4[i] - v5[i];
+  });
+
+  // Vendor name lookup per rank per month: [Jan, Feb, Mar, Apr, May]
+  var vendorNames = [
+    ["Бюра за развити", "WTO", "ФАНУК БЪЛГАРИЯ ", "ЕХНАТОН БЪЛГАРИ", "РАСТ 3Д ЕООД"],
+    ["Филкаб", "KUKA", "ЕХНАТОН БЪЛГАРИ", "WTO", "КА-Лес 24"],
+    ["ифм електроник ", "ФАНУК БЪЛГАРИЯ ", "БЛИК 99 ЕООД", "МАТИК МОУШЪН ЕО", "МАТИК МОУШЪН ЕО"],
+    ["WTO", "САМУДРА ИМПЕКС ", "Бактрейд ООД", "Филкаб", "Димекслифт Груп"],
+    ["Вайд Бул ЕООД", "ТЕКУНИ ЕООД", "Диометран ООД", "БЛИК 99 ЕООД", "Ангел Стоилов"],
+    ['Others', 'Others', 'Others', 'Others', 'Others'],
+  ];
+
+  // Stacked bar: each dataset = one rank position, color consistent by rank
+  var rankColors = [
+    'rgb(56,189,248)',   // Rank 1 — sky blue
+    'rgb(192,132,252)',  // Rank 2 — purple
+    'rgb(250,204,21)',   // Rank 3 — yellow
+    'rgb(52,211,153)',   // Rank 4 — emerald
+    'rgb(251,146,60)',   // Rank 5 — orange
+    'rgb(174,177,185)',  // Others — muted gray
+  ];
+  var rankData = [v1, v2, v3, v4, v5, vOther];
+
+  // Custom plugin: draw vendor name labels inside each segment where space allows
+  var vendorLabelPlugin = {
+    id: 'vendorLabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      ctx.save();
+      chart.data.datasets.forEach(function(ds, dsIdx) {
+        var meta = chart.getDatasetMeta(dsIdx);
+        if (meta.hidden) return;
+        meta.data.forEach(function(el, idx) {
+          var val = ds.data[idx];
+          if (!val) return;
+          var height = Math.abs(el.height || (el.base - el.y));
+          var name = vendorNames[dsIdx] ? vendorNames[dsIdx][idx] : '';
+          if (!name || name === 'Others') return;
+          ctx.font = 'bold 9px sans-serif';
+          ctx.fillStyle = 'rgba(255,255,255,0.92)';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          var midY = el.y + height / 2;
+          // Only draw if segment is tall enough to fit text
+          var textW = ctx.measureText(name).width;
+          if (height > 16 && textW < (el.width || 60) - 4) {
+            ctx.fillText(name, el.x, midY);
+          } else if (height > 10) {
+            // Truncate to fit
+            var maxChars = Math.floor(((el.width || 60) - 8) / 6);
+            if (maxChars > 4) {
+              ctx.fillText(name.substring(0, maxChars) + (name.length > maxChars ? '…' : ''), el.x, midY);
+            }
+          }
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  new Chart(document.getElementById('eoodVendorChart'), {
+    type: 'bar',
+    data: {
+      labels: months5,
+      datasets: rankData.map(function(data, ri) {
+        return {
+          label: 'Rank ' + (ri + 1),
+          data: data,
+          backgroundColor: rankColors[ri],
+          borderRadius: ri === 0 ? 0 : 0,
+          borderSkipped: false,
+        };
+      })
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 16 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(c) {
+              var ri = c.datasetIndex;
+              var mi = c.dataIndex;
+              var name = (vendorNames[ri] || [])[mi] || ('Rank ' + (ri + 1));
+              var val = Math.round(c.parsed.y);
+              return ' ' + name + ':  €' + val.toLocaleString();
+            },
+            footer: function(items) {
+              var mi = items[0].dataIndex;
+              return 'Month total:  €' + projTotal[mi].toLocaleString();
+            }
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, grid: { color: 'rgba(26,40,64,0.5)' } },
+        y: { stacked: true, grid: { color: 'rgba(26,40,64,0.5)' },
+             ticks: { callback: function(v) { return '€' + (v/1000).toFixed(0) + 'K'; } },
+             beginAtZero: true }
+      }
+    },
+    plugins: [stackTotalsPlugin, vendorLabelPlugin]
+  });
+  Chart.getChart(document.getElementById('eoodVendorChart'))._stp = { totals: projTotal, color: 'rgba(15,31,46,0.82)', fmt: function(v){ return '€'+Math.round(Math.abs(v)/1000)+'K'; } };
+})();
+
+</script>
+</body>
+</html>
