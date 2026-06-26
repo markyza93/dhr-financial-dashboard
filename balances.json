@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-25T16:10:57.892395+00:00",
+  "timestamp": "2026-06-26T15:31:22.633677+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,26 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 2789.89,
-        "availableBalance": 2789.89,
+        "currentBalance": 1811.26,
+        "availableBalance": 1811.26,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 42132.99,
-        "mtdOutflows": -193831.36,
+        "mtdInflows": 41.55,
+        "mtdOutflows": -191108.99,
         "recentTransactions": [
+          {
+            "date": "2026-06-26T01:06:41.985303Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -177.91,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-26T01:06:41.588619Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -800.72,
+            "kind": "other"
+          },
           {
             "date": "2026-06-24T01:16:41.815166Z",
             "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
@@ -122,18 +134,6 @@
             "description": "IO PAYMENT",
             "amount": -1235.8,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-09T01:14:52.490443Z",
-            "description": "DE DOR; DE DOR",
-            "amount": -3701.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-08T15:37:32.72248Z",
-            "description": "Durin Mining Tec; PAY3532466; DHR Inc",
-            "amount": 42091.44,
-            "kind": "other"
           }
         ]
       },
@@ -167,25 +167,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 254138.51,
-    "usd": 250824.94,
-    "eur": 2833.08,
+    "total": 248618.35,
+    "usd": 245446.02,
+    "eur": 2712.32,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 2833.08,
-        "available": 2833.08,
+        "balance": 2712.32,
+        "available": 2712.32,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 250824.94,
-        "available": 250824.94,
+        "balance": 245446.02,
+        "available": 245446.02,
         "state": "active"
       },
       {
