@@ -450,12 +450,14 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Total Monthly Revenue vs Target — All Clients</h3>
-        <p>Jan–Jun 2026 actuals (Jun 2026) + Jul–Dec projected (services only) · Adaptive target recalculates each month · $757K/mo needed Jun–Dec to hit $8.4M</p>
+        <p>Jan–Jun 2026 actuals · Jul–Dec projected (services only) · Adaptive target recalculates each month · $775K/mo needed Jul–Dec to hit $8.4M</p>
       </div>
       <div class="legend">
         <div class="leg"><div class="dot" style="background:#38bdf8"></div>Durin (US)</div>
         <div class="leg"><div class="dot" style="background:#818cf8"></div>Framework (US)</div>
         <div class="leg"><div class="dot" style="background:#34d399"></div>Hadrian (BG)</div>
+        <div class="leg"><div class="dot" style="background:#fb923c"></div>Rainmaker (BG)</div>
+        <div class="leg"><div class="dot" style="background:#fbbf24"></div>Унипак АД (BG)</div>
         <div class="leg"><div class="dot" style="background:rgba(56,189,248,.2)"></div>Projected (services only)</div>
         <div class="leg"><div class="lnd" style="border-color:#fbbf24;opacity:.9;"></div>Adjusted Monthly Revenue Target $700K</div>
       </div>
@@ -467,7 +469,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Revenue Breakdown: Services vs Materials</h3>
-        <p>Jan–Jun 2026 actuals · Hadrian Jan–May: Services modelled ($151K/mo rate card), Materials = Actual − Modelled · Hadrian May + all Durin/Framework: actual per invoice</p>
+        <p>Jan–Jun 2026 actuals · Hadrian: actual by-type from Revenue (13); Jan–Apr via Revolut lump-sum · May INV-507/509 · Jun INV-529/530 · Rainmaker + Унипак АД: services only</p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
         <div style="display:flex;gap:4px;">
@@ -483,7 +485,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
     </div>
     <div class="wrap h380"><canvas id="revSvcMatChart"></canvas></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Apr materials are estimated (Revolut does not separate services from materials). Hadrian May uses INV-507 (Services $152K) + INV-509 (Materials $101K).</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Jun actual by-type from Revenue (13). Jan–Apr received as Revolut lump-sum (no separate invoice split). May: INV-507 (Services $152K) + INV-509 (Materials $101K). Jun: INV-529 (Services $159K) + INV-530 (Materials $96K). Rainmaker + Унипак АД are pure services with no materials component.</div>
   </div>
 
   <!-- EXPENSES -->
@@ -1641,7 +1643,9 @@ const stackTotalsPlugin = {
 // Jan–Jun 2026 actuals · Bulbank N5/2026 statement confirmed (close €172,334.77)
 const durin2026    = [123695, 136947, 124526, 152971, 123889, 110880];  // service-date recognition — Source: Revenue (8).xlsx
 const frame2026    = [0,      199847, 231546, 281158, 232187, 154880];   // service-date recognition — Source: Revenue (8).xlsx
-const hadrian2026  = [180383, 389356, 386337, 300449, 252902, 255847];   // May: INV-507 Engineering Services ($152,124) + INV-509 Materials ($100,778)
+const hadrian2026  = [180383, 389356, 386337, 300449, 252902, 255847];   // May: INV-507 Engineering Services ($152,124) + INV-509 Materials ($100,778) · Jun: INV-529/530
+const rainmaker2026 = [1843, 70210, 0, 0, 0, 0];   // Source: Revenue (13) row 16 — all services
+const unipak2026    = [0, 14188, 0, 28070, 0, 0];   // Унипак АД — Source: Revenue (13) row 17 — all services
 
 // ── INVOICE REFERENCE NUMBERS — update with actual invoice numbers as issued ──
 // Format: [Jan, Feb, Mar, Apr, May]  · null = no invoice that month
@@ -1656,17 +1660,17 @@ const invDurinMat   = ['Inv#32', 'Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', null];
 const invFrameSvc   = [null, null, 'Inv#37', 'Inv#42', 'Inv#45', 'Inv#0000000055'];
 const invFrameMat   = [null, null, 'Inv#39', 'Inv#44', 'Inv#47', null];
 
-// Services / Materials revenue split by client (Jan–May 2026)
-// Hadrian Jan–Apr: services = modelled $151,147/mo; materials = Actual Total − modelled
-// Hadrian May: actuals from INV-507 (services) + INV-509 (materials)
-const hadrianSvc = [151147, 151147, 151147, 151147, 152124, 159368];
-const hadrianMat = [29236,  238209, 235190, 149302, 100778, 96479];
-// Durin & Framework: actual per-invoice breakdown from DHR Inc Income 2026
-const durinSvc   = [100800, 84000,  79464,  79918,  87940, 110880];  // service-date, proportional svc/mat split — Revenue (8)
-const durinMat   = [22895,  52947,  45062,  73053,  35949, 0];  // service-date, proportional svc/mat split — Revenue (8)
-const frameSvc   = [0,      122400, 147576, 147122, 164763, 154880]; // service-date, proportional svc/mat split — Revenue (8)
-const frameMat   = [0,      77447,  83970,  134036, 67424, 0];  // service-date, proportional svc/mat split — Revenue (8)
-const total2026    = durin2026.map((d,i) => d + frame2026[i] + hadrian2026[i]);
+// Services / Materials revenue split by client (Jan–Jun 2026)
+// Hadrian: actual by-type from Revenue (13) rows 42-43 · Jan–Apr per Revolut lump-sum receipt
+// Hadrian May: INV-507 (services) + INV-509 (materials) · Jun: INV-529 (services) + INV-530 (materials)
+const hadrianSvc = [59359,  144880, 159368, 159368, 152124, 159368];  // Actual — Revenue (13) row 42
+const hadrianMat = [121025, 244476, 226969, 141081, 100778, 96479];   // Actual — Revenue (13) row 43
+// Durin & Framework: actual per-invoice breakdown from Revenue (13)
+const durinSvc   = [100800, 100800, 110880, 110880, 105840, 110880];  // Revenue (13) row 47
+const durinMat   = [22895,  36147,  13646,  42091,  18049,  0];       // Revenue (13) row 48
+const frameSvc   = [0,      105600, 116160, 116160, 147840, 154880];  // Revenue (13) row 52
+const frameMat   = [0,      94247,  115386, 164998, 84347,  0];       // Revenue (13) row 53
+const total2026    = durin2026.map((d,i) => d + frame2026[i] + hadrian2026[i] + rainmaker2026[i] + unipak2026[i]);
 const months5      = ['Jan','Feb','Mar','Apr','May','Jun'];
 const months12     = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const target       = 700000;  // 8.4M / 12
@@ -1727,6 +1731,26 @@ new Chart(document.getElementById('revTargetChart'), {
         stack: 'rev', borderRadius:3, borderSkipped:false,
       },
       {
+        // ds3 — Rainmaker (BG, all services)
+        label: 'Rainmaker',
+        data: [...rainmaker2026, ...Array(6).fill(0)],
+        backgroundColor: [
+          ...Array(6).fill('rgb(251,146,60)'),
+          ...Array(6).fill('rgba(251,146,60,0.2)'),
+        ],
+        stack: 'rev', borderRadius:3, borderSkipped:false,
+      },
+      {
+        // ds4 — Унипак АД (BG, all services)
+        label: 'Унипак АД',
+        data: [...unipak2026, ...Array(6).fill(0)],
+        backgroundColor: [
+          ...Array(6).fill('rgb(251,191,36)'),
+          ...Array(6).fill('rgba(251,191,36,0.2)'),
+        ],
+        stack: 'rev', borderRadius:3, borderSkipped:false,
+      },
+      {
         label: 'Adjusted Monthly Revenue Target $700K',
         data: Array(12).fill(target),
         type: 'line',
@@ -1762,7 +1786,7 @@ new Chart(document.getElementById('revTargetChart'), {
         borderColor: 'rgba(146,64,14,0.92)',
         borderWidth: 2.5,
         borderDash: [6,4],
-        pointRadius: function(ctx) { return ctx.dataIndex < 5 ? 4 : 0; },
+        pointRadius: function(ctx) { return ctx.dataIndex < 6 ? 4 : 0; },
         pointBackgroundColor: 'rgb(251,191,36)',
         fill: false,
         order: 0,
@@ -1788,19 +1812,25 @@ new Chart(document.getElementById('revTargetChart'), {
             if (!v) return null;
             var idx = c.dataIndex; // 0=Jan…5=Jun
             var dsIdx = c.datasetIndex;
-            // Projected months — simple label only
-            if (idx >= 5) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
+            // Projected months (Jul+) — simple label only
+            if (idx >= 6) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
             var lines = [' Actual Total Revenue:  $' + Math.round(v).toLocaleString()];
             if (dsIdx === 0) {
               // Hadrian
               if (idx === 4) {
-                // May: actual per-invoice split available
+                // May: per-invoice split (INV-507 + INV-509)
                 lines.push(' Invoice ref Services:   INV-0000000507');
                 lines.push(' Invoice ref Materials:  INV-0000000509');
                 lines.push(' Actual Service Revenue:    $' + hadrianSvc[4].toLocaleString());
                 lines.push(' Actual Materials Revenue:  $' + hadrianMat[4].toLocaleString());
+              } else if (idx === 5) {
+                // Jun: per-invoice split (INV-529 + INV-530)
+                lines.push(' Invoice ref Services:   INV-529');
+                lines.push(' Invoice ref Materials:  INV-530');
+                lines.push(' Actual Service Revenue:    $' + hadrianSvc[5].toLocaleString());
+                lines.push(' Actual Materials Revenue:  $' + hadrianMat[5].toLocaleString());
               } else {
-                // Jan–Apr: Revolut lump — no invoice split
+                // Jan–Apr: Revolut lump — no separate invoice split
                 lines.push(' Transaction ref: ' + invHadrianRef[idx]);
               }
               lines.push(' ─────────────────────────');
@@ -1810,10 +1840,9 @@ new Chart(document.getElementById('revTargetChart'), {
               lines.push('   4.0 eng × $43/hr  = $29,813');
               lines.push('   Model total        = $151,147');
               if (idx < 4) {
-                // No actual materials split for Jan–Apr → show calculated
-                var matCalc = Math.round(v - 151147);
+                // Jan–Apr: actual materials from Revenue (13)
                 lines.push(' ─────────────────────────');
-                lines.push(' Calculated Materials Revenue:  ' + (matCalc >= 0 ? '+' : '−') + '$' + Math.abs(matCalc).toLocaleString());
+                lines.push(' Actual Materials Revenue:  $' + Math.round(hadrianMat[idx]).toLocaleString());
               }
             } else if (dsIdx === 1) {
               // Durin — actual per-invoice split always available
@@ -1831,7 +1860,7 @@ new Chart(document.getElementById('revTargetChart'), {
                 lines = [' No invoice this month'];
               } else {
                 lines.push(' Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push(' Invoice ref Materials:  ' + invFrameMat[idx]);
+                lines.push(' Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
                 lines.push(' Actual Service Revenue:    $' + frameSvc[idx].toLocaleString());
                 lines.push(' Actual Materials Revenue:  $' + frameMat[idx].toLocaleString());
                 lines.push(' ─────────────────────────');
@@ -1839,6 +1868,14 @@ new Chart(document.getElementById('revTargetChart'), {
                 lines.push('   6 engineers × $110/hr × 173 hrs');
                 lines.push('   = $114,400 / mo');
               }
+            } else if (dsIdx === 3) {
+              // Rainmaker — all services, no materials component
+              if (!v) { lines = [' No revenue this month']; }
+              else { lines.push(' All Services — no materials component'); }
+            } else if (dsIdx === 4) {
+              // Унипак АД — all services, no materials component
+              if (!v) { lines = [' No revenue this month']; }
+              else { lines.push(' All Services — no materials component'); }
             }
             return lines;
           }
@@ -1859,7 +1896,7 @@ new Chart(document.getElementById('revTargetChart'), {
   },
   plugins: [stackTotalsPlugin]
 });
-(function(){ var c=Chart.getChart(document.getElementById('revTargetChart')); if(c) c._stp={totals:[...total2026,...Array(7).fill(374747)],colors:[...Array(5).fill('rgba(15,31,46,0.82)'),...Array(7).fill('rgba(71,85,105,0.88)')]};})();
+(function(){ var c=Chart.getChart(document.getElementById('revTargetChart')); if(c) c._stp={totals:[...total2026,...Array(6).fill(374747)],colors:[...Array(6).fill('rgba(15,31,46,0.82)'),...Array(6).fill('rgba(71,85,105,0.88)')]};})();
 
 // ── CHART 3b: Revenue Breakdown: Services vs Materials ──
 var revSvcMatActiveFilter = 'all';
@@ -1874,7 +1911,7 @@ function revSvcMatGetData(f) {
   if (f === 'durin')     return { svc: durinSvc.slice(),   mat: durinMat.slice()   };
   if (f === 'framework') return { svc: frameSvc.slice(),   mat: frameMat.slice()   };
   return {
-    svc: months5.map(function(_,i){ return hadrianSvc[i]+durinSvc[i]+frameSvc[i]; }),
+    svc: months5.map(function(_,i){ return hadrianSvc[i]+durinSvc[i]+frameSvc[i]+rainmaker2026[i]+unipak2026[i]; }),
     mat: months5.map(function(_,i){ return hadrianMat[i]+durinMat[i]+frameMat[i]; }),
   };
 }
@@ -1911,7 +1948,7 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
             var f = revSvcMatActiveFilter;
             var lines = [];
             if (f === 'all') {
-              var grand = hadrianSvc[idx]+hadrianMat[idx]+durinSvc[idx]+durinMat[idx]+frameSvc[idx]+frameMat[idx];
+              var grand = hadrianSvc[idx]+hadrianMat[idx]+durinSvc[idx]+durinMat[idx]+frameSvc[idx]+frameMat[idx]+rainmaker2026[idx]+unipak2026[idx];
               lines.push(' Total Revenue:  $' + Math.round(grand).toLocaleString());
               // Hadrian
               lines.push(' ─────────────────────────');
@@ -1921,11 +1958,15 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
                 lines.push('   Invoice ref Materials:  INV-0000000509');
                 lines.push('   Actual Service Rev:    $' + hadrianSvc[4].toLocaleString());
                 lines.push('   Actual Materials Rev:  $' + hadrianMat[4].toLocaleString());
+              } else if (idx === 5) {
+                lines.push('   Invoice ref Services:   INV-529');
+                lines.push('   Invoice ref Materials:  INV-530');
+                lines.push('   Actual Service Rev:    $' + hadrianSvc[5].toLocaleString());
+                lines.push('   Actual Materials Rev:  $' + hadrianMat[5].toLocaleString());
               } else {
                 lines.push('   Transaction ref: ' + invHadrianRef[idx]);
-                lines.push('   Modeled Services:      $151,147');
-                var hm = Math.round(hadrianMat[idx]);
-                lines.push('   Calculated Materials:  ' + (hm >= 0 ? '+' : '−') + '$' + Math.abs(hm).toLocaleString());
+                lines.push('   Actual Service Rev:    $' + hadrianSvc[idx].toLocaleString());
+                lines.push('   Actual Materials Rev:  $' + hadrianMat[idx].toLocaleString());
               }
               // Durin
               lines.push(' ─────────────────────────');
@@ -1939,9 +1980,21 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
                 lines.push(' ─────────────────────────');
                 lines.push(' Framework: $' + Math.round(frameSvc[idx]+frameMat[idx]).toLocaleString());
                 lines.push('   Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push('   Invoice ref Materials:  ' + invFrameMat[idx]);
+                lines.push('   Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
                 lines.push('   Actual Service Rev:    $' + frameSvc[idx].toLocaleString());
                 lines.push('   Actual Materials Rev:  $' + frameMat[idx].toLocaleString());
+              }
+              // Rainmaker (only if present)
+              if (rainmaker2026[idx] > 0) {
+                lines.push(' ─────────────────────────');
+                lines.push(' Rainmaker: $' + rainmaker2026[idx].toLocaleString());
+                lines.push('   All Services — no materials');
+              }
+              // Унипак АД (only if present)
+              if (unipak2026[idx] > 0) {
+                lines.push(' ─────────────────────────');
+                lines.push(' Унипак АД: $' + unipak2026[idx].toLocaleString());
+                lines.push('   All Services — no materials');
               }
             } else if (f === 'hadrian') {
               lines.push(' Actual Total Revenue:  $' + Math.round(hadrianSvc[idx]+hadrianMat[idx]).toLocaleString());
@@ -1950,6 +2003,11 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
                 lines.push(' Invoice ref Materials:  INV-0000000509');
                 lines.push(' Actual Service Revenue:    $' + hadrianSvc[4].toLocaleString());
                 lines.push(' Actual Materials Revenue:  $' + hadrianMat[4].toLocaleString());
+              } else if (idx === 5) {
+                lines.push(' Invoice ref Services:   INV-529');
+                lines.push(' Invoice ref Materials:  INV-530');
+                lines.push(' Actual Service Revenue:    $' + hadrianSvc[5].toLocaleString());
+                lines.push(' Actual Materials Revenue:  $' + hadrianMat[5].toLocaleString());
               } else {
                 lines.push(' Transaction ref: ' + invHadrianRef[idx]);
               }
@@ -1961,8 +2019,7 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
               lines.push('   Model total        = $151,147');
               if (idx < 4) {
                 lines.push(' ─────────────────────────');
-                var matCalc = Math.round(hadrianMat[idx]);
-                lines.push(' Calculated Materials Revenue:  ' + (matCalc >= 0 ? '+' : '−') + '$' + Math.abs(matCalc).toLocaleString());
+                lines.push(' Actual Materials Revenue:  $' + Math.round(hadrianMat[idx]).toLocaleString());
               }
             } else if (f === 'durin') {
               lines.push(' Actual Total Revenue:  $' + Math.round(durinSvc[idx]+durinMat[idx]).toLocaleString());
@@ -1980,7 +2037,7 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
               } else {
                 lines.push(' Actual Total Revenue:  $' + Math.round(frameSvc[idx]+frameMat[idx]).toLocaleString());
                 lines.push(' Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push(' Invoice ref Materials:  ' + invFrameMat[idx]);
+                lines.push(' Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
                 lines.push(' Actual Service Revenue:    $' + frameSvc[idx].toLocaleString());
                 lines.push(' Actual Materials Revenue:  $' + frameMat[idx].toLocaleString());
                 lines.push(' ─────────────────────────');
