@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-01T16:11:25.649513+00:00",
+  "timestamp": "2026-07-02T13:21:03.539965+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,26 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 1353.24,
-        "availableBalance": 1353.24,
+        "currentBalance": 1333.54,
+        "availableBalance": 1333.54,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 29.98,
-        "mtdOutflows": -190338.19,
+        "mtdInflows": 30.28,
+        "mtdOutflows": -187653.58,
         "recentTransactions": [
+          {
+            "date": "2026-07-02T13:01:23.452011Z",
+            "description": null,
+            "amount": 0.3,
+            "kind": "other"
+          },
+          {
+            "date": "2026-07-02T13:00:48.065706Z",
+            "description": "IO PAYMENT",
+            "amount": -20.0,
+            "kind": "other"
+          },
           {
             "date": "2026-06-30T00:06:57.212617Z",
             "description": null,
@@ -122,18 +134,6 @@
             "description": "Send Money transaction initiated on Mercury",
             "amount": -5200.0,
             "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-06-11T01:06:16.814958Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -2018.58,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-11T01:06:15.619239Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -686.03,
-            "kind": "other"
           }
         ]
       },
@@ -167,25 +167,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 23792.02,
-    "usd": 10277.81,
-    "eur": 11554.56,
+    "total": 7178.54,
+    "usd": 5277.81,
+    "eur": 1625.11,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 11554.56,
-        "available": 11554.56,
+        "balance": 1625.11,
+        "available": 1625.11,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 10277.81,
-        "available": 10277.81,
+        "balance": 5277.81,
+        "available": 5277.81,
         "state": "active"
       },
       {
