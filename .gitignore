@@ -1,0 +1,12 @@
+# Whitelist approach: ignore everything by default.
+# This folder holds many unrelated project files (spreadsheets, docs,
+# other dashboards, credentials) that must never end up in this
+# PUBLIC repo. Only the dashboard's own files are tracked.
+*
+
+!.gitignore
+!index.html
+!balances.json
+!fetch_balances.py
+!.github/
+!.github/**
