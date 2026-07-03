@@ -477,6 +477,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <button onclick="revSvcMatFilter('hadrian')" id="revSvcMatPill-hadrian" class="txn-pill">Hadrian</button>
           <button onclick="revSvcMatFilter('durin')" id="revSvcMatPill-durin" class="txn-pill">Durin</button>
           <button onclick="revSvcMatFilter('framework')" id="revSvcMatPill-framework" class="txn-pill">Framework</button>
+          <button onclick="revSvcMatFilter('rainmaker')" id="revSvcMatPill-rainmaker" class="txn-pill">Rainmaker</button>
+          <button onclick="revSvcMatFilter('unipak')" id="revSvcMatPill-unipak" class="txn-pill">Унипак АД</button>
         </div>
         <div class="legend">
           <div class="leg"><div class="dot" id="revSvcMatLegDot-svc" style="background:rgba(99,102,241,0.85)"></div>Services</div>
@@ -545,7 +547,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <button onclick="txnShow(2)" id="txnPill2" class="txn-pill">Mar</button>
         <button onclick="txnShow(3)" id="txnPill3" class="txn-pill">Apr</button>
         <button onclick="txnShow(4)" id="txnPill4" class="txn-pill">May</button>
-        <button onclick="txnShow(5)" id="txnPill5" class="txn-pill">YTD</button>
+        <button onclick="txnShow(5)" id="txnPill5" class="txn-pill">Jun</button>
+        <button onclick="txnShow(6)" id="txnPill6" class="txn-pill">YTD</button>
       </div>
       <div id="txnSummary" style="font-size:12px;color:var(--muted2);margin-bottom:10px;"></div>
       <div style="max-height:520px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;">
@@ -1904,12 +1907,16 @@ var revSvcMatColors = {
   all:       { svc: 'rgb(99,102,241)',  mat: 'rgb(196,197,250)'  },
   hadrian:   { svc: 'rgb(52,211,153)',  mat: 'rgb(178,238,216)'  },
   durin:     { svc: 'rgb(56,189,248)',  mat: 'rgb(179,230,252)'  },
-  framework: { svc: 'rgb(129,140,248)', mat: 'rgb(207,211,252)' },
+  framework: { svc: 'rgb(129,140,248)', mat: 'rgb(207,211,252)'  },
+  rainmaker: { svc: 'rgb(251,146,60)',  mat: 'rgba(251,146,60,0.35)' },
+  unipak:    { svc: 'rgb(234,179,8)',   mat: 'rgba(234,179,8,0.35)'  },
 };
 function revSvcMatGetData(f) {
-  if (f === 'hadrian')   return { svc: hadrianSvc.slice(), mat: hadrianMat.slice() };
-  if (f === 'durin')     return { svc: durinSvc.slice(),   mat: durinMat.slice()   };
-  if (f === 'framework') return { svc: frameSvc.slice(),   mat: frameMat.slice()   };
+  if (f === 'hadrian')   return { svc: hadrianSvc.slice(),    mat: hadrianMat.slice() };
+  if (f === 'durin')     return { svc: durinSvc.slice(),      mat: durinMat.slice()   };
+  if (f === 'framework') return { svc: frameSvc.slice(),      mat: frameMat.slice()   };
+  if (f === 'rainmaker') return { svc: rainmaker2026.slice(), mat: [0,0,0,0,0,0]     };
+  if (f === 'unipak')    return { svc: unipak2026.slice(),    mat: [0,0,0,0,0,0]     };
   return {
     svc: months5.map(function(_,i){ return hadrianSvc[i]+durinSvc[i]+frameSvc[i]+rainmaker2026[i]+unipak2026[i]; }),
     mat: months5.map(function(_,i){ return hadrianMat[i]+durinMat[i]+frameMat[i]; }),
@@ -2045,6 +2052,20 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
                 lines.push('   6 engineers × $110/hr × 173 hrs');
                 lines.push('   = $114,400 / mo');
               }
+            } else if (f === 'rainmaker') {
+              if (!rainmaker2026[idx]) {
+                lines.push(' No revenue this month');
+              } else {
+                lines.push(' Actual Total Revenue:  $' + rainmaker2026[idx].toLocaleString());
+                lines.push(' All Services — no materials component');
+              }
+            } else if (f === 'unipak') {
+              if (!unipak2026[idx]) {
+                lines.push(' No revenue this month');
+              } else {
+                lines.push(' Actual Total Revenue:  $' + unipak2026[idx].toLocaleString());
+                lines.push(' All Services — no materials component');
+              }
             }
             return lines;
           }
@@ -2078,7 +2099,7 @@ window.revSvcMatFilter = function(f) {
   var dotMat = document.getElementById('revSvcMatLegDot-mat');
   if (dotSvc) dotSvc.style.background = c.svc;
   if (dotMat) dotMat.style.background = c.mat;
-  ['all','hadrian','durin','framework'].forEach(function(k) {
+  ['all','hadrian','durin','framework','rainmaker','unipak'].forEach(function(k) {
     var el = document.getElementById('revSvcMatPill-' + k);
     if (el) el.className = 'txn-pill' + (k === f ? ' txn-pill-active' : '');
   });
@@ -3029,7 +3050,7 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
   window.txnShow = function(mi) {
     txnCurrent = mi;
     txnShowingAll = false;
-    [0,1,2,3,4,5].forEach(function(i) {
+    [0,1,2,3,4,5,6].forEach(function(i) {
       var el = document.getElementById('txnPill' + i);
       if (el) el.className = 'txn-pill' + (i === mi ? ' txn-pill-active' : '');
     });
@@ -3042,7 +3063,7 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
   };
 
   function monthMatch(m) {
-    if (txnCurrent < 5) return m === txnCurrent + 1;
+    if (txnCurrent < 6) return m === txnCurrent + 1;
     return true; // YTD
   }
 
@@ -3126,7 +3147,7 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
     var totalUSD = 0, hasNeg = false;
     rows.forEach(function(r) { var v = toUSD(r); if (v > 0) totalUSD += v; else hasNeg = true; });
     var negUSD = rows.reduce(function(s, r) { var v = toUSD(r); return v < 0 ? s + v : s; }, 0);
-    var txnMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'YTD'];
+    var txnMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'YTD'];
     var label = txnMonthLabels[txnCurrent];
     var catLabel = catFilter && catFilter !== 'All' ? ' · ' + catFilter : '';
     var sumEl = document.getElementById('txnSummary');
