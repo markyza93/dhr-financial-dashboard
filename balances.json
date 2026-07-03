@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-22T13:00:31.326773+00:00",
+  "timestamp": "2026-07-03T13:23:13.447801+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,92 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 60570.74,
-        "availableBalance": 60570.74,
+        "currentBalance": 183.54,
+        "availableBalance": 183.54,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 434158.76,
-        "mtdOutflows": -376031.74,
+        "mtdInflows": 30.28,
+        "mtdOutflows": -183321.25,
         "recentTransactions": [
+          {
+            "date": "2026-07-03T01:18:19.165433Z",
+            "description": "PEOPLE CENTER; BILL; DHR INC",
+            "amount": -200.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-07-03T01:15:35.259047Z",
+            "description": "GREEN DESK LLC 2; SIGONFILE; DHR Inc",
+            "amount": -950.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-07-02T13:01:23.452011Z",
+            "description": null,
+            "amount": 0.3,
+            "kind": "other"
+          },
+          {
+            "date": "2026-07-02T13:00:48.065706Z",
+            "description": "IO PAYMENT",
+            "amount": -20.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-30T00:06:57.212617Z",
+            "description": null,
+            "amount": 6.98,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-30T00:05:21.705672Z",
+            "description": "IO AUTOPAY",
+            "amount": -465.0,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-26T01:06:41.985303Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -177.91,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-26T01:06:41.588619Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -800.72,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-24T01:16:41.815166Z",
+            "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
+            "amount": -18397.48,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-24T01:16:37.19486Z",
+            "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
+            "amount": -12150.77,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-23T14:28:36.523334Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -26000.0,
+            "kind": "outgoingPayment"
+          },
+          {
+            "date": "2026-06-22T15:21:30.576189Z",
+            "description": null,
+            "amount": 18.77,
+            "kind": "other"
+          },
+          {
+            "date": "2026-06-22T15:21:28.956171Z",
+            "description": "IO PAYMENT",
+            "amount": -1251.37,
+            "kind": "other"
+          },
           {
             "date": "2026-06-17T14:35:23.005754Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -56,84 +134,6 @@
             "description": null,
             "amount": 4.23,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-11T18:20:37.619791Z",
-            "description": "IO PAYMENT",
-            "amount": -282.33,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-11T12:50:29.549837Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -5200.0,
-            "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-06-11T01:06:16.814958Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -2018.58,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-11T01:06:15.619239Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -686.03,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-09T21:49:12.494606Z",
-            "description": null,
-            "amount": 18.55,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-09T21:49:11.10794Z",
-            "description": "IO PAYMENT",
-            "amount": -1235.8,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-09T01:14:52.490443Z",
-            "description": "DE DOR; DE DOR",
-            "amount": -3701.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-08T15:37:32.72248Z",
-            "description": "Durin Mining Tec; PAY3532466; DHR Inc",
-            "amount": 42091.44,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-05T15:32:35.599777Z",
-            "description": "Framework Automa; PAY3479843; DHR",
-            "amount": 116160.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-05T14:13:56.961906Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -240000.0,
-            "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-06-05T12:40:05.937432Z",
-            "description": "Framework Automa; PAY3465184; DHR",
-            "amount": 164998.14,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-05T12:39:55.054541Z",
-            "description": "Durin Mining Tec; PAY3467002; DHR Inc",
-            "amount": 110880.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-04T22:51:36.816691Z",
-            "description": null,
-            "amount": 6.4,
-            "kind": "other"
           }
         ]
       },
@@ -167,25 +167,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 11191.22,
-    "usd": 1367.12,
-    "eur": 8399.54,
+    "total": 14524.96,
+    "usd": 11504.68,
+    "eur": 2582.32,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 8399.54,
-        "available": 8399.54,
+        "balance": 2582.32,
+        "available": 2582.32,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 1367.12,
-        "available": 1367.12,
+        "balance": 11504.68,
+        "available": 11504.68,
         "state": "active"
       },
       {
