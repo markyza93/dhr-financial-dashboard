@@ -2754,7 +2754,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     var cat  = window._catFilter  || 'All';
     var sc   = window._matSubFilter;
     var item = window._itemFilter || null;
-    var newTotals = [0,0,0,0,0];
+    var newTotals = months5.map(function(){ return 0; });
 
     // Remove any previously added dynamic datasets first
     clearDynDatasets();
