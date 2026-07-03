@@ -1912,11 +1912,11 @@ var revSvcMatColors = {
   unipak:    { svc: 'rgb(234,179,8)',   mat: 'rgba(234,179,8,0.35)'  },
 };
 function revSvcMatGetData(f) {
-  if (f === 'hadrian')   return { svc: hadrianSvc.slice(),   mat: hadrianMat.slice() };
-  if (f === 'durin')     return { svc: durinSvc.slice(),     mat: durinMat.slice()   };
-  if (f === 'framework') return { svc: frameSvc.slice(),     mat: frameMat.slice()   };
+  if (f === 'hadrian')   return { svc: hadrianSvc.slice(),    mat: hadrianMat.slice() };
+  if (f === 'durin')     return { svc: durinSvc.slice(),      mat: durinMat.slice()   };
+  if (f === 'framework') return { svc: frameSvc.slice(),      mat: frameMat.slice()   };
   if (f === 'rainmaker') return { svc: rainmaker2026.slice(), mat: [0,0,0,0,0,0]     };
-  if (f === 'unipak')    return { svc: unipak2026.slice(),   mat: [0,0,0,0,0,0]     };
+  if (f === 'unipak')    return { svc: unipak2026.slice(),    mat: [0,0,0,0,0,0]     };
   return {
     svc: months5.map(function(_,i){ return hadrianSvc[i]+durinSvc[i]+frameSvc[i]+rainmaker2026[i]+unipak2026[i]; }),
     mat: months5.map(function(_,i){ return hadrianMat[i]+durinMat[i]+frameMat[i]; }),
