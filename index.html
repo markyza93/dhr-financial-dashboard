@@ -2316,7 +2316,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var elecElec      = [   71,    46,   137,   225,    32,   440]; // Electronic Components
 
   // ── Mechanical sub-items (rows 46–56, USD, Source: Expenses - DHR Global (9).xlsx) ──
-  var mechMetal      = [1729,307,33651,9543,10590,23948];  // Metalworking — SSOT (23)
+  var mechMetal      = [2994,307,33651,14055,10590,23948];  // Metalworking — SSOT (38); absorbed Machined Parts Jan+1265 Apr+4512
   var mechLinear    = [  416,  2683, 31423,  1917,  5013,   167]; // Linear Motion & Bearings
   var mechAlum      = [17369,     0,  6325,  3261,   315,   410]; // Aluminium & Profiles
   var mechPneum     = [   39,  1829, 11981, 14612, 11709,  4216]; // Pneumatics
@@ -2329,7 +2329,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var mechSprings   = [  306,     0,    40,    31,   109,     0]; // Springs & Elastic Elements
   var mechPainting  = [ 1774,   121,  3491,   978,  4815,  1928]; // Painting & Powder Coating — SSOT (23)
   var mechOxidation = [    0,    68,   603,   443,     0,   837]; // Oxidation — SSOT (23)
-  var mechMachParts = [ 1265,     0,     0,  4512,     0,     0];  // Machined Parts
+  var mechMachParts = [    0,     0,     0,     0,     0,     0];  // Machined Parts — removed in SSOT (38), absorbed into Metalworking
   var mechPoly      = [18048,     0,     0,     0,   661,   976];  // Polycarbonate & Plastics — Source: Expenses (37) Row 65 // Неон.бг reclassified from Equipment Installation // Machined Parts — SSOT (23)
 
   var granTotal = actExp.slice();
@@ -2371,7 +2371,6 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     { label:'Springs & Elastic Elements',       dhrCat:'Materials', dhrSubCat:'Mechanical', isItemLevel:true, dhrItem:'Springs & Elastic Elements', data: mechSprings, backgroundColor: 'rgb(55,48,163)',     borderRadius:3, borderSkipped:false },
     { label:'Painting & Powder Coating',        dhrCat:'Materials', dhrSubCat:'Mechanical', isItemLevel:true, dhrItem:'Painting & Powder Coating',    data: mechPainting,  backgroundColor: 'rgb(236,72,153)',   borderRadius:3, borderSkipped:false },
     { label:'Oxidation',                        dhrCat:'Materials', dhrSubCat:'Mechanical', isItemLevel:true, dhrItem:'Oxidation',                     data: mechOxidation, backgroundColor: 'rgb(251,113,133)',  borderRadius:3, borderSkipped:false },
-    { label:'Machined Parts',                   dhrCat:'Materials', dhrSubCat:'Mechanical', isItemLevel:true, dhrItem:'Machined Parts',               data: mechMachParts, backgroundColor: 'rgb(168,85,247)',   borderRadius:3, borderSkipped:false },
     { label:'Polycarbonate & Plastics',          dhrCat:'Materials', dhrSubCat:'Mechanical', isItemLevel:true, dhrItem:'Polycarbonate & Plastics',      data: mechPoly,      backgroundColor: 'rgb(34,211,238)',   borderRadius:3, borderSkipped:false },
     { label:'BG Operations - Office Supplies & Furniture',dhrCat:'BG Operations',  dhrSubCat:'Rent & Facilities',  data: matOfficeFurn, backgroundColor: 'rgb(100,116,139)', borderRadius:3, borderSkipped:false },
     { label:'BG Operations - Office Maintenance',        dhrCat:'BG Operations',  dhrSubCat:'Rent & Facilities',  data: matOfficeClean,backgroundColor: 'rgb(161,161,170)', borderRadius:3, borderSkipped:false },
@@ -2581,7 +2580,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
                               'Pneumatics','Fasteners & Fixings','Equipment Installation, Advance Payments & Other',
                               'Hydraulics','Drive & Motion Components','Structural & Sheet Metal',
                               'Tools & Workshop Supplies','Springs & Elastic Elements',
-                              'Painting & Powder Coating','Oxidation','Machined Parts','Polycarbonate & Plastics'],
+                              'Painting & Powder Coating','Oxidation','Polycarbonate & Plastics'],
     'IT & Software':         ['Online Platform & Servers','Software & WIFI','Office Hardware'],
     'Consumables':           ['Welding, Laser & Abrasives','3D Farm & Filament','PPE & Work Clothing','Construction Consumables'],
     'Marketing & Branding':  ['Marketing Services','Branding Expenses'],
@@ -2754,7 +2753,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     var cat  = window._catFilter  || 'All';
     var sc   = window._matSubFilter;
     var item = window._itemFilter || null;
-    var newTotals = [0,0,0,0,0];
+    var newTotals = months5.map(function(){ return 0; });
 
     // Remove any previously added dynamic datasets first
     clearDynDatasets();
