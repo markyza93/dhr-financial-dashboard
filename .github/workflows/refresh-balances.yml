@@ -90,6 +90,7 @@ jobs:
             echo "balances.json unchanged — no commit needed"
           else
             git commit -m "chore: refresh balances $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git pull --rebase origin main
             git push
             echo "✓ balances.json committed and pushed"
           fi
