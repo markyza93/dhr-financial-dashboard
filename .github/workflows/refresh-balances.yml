@@ -84,13 +84,14 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Pull latest before staging so we don't conflict with concurrent pushes
+          git pull --rebase origin main
           git add balances.json
           # Only commit if something actually changed
           if git diff --cached --quiet; then
             echo "balances.json unchanged — no commit needed"
           else
             git commit -m "chore: refresh balances $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git pull --rebase origin main
             git push
             echo "✓ balances.json committed and pushed"
           fi
