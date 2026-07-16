@@ -44,16 +44,19 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install requests PyJWT cryptography
+        run: pip install requests PyJWT cryptography plaid-python
 
       # ── 3. Fetch balances ─────────────────────────────────────────────────
       - name: Run fetch_balances.py
         env:
-          MERCURY_API_KEY:       ${{ secrets.MERCURY_API_KEY }}
-          REVOLUT_CLIENT_ID:     ${{ secrets.REVOLUT_CLIENT_ID }}
-          REVOLUT_DOMAIN:        ${{ secrets.REVOLUT_DOMAIN }}
-          REVOLUT_PRIVATE_KEY:   ${{ secrets.REVOLUT_PRIVATE_KEY }}
-          REVOLUT_REFRESH_TOKEN: ${{ secrets.REVOLUT_REFRESH_TOKEN }}
+          MERCURY_API_KEY:            ${{ secrets.MERCURY_API_KEY }}
+          REVOLUT_CLIENT_ID:          ${{ secrets.REVOLUT_CLIENT_ID }}
+          REVOLUT_DOMAIN:             ${{ secrets.REVOLUT_DOMAIN }}
+          REVOLUT_PRIVATE_KEY:        ${{ secrets.REVOLUT_PRIVATE_KEY }}
+          REVOLUT_REFRESH_TOKEN:      ${{ secrets.REVOLUT_REFRESH_TOKEN }}
+          PLAID_CLIENT_ID:            ${{ secrets.PLAID_CLIENT_ID }}
+          PLAID_SECRET:               ${{ secrets.PLAID_SECRET }}
+          PLAID_CHASE_ACCESS_TOKEN:   ${{ secrets.PLAID_CHASE_ACCESS_TOKEN }}
         run: python fetch_balances.py
 
       # ── 4. Rotate refresh token if Revolut issued a new one ───────────────

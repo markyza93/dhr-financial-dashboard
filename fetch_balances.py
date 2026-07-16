@@ -24,6 +24,11 @@ After a successful run:
 import json, os, sys, time, uuid
 from datetime import datetime, timezone
 
+# ── Optional: Plaid (Chase) ────────────────────────────────────────────────────
+PLAID_CLIENT_ID    = os.environ.get("PLAID_CLIENT_ID", "")
+PLAID_SECRET       = os.environ.get("PLAID_SECRET", "")
+PLAID_ACCESS_TOKEN = os.environ.get("PLAID_CHASE_ACCESS_TOKEN", "")
+
 try:
     import requests
     import jwt
@@ -104,6 +109,52 @@ def _refresh_access_token(refresh_token):
     )
     r.raise_for_status()
     return r.json()
+
+
+# ── Chase via Plaid ───────────────────────────────────────────────────────────
+def fetch_chase_plaid():
+    """Fetch JPMorgan Chase balance via Plaid (Production)."""
+    try:
+        import plaid
+        from plaid.api import plaid_api
+        from plaid.api_client import ApiClient
+        from plaid.configuration import Configuration
+        from plaid.model.accounts_balance_get_request import AccountsBalanceGetRequest
+    except ImportError:
+        raise RuntimeError("plaid-python not installed")
+
+    if not all([PLAID_CLIENT_ID, PLAID_SECRET, PLAID_ACCESS_TOKEN]):
+        raise RuntimeError("Missing PLAID_CLIENT_ID / PLAID_SECRET / PLAID_CHASE_ACCESS_TOKEN")
+
+    configuration = Configuration(
+        host=plaid.Environment.Production,
+        api_key={"clientId": PLAID_CLIENT_ID, "secret": PLAID_SECRET},
+    )
+    with ApiClient(configuration) as api_client:
+        client = plaid_api.PlaidApi(api_client)
+        resp = client.accounts_balance_get(
+            AccountsBalanceGetRequest(access_token=PLAID_ACCESS_TOKEN)
+        )
+
+    accounts = []
+    total = 0.0
+    for acct in resp["accounts"]:
+        bal = acct["balances"]["available"]
+        if bal is None:
+            bal = acct["balances"]["current"] or 0
+        accounts.append({
+            "name":      acct["name"],
+            "mask":      acct["mask"],
+            "type":      str(acct["type"]),
+            "subtype":   str(acct["subtype"]),
+            "available": acct["balances"]["available"],
+            "current":   acct["balances"]["current"],
+        })
+        if str(acct["type"]) == "depository":
+            total += bal
+
+    print("[Chase/Plaid] OK — " + str(len(accounts)) + " accounts | total $" + str(round(total)))
+    return {"status": "ok", "total": round(total, 2), "accounts": accounts}
 
 
 # ── Mercury ────────────────────────────────────────────────────────────────────
@@ -233,6 +284,7 @@ def main():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "mercury":   None,
         "revolut":   None,
+        "chase":     None,
         "bulbank":   {"status": "ok", "balance_bgn": BULBANK_STATIC,
                       "balance_usd": round(BULBANK_STATIC * FX_BGN, 2),
                       "note": "Manual — from MT940 statement"},
@@ -258,6 +310,19 @@ def main():
         result["errors"].append(msg)
         result["revolut"] = {"status": "error", "message": msg}
         print("[ERROR] " + msg)
+
+    # Chase via Plaid (optional — only runs if secrets are set)
+    if PLAID_CLIENT_ID and PLAID_SECRET and PLAID_ACCESS_TOKEN:
+        try:
+            result["chase"] = fetch_chase_plaid()
+        except Exception as e:
+            msg = "Chase/Plaid: " + str(e)
+            result["errors"].append(msg)
+            result["chase"] = {"status": "error", "message": msg}
+            print("[ERROR] " + msg)
+    else:
+        print("[Chase/Plaid] Skipped — PLAID_* secrets not set")
+        result["chase"] = {"status": "pending", "message": "Plaid secrets not configured yet"}
 
     # Write balances.json
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "balances.json")
