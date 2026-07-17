@@ -1587,7 +1587,7 @@ const frameMat   = [0,      94247,  115386, 164998, 84347,  210293];  // Revenue
 const total2026    = durin2026.map((d,i) => d + frame2026[i] + hadrian2026[i] + rainmaker2026[i] + unipak2026[i]);
 const months5      = ['Jan','Feb','Mar','Apr','May','Jun'];
 const months12     = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const target       = 791667;  // $9.5M / 12 — monthly base (Revenue sheet row 21)
+const target       = 779467;  // $9.35M / 12 — monthly base (Revenue sheet row 21)
 const monthlyExp   = 191806;  // model baseline (used for projection only)
 
 // ── ACTUAL EXPENSE DATA — Jan–Jun 2026 ──
@@ -1665,7 +1665,7 @@ new Chart(document.getElementById('revTargetChart'), {
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
       },
       {
-        label: 'Monthly Base Target ($792K)',
+        label: 'Monthly Base Target ($779K)',
         data: Array(12).fill(target),
         type: 'line',
         borderColor: 'rgba(251,191,36,0.25)',
@@ -1678,11 +1678,11 @@ new Chart(document.getElementById('revTargetChart'), {
       },
       {
         label: 'Adaptive Target (rolling) — SSOT Revenue Row 23',
-        // Hardcoded from Revenue sheet Row 23 (LibreOffice-computed, Jul–Dec frozen at $958K)
-        // Jan: base $792K | Feb: $834K | Mar: $843K | Apr: $852K | May: $883K | Jun: $934K
-        // Jul–Dec: $958K/mo needed to reach $9.35M annual goal
-        data: [791667, 834109, 843279, 852238, 882645, 934222,
-               957982, 957982, 957982, 957982, 957982, 957982],
+        // Hardcoded from Revenue (17) sheet Row 23 — Jul–Dec projected at $890K
+        // Jan: $779K | Feb: $823K | Mar: $824K | Apr: $833K | May: $842K | Jun: $875K
+        // Jul–Dec: $890K/mo needed to reach $9.35M annual goal
+        data: [779467, 822516, 823723, 832757, 841559, 874785,
+               889803, 889803, 889803, 889803, 889803, 889803],
         type: 'line',
         borderColor: 'rgb(251,191,36)',
         borderWidth: 3,
@@ -1713,6 +1713,11 @@ new Chart(document.getElementById('revTargetChart'), {
             if (!v) return null;
             var idx = c.dataIndex; // 0=Jan…5=Jun
             var dsIdx = c.datasetIndex;
+            // Target lines (ds5 = flat base, ds6 = adaptive) — always show as target
+            if (dsIdx === 5) return ' Monthly Base Target: $' + Math.round(v).toLocaleString();
+            if (dsIdx === 6) return idx < 6
+              ? ' Adaptive Target (SSOT Row 23): $' + Math.round(v).toLocaleString()
+              : ' Adaptive Target (projected): $' + Math.round(v).toLocaleString();
             // Projected months (Jul+) — simple label only
             if (idx >= 6) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
             var lines = [' Actual Total Revenue:  $' + Math.round(v).toLocaleString()];
@@ -3288,11 +3293,7 @@ function applyChaseData(data, tsLabel) {
   if (card) { card.classList.remove('bank-card-pending'); card.classList.add('bank-card'); }
   if (amountEl) { amountEl.textContent = fmt; amountEl.style.color = ''; }
   if (detailEl) {
-    var accts = data.accounts || [];
-    detailEl.innerHTML = accts.map(function(a) {
-      var b = a.available != null ? a.available : a.current;
-      return (a.name || a.subtype) + ': $' + Math.round(b || 0).toLocaleString();
-    }).join('<br>') || 'Checking account · Plaid live';
+    detailEl.innerHTML = 'DHR Inc · Checking · Live via Plaid';
   }
   if (tagEl) { tagEl.textContent = tsLabel || 'Live'; tagEl.className = 'tag tag-green'; }
 
