@@ -1,0 +1,43 @@
+# .github/workflows/deploy-firebase.yml
+#
+# Auto-deploys index.html to Firebase Hosting on every push to main.
+# Requires one GitHub Secret:
+#   FIREBASE_SERVICE_ACCOUNT   — service account JSON (see setup below)
+#
+# Setup (one-time):
+#   1. Go to Firebase Console → Project Settings → Service accounts
+#   2. Click "Generate new private key" → download JSON
+#   3. In your GitHub repo → Settings → Secrets → Actions → New secret
+#      Name: FIREBASE_SERVICE_ACCOUNT
+#      Value: paste the entire JSON content
+
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'   # only deploy when index.html changes
+
+jobs:
+  deploy:
+    name: Deploy index.html → Firebase
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Copy index.html to public/
+        run: |
+          mkdir -p public
+          cp index.html public/index.html
+          echo "✓ Copied index.html to public/"
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: dhr-financial-dashboard
+          channelId: live
