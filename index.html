@@ -303,9 +303,55 @@ tbody tr:hover td { background: #f5f8fc !important; }
 /* Pills */
 .pill-bar button        { background: #eef2f7 !important; color: #4e6680 !important; border: 1px solid #dde3ec !important; }
 .pill-bar button.active { background: #1d6aeb !important; color: #fff  !important; border-color: #1d6aeb !important; }
+
+/* ── Login overlay ── */
+#login-page {
+  position:fixed;inset:0;background:#f1f5f9;
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+}
+#login-card {
+  background:#fff;border-radius:16px;padding:40px 36px;
+  width:360px;box-shadow:0 4px 32px rgba(0,0,0,.10);
+  display:flex;flex-direction:column;align-items:center;gap:0;
+}
+#login-card input {
+  width:100%;box-sizing:border-box;
+  border:1px solid #e2e8f0;border-radius:8px;
+  padding:10px 14px;font-size:14px;outline:none;
+  margin-bottom:10px;font-family:inherit;color:#0f172a;
+}
+#login-card input:focus { border-color:#2563eb; }
+#login-card button {
+  width:100%;background:#2563eb;color:#fff;border:none;
+  border-radius:8px;padding:11px;font-size:14px;
+  font-weight:600;cursor:pointer;font-family:inherit;
+  margin-top:4px;transition:background .15s;
+}
+#login-card button:hover:not(:disabled) { background:#1d4ed8; }
+#login-card button:disabled { opacity:.6;cursor:default; }
+#login-error {
+  display:none;margin-top:10px;color:#dc2626;
+  font-size:13px;text-align:center;width:100%;
+}
 </style>
 </head>
 <body>
+
+<!-- ── Firebase login overlay ── -->
+<div id="login-page">
+  <div id="login-card">
+    <img id="login-logo" width="44" height="44" style="border-radius:8px;margin-bottom:4px;" alt="DHR logo"/>
+    <h2 style="margin:0 0 2px;font-size:20px;font-weight:700;color:#0f172a;">DHR Engineering</h2>
+    <p style="margin:0 0 20px;font-size:13px;color:#64748b;">Financial Dashboard</p>
+    <input type="email"    id="login-email"    placeholder="Email address" autocomplete="email">
+    <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+    <button id="login-btn" onclick="doLogin()">Sign in</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
 <div class="app-shell">
 
   <nav class="sidebar">
@@ -353,6 +399,10 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <span id="refresh-icon">⟳</span> Refresh Live Data
       </button>
       <div style="margin-top:8px;font-size:10px;color:var(--muted2);">Data as of June 2026</div>
+      <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:6px;">
+        <span id="auth-user-pill" style="font-size:10px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;"></span>
+        <button onclick="doLogout()" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.15);color:var(--muted);border-radius:6px;padding:3px 8px;font-size:10px;cursor:pointer;white-space:nowrap;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.15)';this.style.color='var(--muted)'">Sign out</button>
+      </div>
       <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,0.06);padding-top:10px;">
         <div style="font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Source Files</div>
         <div style="display:flex;flex-direction:column;gap:4px;">
@@ -428,7 +478,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
         </div>
         <div id="chase-overview-pill" style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
           <span style="color:var(--muted2);white-space:nowrap;flex-shrink:0;">🇺🇸 <strong>JPMorgan Chase</strong></span>
-          <span id="kpi-chase-row" style="color:var(--muted2);font-weight:600;font-style:italic;text-align:right;">connecting…</span>
+          <span id="kpi-chase-row" style="color:var(--muted2);font-weight:600;font-style:italic;text-align:right;">N/A · Plaid off</span>
         </div>
       </div>
       <!-- Hidden meta kept for JS compatibility -->
@@ -792,6 +842,40 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <h2>Cash &amp; Bank Balances</h2>
     <div class="rule"></div>
   </div>
+  <!-- CASH SUMMARY — at top so it's the first thing visible -->
+  <div class="cash-summary" style="margin-bottom:14px;">
+    <div class="cs-main">
+      <div class="cs-label">Total Consolidated Cash</div>
+      <div id="cs-total-value" class="cs-value">$265K USD</div>
+      <div id="cs-total-sub" class="cs-sub">Mercury $1K · Revolut USD $209K · Bulbank $55K · Jun 30 — Chase excluded (Plaid disconnected)</div>
+    </div>
+    <div class="cs-breakdown">
+      <div class="cs-item">
+        <div class="cs-item-label">Mercury (US)</div>
+        <div id="cs-mercury-val" class="cs-item-val" style="color:var(--blue);">$1K</div>
+        <div id="cs-mercury-pct" class="cs-item-note">— of total</div>
+      </div>
+      <div class="divider"></div>
+      <div class="cs-item">
+        <div class="cs-item-label">Revolut (BG)</div>
+        <div id="cs-revolut-val" class="cs-item-val" style="color:var(--purple);">$209K</div>
+        <div id="cs-revolut-note" class="cs-item-note">— USD + EUR</div>
+      </div>
+      <div class="divider"></div>
+      <div class="cs-item">
+        <div class="cs-item-label">Bulbank (BG)</div>
+        <div class="cs-item-val" style="color:var(--red);">$55K</div>
+        <div class="cs-item-note">Jun 30 closing</div>
+      </div>
+      <div class="divider"></div>
+      <div class="cs-item">
+        <div class="cs-item-label">JPMorgan Chase (US)</div>
+        <div id="cs-chase-val" class="cs-item-val" style="color:var(--muted2);">N/A</div>
+        <div id="cs-chase-note" class="cs-item-note">Plaid disconnected</div>
+      </div>
+    </div>
+  </div>
+
   <div class="bank-grid">
 
     <div class="bank-card">
@@ -871,50 +955,22 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <div class="bank-sub">DHR Inc · US Entity · Checking</div>
         </div>
       </div>
-      <div id="chase-balance" class="bank-amount" style="color:#0d6ec7;font-size:22px;letter-spacing:0;">—</div>
-      <div id="chase-detail" class="bank-detail" style="margin-bottom:12px;">Loading…</div>
+      <div id="chase-balance" class="bank-amount" style="color:var(--muted2);font-size:22px;letter-spacing:0;">—</div>
+      <div id="chase-detail" class="bank-detail" style="margin-bottom:12px;">Plaid connection expired — balance unavailable. Reconnect Plaid to restore live data, or provide Jun 30 closing balance to update manually.</div>
       <div class="bank-tags">
-        <span id="chase-status-tag" class="tag" style="background:rgba(0,106,201,0.1);color:#0d6ec7;border:1px solid rgba(0,106,201,0.25);">⏳ Connecting via Plaid</span>
+        <span id="chase-status-tag" class="tag tag-amber">⚠ Plaid disconnected</span>
         <span class="tag tag-blue">USD</span>
       </div>
     </div>
 
   </div>
 
-  <!-- CASH SUMMARY -->
-  <div class="cash-summary">
-    <div class="cs-main">
-      <div class="cs-label">Total Consolidated Cash</div>
-      <div id="cs-total-value" class="cs-value">$382,526 USD</div>
-      <div id="cs-total-sub" class="cs-sub">Mercury $82K · Revolut USD $95K + EUR $4K + BGN $0 · Bulbank $201K (Stmt N5 · Jun 1, 2026)</div>
-    </div>
-    <div class="cs-breakdown">
-      <div class="cs-item">
-        <div class="cs-item-label">Mercury (US)</div>
-        <div id="cs-mercury-val" class="cs-item-val" style="color:var(--blue);">$82K</div>
-        <div id="cs-mercury-pct" class="cs-item-note">25% of total</div>
-      </div>
-      <div class="divider"></div>
-      <div class="cs-item">
-        <div class="cs-item-label">Revolut (BG)</div>
-        <div id="cs-revolut-val" class="cs-item-val" style="color:var(--purple);">$99K</div>
-        <div id="cs-revolut-note" class="cs-item-note">27% — USD $95K + EUR €3K + BGN $0</div>
-      </div>
-      <div class="divider"></div>
-      <div class="cs-item">
-        <div class="cs-item-label">Bulbank (BG)</div>
-        <div class="cs-item-val" style="color:var(--red);">$201K</div>
-        <div class="cs-item-note">53% · €172K · Stmt N5 (Jun 1)</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BANK BALANCE TREND (moved here, replaces Mercury April waterfall) -->
+  <!-- BANK BALANCE TREND -->
   <div class="card" style="margin-top:14px;">
     <div class="card-head">
       <div>
         <h3>Bank Account Balances — Month-End Trend</h3>
-        <p>Jan–Jun 2026 · Dec 2025 = opening position · All converted to USD · Revolut = USD + EUR accounts · Bulbank converted from BGN at monthly FX · Bulbank May close per Statement N5 (issued June 1, 2026)</p>
+        <p>Dec 2025 opening through Jun 30 2026 close · All in USD · Revolut = USD + EUR · Bulbank BGN→USD at monthly FX · Source: Profitability (9) for Jun 30 closing balances · JPMorgan Chase excluded (Plaid disconnected)</p>
       </div>
       <div class="legend">
         <div class="leg"><div class="ln" style="background:#38bdf8"></div>Mercury</div>
@@ -2230,7 +2286,9 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var matVATRefund   = [-35535,-20650,-34070,-27285,-170483,0];  // Materials - VAT Refund (negative) — SSOT (22) // Materials - BG VAT Refund — Source: Expenses (19) row 75
   // matGrossForChart = EOOD materials gross + dhrIncMat — always positive, used in All-tab category bar
   // dhrIncMat (DHR Inc Materials) reclassified under Materials per Expenses (44) taxonomy (Entity: DHR Inc, Category: Materials)
-  var matGrossForChart = [196612, 212080, 243764, 176365, 150955, 135611];  // Materials gross spend (EOOD + DHR Inc) before VAT credit
+  // matGrossForChart is DERIVED — never hardcode. Always = eoodExp_gross + dhrIncMat
+  // where eoodExp_gross = eoodExp - matVATRefund (matVATRefund is stored negative, so subtracting it adds it back)
+  var matGrossForChart = eoodExp.map(function(v,i){ return v - matVATRefund[i] + dhrIncMat[i]; });
 
   // ── Electrical sub-items (rows 37–45, USD, Source: Expenses - DHR Global (9).xlsx) ──
   var elecCables    = [30714, 13449,  7405, 72904, 10495,  1430]; // Cables & Cable Management
@@ -3396,6 +3454,23 @@ function applyRevolutData(data, dataTs) {
   return { total: total, usd: Math.round(usdBal), eur: Math.round(eurBal), bgn: Math.round(bgnBal) };
 }
 
+function showChaseDisconnected() {
+  var card     = document.getElementById('chase-bank-card');
+  var amountEl = document.getElementById('chase-balance');
+  var detailEl = document.getElementById('chase-detail');
+  var tagEl    = document.getElementById('chase-status-tag');
+  var chRow    = document.getElementById('kpi-chase-row');
+  var csVal    = document.getElementById('cs-chase-val');
+  var csNote   = document.getElementById('cs-chase-note');
+  if (card) { card.classList.remove('bank-card-pending'); card.classList.add('bank-card'); }
+  if (amountEl) { amountEl.textContent = '—'; amountEl.style.color = 'var(--muted2)'; }
+  if (detailEl) { detailEl.textContent = 'Plaid connection expired — reconnect to restore live balance, or share Jun 30 closing balance to update manually.'; }
+  if (tagEl) { tagEl.textContent = '⚠ Plaid disconnected'; tagEl.className = 'tag tag-amber'; }
+  if (chRow) { chRow.textContent = 'N/A · Plaid off'; chRow.style.color = 'var(--muted2)'; chRow.style.fontStyle = 'normal'; }
+  if (csVal) { csVal.textContent = 'N/A'; csVal.style.color = 'var(--muted2)'; }
+  if (csNote) { csNote.textContent = 'Plaid disconnected'; }
+}
+
 function applyChaseData(data, tsLabel) {
   var card      = document.getElementById('chase-bank-card');
   var amountEl  = document.getElementById('chase-balance');
@@ -3482,12 +3557,20 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   var csRevNote = document.getElementById('cs-revolut-note');
 
   if (csTotVal) csTotVal.textContent = '$' + grand.toLocaleString() + ' USD';
-  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K · ' + (mercBal != null || revData != null ? 'Live' : 'Apr 30');
+  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + ' · Chase excluded (Plaid disconnected)';
+  // Chase cs-item — always show as N/A until Plaid reconnects
+  var csChaseVal  = document.getElementById('cs-chase-val');
+  var csChaseNote = document.getElementById('cs-chase-note');
+  if (csChaseVal) { csChaseVal.textContent = 'N/A'; csChaseVal.style.color = 'var(--muted2)'; }
+  if (csChaseNote) { csChaseNote.textContent = 'Plaid disconnected'; }
   if (csMercVal) csMercVal.textContent = '$' + Math.round(mBal/1000) + 'K';
   if (csMercPct) csMercPct.textContent = Math.round(mBal/grand*100) + '% of total';
   if (csRevVal)  csRevVal.textContent  = '$' + Math.round(rTot/1000) + 'K';
   if (csRevNote) csRevNote.textContent = Math.round(rTot/grand*100) + '% — USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K';
 }
+
+// Immediately mark Chase as disconnected — don't wait for balances.json fetch
+showChaseDisconnected();
 
 function fetchLiveData() {
   setLiveStatus('loading', 'Loading...');
@@ -3509,6 +3592,7 @@ function fetchLiveData() {
       var mercBal   = applyMercuryData(data.mercury, tsLabel);
       var revData   = applyRevolutData(data.revolut, tsLabel);
       var chaseBal  = applyChaseData(data.chase, tsLabel);
+      if (chaseBal === null) showChaseDisconnected();
       updateCashTile(mercBal, revData, chaseBal, tsLabel);
 
       var errors = data.errors || [];
@@ -3547,7 +3631,7 @@ function fetchLiveData() {
 (function() {
   // Dec 2025 opening = Jan opening balances; then Jan–Apr closing
   // All values USD (Revolut = USD+EUR combined; Bulbank BGN→USD at monthly FX)
-  var labels = ['Dec 2025\n(open)', 'Jan', 'Feb', 'Mar', 'Apr', 'May\n(Stmt N5)'];
+  var labels = ['Dec 2025\n(open)', 'Jan', 'Feb', 'Mar', 'Apr', 'Jun 30'];
 
   // Opening of Jan = "Dec close"; then each month's close
   // mercO=[50649,83691,127546,70093]  mercC=[83691,127546,70093,110984]
@@ -3787,5 +3871,71 @@ window.addEventListener('load', fetchLiveData);
   } else { initNav(); }
 })();
 </script>
+
+<!-- ── Firebase Auth ── -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script>
+(function() {
+  var firebaseConfig = {
+    apiKey:            "AIzaSyA_Dm7nMCr-NcfBJQa2z0QYAj5W8GVBilg",
+    authDomain:        "dhr-financial-dashboard.firebaseapp.com",
+    projectId:         "dhr-financial-dashboard",
+    storageBucket:     "dhr-financial-dashboard.firebasestorage.app",
+    messagingSenderId: "818746562546",
+    appId:             "1:818746562546:web:d331591923d3ae41dfbd6b"
+  };
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+
+  auth.onAuthStateChanged(function(user) {
+    var loginPage = document.getElementById('login-page');
+    var app       = document.getElementById('app');
+    if (user) {
+      loginPage.style.display = 'none';
+      app.style.display = 'block';
+      // populate user pill
+      var pill = document.getElementById('auth-user-pill');
+      if (pill) pill.textContent = user.email;
+    } else {
+      loginPage.style.display = 'flex';
+      app.style.display = 'none';
+    }
+  });
+
+  window.doLogin = function() {
+    var email  = document.getElementById('login-email').value.trim();
+    var pass   = document.getElementById('login-password').value;
+    var errEl  = document.getElementById('login-error');
+    var btn    = document.getElementById('login-btn');
+    errEl.style.display = 'none';
+    if (!email || !pass) { errEl.textContent = 'Enter your email and password.'; errEl.style.display = 'block'; return; }
+    btn.disabled = true; btn.textContent = 'Signing in…';
+    auth.signInWithEmailAndPassword(email, pass).catch(function(e) {
+      errEl.textContent = (e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found')
+        ? 'Incorrect email or password.' : e.message;
+      errEl.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Sign in';
+    });
+  };
+
+  window.doLogout = function() { auth.signOut(); };
+
+  // Copy sidebar logo to login card
+  (function copyLogo() {
+    var sidebarImg = document.querySelector('.sidebar-brand img');
+    var loginImg   = document.getElementById('login-logo');
+    if (sidebarImg && loginImg) loginImg.src = sidebarImg.src;
+  })();
+
+  // Allow Enter key to submit
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && document.getElementById('login-page').style.display !== 'none') {
+      window.doLogin();
+    }
+  });
+})();
+</script>
+</div><!-- /#app -->
 </body>
 </html>
