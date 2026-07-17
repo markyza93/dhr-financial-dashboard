@@ -463,6 +463,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <div class="kpi-label">Total Cash — All Banks</div>
       <div class="kpi-value" id="kpi-cash-total">$265K</div>
       <div style="margin-top:2px;font-size:10px;color:var(--muted);" id="kpi-cash-asof">Mercury &amp; Revolut as of 17 Jul 2026 · Bulbank Jun 30</div>
+      <div id="kpi-cash-buffer" style="margin-top:4px;font-size:10px;font-weight:600;"></div>
       <!-- Bank rows — one per institution -->
       <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:5px;font-size:11px;">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
@@ -3552,6 +3553,19 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   if (kpiTotal) kpiTotal.textContent = '$' + Math.round(grand / 1000) + 'K';
   var kpiTopbar = document.getElementById('kpi-cash-topbar');
   if (kpiTopbar) kpiTopbar.textContent = '$' + Math.round(grand / 1000) + 'K';
+
+  // ── Cash buffer alert ──────────────────────────────────────────────────────
+  var CASH_BUFFER = 225000;
+  var bufferDiff  = grand - CASH_BUFFER;
+  var bufferEl    = document.getElementById('kpi-cash-buffer');
+  if (bufferEl) {
+    var aboveBuffer = bufferDiff >= 0;
+    bufferEl.textContent = (aboveBuffer ? '▲ $' : '▼ $') + Math.abs(Math.round(bufferDiff / 1000)) + 'K ' + (aboveBuffer ? 'above' : 'below') + ' $225K buffer';
+    bufferEl.style.color = aboveBuffer ? 'var(--green)' : '#f97316';
+  }
+  if (kpiTotal) kpiTotal.style.color = bufferDiff >= 0 ? 'var(--green)' : '#f97316';
+  if (kpiTopbar) kpiTopbar.style.color = bufferDiff >= 0 ? 'var(--green)' : '#f97316';
+  // ──────────────────────────────────────────────────────────────────────────
 
   var rUSDK = Math.round(rUSD / 1000);
   var rEURK = Math.round(rEUR / 1000);  // raw EUR thousands
