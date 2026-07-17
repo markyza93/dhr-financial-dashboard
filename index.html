@@ -411,16 +411,29 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="kpi k4">
       <div class="kpi-label">Total Cash — All Banks</div>
       <div class="kpi-value" id="kpi-cash-total">$265K</div>
-      <div class="kpi-meta" id="kpi-cash-breakdown">Mercury $1K · Revolut USD $208K + EUR $1K · Bulbank $55K (Jun 30)</div>
-      <div style="margin-top:3px;font-size:10.5px;color:var(--muted);" id="kpi-cash-asof">Bulbank Jun 30 · Mercury &amp; Revolut live</div>
-      <div style="margin-top:7px;font-size:11px;border-top:1px solid var(--border);padding-top:6px;display:flex;justify-content:space-between;align-items:center;">
-        <span style="color:var(--muted);" id="kpi-cash-source">loading…</span>
-        <span style="color:var(--muted2);">Jun 30 &nbsp;<strong style="color:var(--text);">$265K</strong></span>
+      <div style="margin-top:2px;font-size:10px;color:var(--muted);" id="kpi-cash-asof">Mercury &amp; Revolut as of 17 Jul 2026 · Bulbank Jun 30</div>
+      <!-- Bank rows — one per institution -->
+      <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:5px;font-size:11px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted2);">🇺🇸 <strong>Mercury</strong></span>
+          <span id="kpi-merc-row" style="color:var(--green);font-weight:600;">$57K live</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted2);">💜 <strong>Revolut</strong></span>
+          <span id="kpi-rev-row" style="color:#a78bfa;font-weight:600;">$4K + €37K + BGN $0K live</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted2);">🏛 <strong>Bulbank</strong></span>
+          <span id="kpi-bulb-row" style="color:var(--muted2);font-weight:600;">$55K (Jun 30)</span>
+        </div>
+        <div id="chase-overview-pill" style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-top:1px dashed rgba(0,106,201,0.2);margin-top:2px;padding-top:5px;">
+          <span style="color:#0d6ec7;">🏦 <strong>JPMorgan Chase</strong></span>
+          <span id="kpi-chase-row" style="color:#0d6ec7;font-weight:600;font-style:italic;">connecting…</span>
+        </div>
       </div>
-      <div id="chase-overview-pill" style="margin-top:6px;padding:5px 8px;background:rgba(0,106,201,0.07);border:1px dashed rgba(0,106,201,0.25);border-radius:6px;font-size:10.5px;color:#0d6ec7;display:flex;align-items:center;gap:6px;">
-        <span style="font-size:13px;">🏦</span>
-        <span><strong>JPMorgan Chase</strong> — connecting via Plaid &nbsp;<span style="opacity:.6;">· loading…</span></span>
-      </div>
+      <!-- Hidden meta kept for JS compatibility -->
+      <div id="kpi-cash-breakdown" style="display:none;"></div>
+      <div id="kpi-cash-source" style="display:none;"></div>
     </div>
 
     <div class="kpi k5">
@@ -449,17 +462,21 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <div class="main">
           <div class="sec"><h2>Revenue Analysis</h2><div class="rule"></div></div>
   <div style="margin-bottom:12px;padding:8px 14px;background:rgba(56,189,248,0.06);border-left:3px solid rgba(56,189,248,0.4);border-radius:0 6px 6px 0;font-size:11.5px;color:var(--muted2);line-height:1.6;">
-    <strong style="color:var(--fg);">Recognition basis — service date (Durin &amp; Framework) · settlement date (Hadrian).</strong> Durin and Framework revenue is recorded in the month engineering work was performed (service-date recognition), enabling accurate cash-flow reconciliation. Hadrian is recognized on the Revolut settlement date, as months were paid as lump sums without discrete invoices. Source: Revenue (8).xlsx.
+    <strong style="color:var(--fg);">Recognition basis — service date (all clients).</strong> Revenue is recorded in the month the engineering work or service was performed. Durin &amp; Framework: by engineering sprint month. Hadrian: by invoice date per Revenue (13).xlsx (discrete invoices from Jan 2026 onward). Rainmaker &amp; Унипак АД: by service month.
   </div>
 
   <div class="card" style="margin-bottom:14px;">
     <div class="card-head">
       <div>
         <h3>Total Monthly Revenue vs Target — All Clients</h3>
-        <p>Jan–Jun 2026 actuals · Jul–Dec projected (services only) · Adaptive target from Revenue sheet row 23 · <strong>$958K/mo needed Jul–Dec</strong></p>
+        <p>Jan–Jun 2026 actuals · Jul–Dec projected (services only) · Adaptive target from Revenue sheet row 23 · <strong>$890K/mo needed Jul–Dec</strong></p>
         <div style="display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:5px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:6px;font-size:11px;color:rgb(251,191,36);">
           <span>🎯</span>
           <span><strong>2026 Annual Target:</strong> BGN 16,000,000 &nbsp;·&nbsp; USD $9,353,600</span>
+        </div>
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:5px 10px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.18);border-radius:6px;font-size:11px;color:rgba(251,191,36,0.75);margin-left:6px;">
+          <span>📅</span>
+          <span><strong>2026 Monthly Target:</strong> BGN 1,333,333 &nbsp;·&nbsp; USD $779,467</span>
         </div>
       </div>
       <div class="legend">
@@ -537,6 +554,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div id="itemPillRow" style="display:none;gap:5px;flex-wrap:wrap;margin-bottom:8px;margin-left:4px;align-items:center;padding:2px 0;border-left:2px solid rgba(96,165,250,0.25);padding-left:10px;">
       <span style="font-size:10px;color:var(--muted2);margin-right:2px;flex-shrink:0;">Item:</span>
     </div>
+        <!-- Currency toggle -->
+        <div style="display:flex;justify-content:flex-end;margin-bottom:4px;">
+          <div style="display:inline-flex;border:1px solid var(--border);border-radius:5px;overflow:hidden;font-size:10.5px;">
+            <button id="currBtn-USD" onclick="window.expSetCurrency('USD')" style="padding:3px 10px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-weight:600;">USD</button>
+            <button id="currBtn-EUR" onclick="window.expSetCurrency('EUR')" style="padding:3px 10px;background:transparent;color:var(--muted2);border:none;cursor:pointer;">EUR</button>
+          </div>
+        </div>
         <div class="wrap" style="height:220px;"><canvas id="expGranularChart"></canvas></div>
         <div id="expGranLegend" style="display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;padding:0 4px;"></div>
     <!-- YTD Expense Totals Strip -->
@@ -723,16 +747,11 @@ tbody tr:hover td { background: #f5f8fc !important; }
           </div>
 
           <!-- KPI tiles — SCF summary -->
-          <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px;">
+          <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px;">
             <div class="kpi k1">
               <div class="kpi-label">Starting Balance (Jan 1)</div>
               <div class="kpi-value">$951K</div>
               <div class="kpi-meta">Combined opening cash across Mercury, Revolut &amp; Bulbank</div>
-            </div>
-            <div class="kpi k3">
-              <div class="kpi-label">Net Operating Cash Flow</div>
-              <div class="kpi-value">+$379K</div>
-              <div class="kpi-meta">Cash receipts from customers minus operating payments YTD</div>
             </div>
             <div class="kpi k2">
               <div class="kpi-label">Net Cash Change</div>
@@ -1677,7 +1696,7 @@ new Chart(document.getElementById('revTargetChart'), {
         tension: 0,
       },
       {
-        label: 'Adaptive Target (rolling) — SSOT Revenue Row 23',
+        label: 'Adaptive Target (rolling)',
         // Hardcoded from Revenue (17) sheet Row 23 — Jul–Dec projected at $890K
         // Jan: $779K | Feb: $823K | Mar: $824K | Apr: $833K | May: $842K | Jun: $875K
         // Jul–Dec: $890K/mo needed to reach $9.35M annual goal
@@ -1714,9 +1733,9 @@ new Chart(document.getElementById('revTargetChart'), {
             var idx = c.dataIndex; // 0=Jan…5=Jun
             var dsIdx = c.datasetIndex;
             // Target lines (ds5 = flat base, ds6 = adaptive) — always show as target
-            if (dsIdx === 5) return ' Monthly Base Target: $' + Math.round(v).toLocaleString();
+            if (dsIdx === 5) return ' Base Target: $' + Math.round(v).toLocaleString();
             if (dsIdx === 6) return idx < 6
-              ? ' Adaptive Target (SSOT Row 23): $' + Math.round(v).toLocaleString()
+              ? ' Adaptive Target: $' + Math.round(v).toLocaleString()
               : ' Adaptive Target (projected): $' + Math.round(v).toLocaleString();
             // Projected months (Jul+) — simple label only
             if (idx >= 6) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
@@ -2200,7 +2219,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var bgImport       = [236,341,2369,0,268,10065];  // BG Ops - Import — SSOT (22) // BG Operations - Import Expense — Source: Expenses (19) row 25
   var bgInsurance    = [1851,0,0,0,2768,0];  // BG Ops - Insurance — Source: Expenses (37) row 31
   var bgBusDev       = [0,0,0,3930,0,0];  // BG Ops - Business Dev — SSOT (22) // BG Operations - Business Development — Source: Expenses (19) row 44
-  var bgLand         = [49321,0,185088,0,0,0];  // BG Ops - Land Purchase (CapEx) — Source: Expenses (27) row R44
+  var bgLand         = [49321,0,467174,0,0,0];  // BG Ops - Land Purchase (CapEx) — ssotData: 8 transactions (Jan ×2, Mar ×6); Mar sum from ssotData
   var usPay          = [0,0,0,200,5166,0];  // US Ops - Payroll — SSOT (22) // US Operations - Payroll & Benefits — Source: Expenses (19)
   var matWorkCloth   = [180,687,210,76,1166,21];  // Consumables: PPE — SSOT (22) // Materials - Consumables: PPE & Work Clothing (row 60)
   var matConstCons  = [ 68,  0,  0,  0,  262, 85];  // Consumables: Construction — SSOT (22)
@@ -2333,7 +2352,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     var neg = v < 0, av = Math.abs(v);
     if (av < 1000)  return (neg ? '−' : '') + '$' + Math.round(av);
     if (av < 10000) return (neg ? '−' : '') + '$' + (av/1000).toFixed(1) + 'K' + (neg ? ' net' : '');
-    return (neg ? '−' : '') + '$' + Math.round(av/1000) + 'K' + (neg ? ' net' : '');
+    return (neg ? '−' : '') + '$' + Math.round(av/1000).toLocaleString() + 'K' + (neg ? ' net' : '');
   }
 
 
@@ -2455,6 +2474,54 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   // Subcategory datasets are pre-hidden before chart creation (see above), so initial render is correct.
   // Render the legend for the initial All (category-level) state.
   renderExpLegend();
+
+  // ── Currency toggle (USD / EUR) ──
+  // ssotFX rates Jan–Jun used to convert USD amounts back to EUR approximation
+  window._expCurrency = 'USD';
+  window._expCurrencyFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
+
+  // Store USD baseline on each dataset so we can convert on demand
+  window._expGranChart.data.datasets.forEach(function(ds) {
+    ds._usdData = ds.data.slice();
+  });
+
+  window.expSetCurrency = function(cur) {
+    window._expCurrency = cur;
+    // Update toggle button styles
+    var btnUSD = document.getElementById('currBtn-USD');
+    var btnEUR = document.getElementById('currBtn-EUR');
+    if (btnUSD) { btnUSD.style.background = cur === 'USD' ? 'var(--blue)' : 'transparent'; btnUSD.style.color = cur === 'USD' ? '#fff' : 'var(--muted2)'; btnUSD.style.fontWeight = cur === 'USD' ? '600' : 'normal'; }
+    if (btnEUR) { btnEUR.style.background = cur === 'EUR' ? 'var(--blue)' : 'transparent'; btnEUR.style.color = cur === 'EUR' ? '#fff' : 'var(--muted2)'; btnEUR.style.fontWeight = cur === 'EUR' ? '600' : 'normal'; }
+    // Convert all static datasets
+    var fx = window._expCurrencyFX;
+    window._expGranChart.data.datasets.forEach(function(ds) {
+      if (!ds._usdData) ds._usdData = ds.data.slice();
+      ds.data = ds._usdData.map(function(v, i) {
+        if (v == null) return null;
+        return cur === 'EUR' ? Math.round(v / (fx[i] || 1)) : v;
+      });
+    });
+    // Recompute totals and update chart
+    _updateGranChart();
+    // Update YTD strip currency label
+    _refreshYtdStrip();
+  };
+
+  function _refreshYtdStrip() {
+    var cur = window._expCurrency || 'USD';
+    var fx  = window._expCurrencyFX;
+    var sym = cur === 'EUR' ? '€' : '$';
+    var conv = function(arr, mIdx) { return arr.map(function(v,i){ return cur === 'EUR' ? Math.round(v/(fx[i]||1)) : v; }); };
+    var eoodC = conv(eoodExp); var bgC = conv(bgOps); var usC = conv(usExp); var dhrC = conv(dhrExp);
+    var sum = function(a){ return a.reduce(function(s,v){return s+(v||0);},0); };
+    function fmtK(v) { return sym + Math.round(Math.abs(v)/1000).toLocaleString() + 'K'; }
+    var el;
+    el = document.getElementById('ytdTotal');  if(el) el.textContent = sym + (Math.round((sum(eoodC)+sum(bgC)+sum(usC)+sum(dhrC))/1000)).toLocaleString() + 'K';
+    el = document.getElementById('ytdBGOps'); if(el) el.textContent = 'BG Ops ' + fmtK(sum(bgC));
+    el = document.getElementById('ytdMat');   if(el) el.textContent = 'Materials ' + fmtK(sum(eoodC));
+    el = document.getElementById('ytd3DHR');  if(el) el.textContent = '3DHR ' + fmtK(sum(dhrC));
+    el = document.getElementById('ytdUSops'); if(el) el.textContent = 'US Ops ' + fmtK(sum(usC));
+  }
 
   // Category tab handler — filters both chart and transaction list
   window._catFilter = 'All';
@@ -2633,13 +2700,13 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   // Aggregate monthly USD totals from ssotData for a given cat/sc/item combination
   function getDynItemTotals(cat, sc, item) {
     var s = window._ssot;
-    if (!s) return [0,0,0,0,0];
+    if (!s) return [0,0,0,0,0,0];
     var scIdx   = s.subcats.indexOf(sc);
     var itemIdx = item ? s.items.indexOf(item) : -2;
-    var totals  = [0,0,0,0,0];
+    var totals  = [0,0,0,0,0,0];
     s.data.forEach(function(r) {
       var m=r[0], eIdx=r[1], catIdx=r[2], rSc=r[3], rItem=r[4], eur=r[6];
-      if (m > 5) return;
+      if (m > 6) return;
       if (cat === 'Materials'     && (catIdx !== 0 || eIdx === 0)) return;  // exclude 3DHR (eIdx=0)
       if (cat === 'BG Operations' && (catIdx !== 1 || eIdx !== 1)) return;  // DHR EOOD=1
       if (cat === 'US Operations' && (catIdx !== 2 || eIdx !== 2)) return;
@@ -2712,6 +2779,10 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
       var colorIdx = 0;
       itemsToAdd.forEach(function(it) {
         var data = getDynItemTotals(cat, sc, it);
+        if (window._expCurrency === 'EUR') {
+          var _fx = window._expCurrencyFX || [1.1743,1.1823,1.1568,1.1696,1.1684,1.1507];
+          data = data.map(function(v,i){ return Math.round((v||0)/(_fx[i]||1)); });
+        }
         var ds = {
           label: it, dhrCat: cat, dhrSubCat: sc, isItemLevel: true, dhrItem: it,
           data: data, backgroundColor: dynColors[colorIdx++ % dynColors.length],
@@ -3297,12 +3368,17 @@ function applyChaseData(data, tsLabel) {
   }
   if (tagEl) { tagEl.textContent = tsLabel || 'Live'; tagEl.className = 'tag tag-green'; }
 
-  // Update Overview pill
+  // Update Chase bank row in the cash KPI tile
+  var chaseRow = document.getElementById('kpi-chase-row');
+  if (chaseRow) {
+    chaseRow.textContent = '$' + Math.round(total/1000) + 'K live';
+    chaseRow.style.color = 'var(--green)';
+    chaseRow.style.fontStyle = 'normal';
+  }
+  // Update the chase-overview-pill header text (now just the row container)
   if (ovEl) {
-    ovEl.innerHTML = '<span style="font-size:13px;">🏦</span><span><strong>JPMorgan Chase</strong> — <span style="color:var(--green)">' + fmt + ' live</span></span>';
-    ovEl.style.background = 'rgba(52,211,153,0.07)';
-    ovEl.style.borderColor = 'rgba(52,211,153,0.3)';
-    ovEl.style.color = 'rgb(52,211,153)';
+    var hdr = ovEl.querySelector('span:first-child');
+    if (hdr) { hdr.style.color = 'var(--green)'; }
   }
 
   return total;
@@ -3326,17 +3402,26 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   if (kpiTopbar) kpiTopbar.textContent = '$' + Math.round(grand / 1000) + 'K';
 
   var rUSDK = Math.round(rUSD / 1000);
-  var rEURK = Math.round(rEUR * 1.1696 / 1000);
-  var rBGNK = Math.round(rBGN * 0.5979 / 1000);
-  var rBreak = 'USD $' + rUSDK + 'K + EUR $' + rEURK + 'K + BGN $' + rBGNK + 'K';
-  var mTag = mercBal != null ? '<span style="color:var(--green)">Mercury $' + Math.round(mBal/1000) + 'K live</span>' : 'Mercury $' + Math.round(mBal/1000) + 'K (Apr 30)';
-  var rTag = revData != null ? '<span style="color:var(--purple)">Revolut ' + rBreak + ' live</span>' : 'Revolut ' + rBreak + ' (Apr 30)';
-  if (kpiBreak) kpiBreak.innerHTML = mTag + ' · ' + rTag + ' · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K (Jun 30)';
+  var rEURK = Math.round(rEUR / 1000);  // raw EUR thousands
+  var rBGNK = Math.round(rBGN / 1000);  // raw BGN thousands
 
+  // Update individual bank rows
   var ts = tsLabel || new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-  if (kpiSrc) kpiSrc.textContent = (mercBal != null || revData != null ? 'as of ' : 'fallback · ') + ts;
   var kpiAsOf = document.getElementById('kpi-cash-asof');
   if (kpiAsOf && (mercBal != null || revData != null)) kpiAsOf.textContent = 'Mercury & Revolut as of ' + ts + ' · Bulbank Jun 30';
+
+  var mercRow = document.getElementById('kpi-merc-row');
+  if (mercRow) {
+    mercRow.style.color = mercBal != null ? 'var(--green)' : 'var(--muted2)';
+    mercRow.textContent = '$' + Math.round(mBal/1000) + 'K' + (mercBal != null ? ' live' : ' (Jun 16)');
+  }
+  var revRow = document.getElementById('kpi-rev-row');
+  if (revRow) {
+    revRow.style.color = revData != null ? '#a78bfa' : 'var(--muted2)';
+    revRow.textContent = '$' + rUSDK + 'K USD + €' + rEURK + 'K + BGN ' + rBGNK + 'K' + (revData != null ? ' live' : ' (Jun 16)');
+  }
+  var bulbRow = document.getElementById('kpi-bulb-row');
+  if (bulbRow) bulbRow.textContent = '$' + Math.round(BULBANK_STATIC/1000) + 'K (Jun 30)';
 
   // Total Consolidated Cash summary bar
   var csTotVal  = document.getElementById('cs-total-value');
@@ -3391,11 +3476,12 @@ function fetchLiveData() {
 
 
 // ── Populate YTD totals strip ──
+// NOTE: These use the same source arrays as the chart — update automatically when monthly data updates.
 (function() {
-  var eoodYTD = [141744,189779,203234,149080,-82179].reduce(function(a,b){return a+b;},0);
-  var bgYTD   = [70405,156845,176496,198861,221373].reduce(function(a,b){return a+b;},0);
-  var usYTD   = [7885,50,0,110252,40466].reduce(function(a,b){return a+b;},0);
-  var dhr3YTD = dhrExp.reduce(function(a,b){return a+b;},0);
+  var eoodYTD = eoodExp.reduce(function(a,b){return a+b;},0);  // Materials net VAT
+  var bgYTD   = bgOps.reduce(function(a,b){return a+b;},0);    // BG Operations incl. Land CapEx
+  var usYTD   = usExp.reduce(function(a,b){return a+b;},0);    // US Operations
+  var dhr3YTD = dhrExp.reduce(function(a,b){return a+b;},0);   // 3DHR
   var total   = eoodYTD + bgYTD + usYTD + dhr3YTD;
   function fmtK(v) { return '$' + Math.round(Math.abs(v)/1000) + 'K'; }
   var el;
@@ -3537,8 +3623,34 @@ function fetchLiveData() {
   var wfChanges  = [950878, 379142, -516494, -575473, -712826, 26702, 265436];
   var wfAnchors  = [0, 6];  // bars that are anchor (full balance bars, not bridges)
 
+  // Inline plugin: draw value labels above each waterfall bar
+  var wfBarLabelPlugin = {
+    id: 'wfBarLabels',
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      ctx.save();
+      ctx.font = '600 10.5px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      chart.getDatasetMeta(0).data.forEach(function(bar, i) {
+        var chg = wfChanges[i];
+        var isAnchor = wfAnchors.indexOf(i) !== -1;
+        var label = isAnchor
+          ? '$' + Math.round(Math.abs(chg) / 1000).toLocaleString() + 'K'
+          : (chg >= 0 ? '+' : '−') + '$' + Math.round(Math.abs(chg) / 1000).toLocaleString() + 'K';
+        // Colour matches the bar
+        ctx.fillStyle = isAnchor ? '#93c5fd' : (i === 4 ? '#fda4af' : (chg >= 0 ? '#6ee7b7' : '#fca5a5'));
+        // Place label just above the top of the bar (smallest y pixel = highest on screen)
+        var topVal = Math.max(wfData[i][0], wfData[i][1]);
+        var topPx  = chart.scales.y.getPixelForValue(topVal);
+        ctx.fillText(label, bar.x, topPx - 5);
+      });
+      ctx.restore();
+    }
+  };
+
   new Chart(cfCanvas, {
     type: 'bar',
+    plugins: [wfBarLabelPlugin],
     data: {
       labels: wfLabels,
       datasets: [{
