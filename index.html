@@ -554,9 +554,10 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div id="itemPillRow" style="display:none;gap:5px;flex-wrap:wrap;margin-bottom:8px;margin-left:4px;align-items:center;padding:2px 0;border-left:2px solid rgba(96,165,250,0.25);padding-left:10px;">
       <span style="font-size:10px;color:var(--muted2);margin-right:2px;flex-shrink:0;">Item:</span>
     </div>
-        <!-- Currency toggle -->
-        <div style="display:flex;justify-content:flex-end;margin-bottom:4px;">
-          <div style="display:inline-flex;border:1px solid var(--border);border-radius:5px;overflow:hidden;font-size:10.5px;">
+        <!-- Selection YTD + Currency toggle row -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <div id="expSelYTD" style="font-size:11px;line-height:1.4;"></div>
+          <div style="display:inline-flex;border:1px solid var(--border);border-radius:5px;overflow:hidden;font-size:10.5px;flex-shrink:0;">
             <button id="currBtn-USD" onclick="window.expSetCurrency('USD')" style="padding:3px 10px;background:var(--blue);color:#fff;border:none;cursor:pointer;font-weight:600;">USD</button>
             <button id="currBtn-EUR" onclick="window.expSetCurrency('EUR')" style="padding:3px 10px;background:transparent;color:var(--muted2);border:none;cursor:pointer;">EUR</button>
           </div>
@@ -2507,6 +2508,8 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     _updateGranChart();
     // Update YTD strip currency label
     _refreshYtdStrip();
+    // Update chart-selection YTD label
+    _updateSelYTD();
     // Re-render transaction table with correct currency symbol
     if (typeof txnRender === 'function') txnRender();
   };
@@ -2808,6 +2811,30 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     window._expGranChart._stp.fmt = niceValFmt;
     window._expGranChart.update();
     renderExpLegend();
+    _updateSelYTD(newTotals);
+  }
+
+  function _updateSelYTD(totals) {
+    var el = document.getElementById('expSelYTD');
+    if (!el) return;
+    // Use provided totals or fall back to stored totals
+    var t = totals || (window._expGranChart && window._expGranChart._stp && window._expGranChart._stp.totals) || [];
+    var ytd = t.reduce(function(s,v){ return s+(v||0); }, 0);
+    var sym = _expSym();
+    // Build breadcrumb label from current filter state
+    var cat = window._catFilter || 'All';
+    var sc  = window._matSubFilter || null;
+    var itm = window._itemFilter   || null;
+    var parts = [];
+    if (cat && cat !== 'All') parts.push(cat);
+    if (sc)  parts.push(sc);
+    if (itm) parts.push(itm);
+    var crumb = parts.length ? parts.join(' › ') : 'All Categories';
+    var absK = Math.round(Math.abs(ytd) / 1000).toLocaleString();
+    el.innerHTML =
+      '<span style="color:var(--muted2);font-size:10px;">Chart selection YTD</span>'
+      + '&nbsp;&nbsp;<strong style="color:var(--fg);font-size:13px;">' + sym + absK + 'K</strong>'
+      + '&nbsp;&nbsp;<span style="color:var(--muted2);font-size:10px;">· ' + crumb + '</span>';
   }
 
   window.catTabShow = function(cat) {
