@@ -3612,7 +3612,7 @@ showChaseDisconnected();
 function fetchLiveData() {
   setLiveStatus('loading', 'Loading...');
   // Cache-bust so the browser always gets the latest committed balances.json
-  fetch('./balances.json?_=' + Date.now())
+  fetch('https://raw.githubusercontent.com/markyza93/dhr-financial-dashboard/main/balances.json?_=' + Date.now())
     .then(function(resp) {
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       return resp.json();
