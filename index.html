@@ -456,7 +456,11 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Total Monthly Revenue vs Target — All Clients</h3>
-        <p>Jan–Jun 2026 actuals · Jul–Dec projected (services only) · Adaptive target recalculates each month · $775K/mo needed Jul–Dec to hit $8.4M</p>
+        <p>Jan–Jun 2026 actuals · Jul–Dec projected (services only) · Adaptive target from Revenue sheet row 23 · <strong>$958K/mo needed Jul–Dec</strong></p>
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:5px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:6px;font-size:11px;color:rgb(251,191,36);">
+          <span>🎯</span>
+          <span><strong>2026 Annual Target:</strong> BGN 16,000,000 &nbsp;·&nbsp; USD $9,353,600</span>
+        </div>
       </div>
       <div class="legend">
         <div class="leg"><div class="dot" style="background:#38bdf8"></div>Durin (US)</div>
@@ -1583,7 +1587,7 @@ const frameMat   = [0,      94247,  115386, 164998, 84347,  210293];  // Revenue
 const total2026    = durin2026.map((d,i) => d + frame2026[i] + hadrian2026[i] + rainmaker2026[i] + unipak2026[i]);
 const months5      = ['Jan','Feb','Mar','Apr','May','Jun'];
 const months12     = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const target       = 700000;  // 8.4M / 12
+const target       = 791667;  // $9.5M / 12 — monthly base (Revenue sheet row 21)
 const monthlyExp   = 191806;  // model baseline (used for projection only)
 
 // ── ACTUAL EXPENSE DATA — Jan–Jun 2026 ──
@@ -1661,7 +1665,7 @@ new Chart(document.getElementById('revTargetChart'), {
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
       },
       {
-        label: 'Adjusted Monthly Revenue Target $700K',
+        label: 'Monthly Base Target ($792K)',
         data: Array(12).fill(target),
         type: 'line',
         borderColor: 'rgba(251,191,36,0.25)',
@@ -1673,25 +1677,12 @@ new Chart(document.getElementById('revTargetChart'), {
         tension: 0,
       },
       {
-        label: 'Adaptive Target (rolling)',
-        // After each complete month, recalculate: (annualGoal − cumActual) ÷ monthsLeft
-        // Jan $700K → Feb $737K → Mar $759K → Apr $774K → May $757K → Jun–Dec $757K
-        data: (function() {
-          const annualGoal = 12 * target;
-          const completeMonths = 6; // Jan–Jun locked in
-          let cum = 0;
-          let frozenTarget = null;
-          return Array.from({length: 12}, function(_, i) {
-            if (i >= completeMonths) {
-              // Freeze at the value calculated after the last complete month
-              if (frozenTarget === null) frozenTarget = Math.round((annualGoal - cum) / (12 - i));
-              return frozenTarget;
-            }
-            const needed = Math.round((annualGoal - cum) / (12 - i));
-            cum += total2026[i];
-            return needed;
-          });
-        })(),
+        label: 'Adaptive Target (rolling) — SSOT Revenue Row 23',
+        // Hardcoded from Revenue sheet Row 23 (LibreOffice-computed, Jul–Dec frozen at $958K)
+        // Jan: base $792K | Feb: $834K | Mar: $843K | Apr: $852K | May: $883K | Jun: $934K
+        // Jul–Dec: $958K/mo needed to reach $9.35M annual goal
+        data: [791667, 834109, 843279, 852238, 882645, 934222,
+               957982, 957982, 957982, 957982, 957982, 957982],
         type: 'line',
         borderColor: 'rgb(251,191,36)',
         borderWidth: 3,
