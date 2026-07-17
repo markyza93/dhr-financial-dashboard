@@ -28,11 +28,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Copy index.html to public/
+      - name: Copy files to public/
         run: |
           mkdir -p public
           cp index.html public/index.html
-          echo "✓ Copied index.html to public/"
+          cp dhr_logo.png public/dhr_logo.png
+          echo "✓ Copied index.html and dhr_logo.png to public/"
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
