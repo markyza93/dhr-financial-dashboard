@@ -70,6 +70,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .kpi-label { font-size: 11px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 10px; }
 .kpi-value { font-size: 34px; font-weight: 800; letter-spacing: -2px; line-height: 1; margin-bottom: 10px; }
 .kpi-meta { font-size: 12px; color: var(--muted2); }
+.has-tip { position: relative; display: inline-block; }
+.has-tip .tip-box { visibility: hidden; opacity: 0; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; color: #e2e8f0; font-size: 11px; font-weight: 400; line-height: 1.5; padding: 8px 10px; border-radius: 6px; white-space: nowrap; pointer-events: none; transition: opacity .15s; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.has-tip:hover .tip-box { visibility: visible; opacity: 1; }
 .up { color: var(--green); } .dn { color: var(--red); } .wa { color: var(--amber); }
 
 /* CARDS */
@@ -3561,10 +3564,12 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   var bufferEl    = document.getElementById('kpi-cash-buffer');
   if (bufferEl) {
     var aboveBuffer = bufferDiff >= 0;
-    bufferEl.textContent = (aboveBuffer ? '▲ $' : '▼ $') + Math.abs(Math.round(bufferDiff / 1000)) + 'K ' + (aboveBuffer ? 'above' : 'below') + ' min ops cash reserve';
-    bufferEl.style.color = aboveBuffer ? 'var(--green)' : '#f97316';
-    bufferEl.title = 'Min ops cash reserve = $225K\n= 1× monthly KTLO costs ($211K)\n+ known near-term obligations ($14K)\nMinimum cash to cover one month of operations without new revenue.';
-    bufferEl.style.cursor = 'help';
+    var diffK = Math.abs(Math.round(bufferDiff / 1000));
+    var color = aboveBuffer ? 'var(--green)' : '#f97316';
+    bufferEl.className = 'has-tip';
+    bufferEl.style.color = color;
+    bufferEl.innerHTML = (aboveBuffer ? '▲ $' : '▼ $') + diffK + 'K ' + (aboveBuffer ? 'above' : 'below') + ' min ops cash reserve' +
+      '<span class="tip-box">Min ops cash reserve = $225K<br>= 1× monthly KTLO costs ($211K)<br>+ known near-term obligations ($14K)<br>Minimum cash to cover one month of<br>operations without new revenue.</span>';
   }
   if (kpiTotal) kpiTotal.style.color = bufferDiff >= 0 ? 'var(--green)' : '#f97316';
   if (kpiTopbar) kpiTopbar.style.color = bufferDiff >= 0 ? 'var(--green)' : '#f97316';
@@ -3586,12 +3591,12 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
 
   var mercRow = document.getElementById('kpi-merc-row');
   if (mercRow) {
-    mercRow.style.color = mercBal != null ? 'var(--green)' : 'var(--muted2)';
+    mercRow.style.color = 'var(--muted2)';
     mercRow.textContent = '$' + Math.round(mBal/1000) + 'K' + (mercBal != null ? ' live' : ' (Jun 16)');
   }
   var revRow = document.getElementById('kpi-rev-row');
   if (revRow) {
-    revRow.style.color = revData != null ? 'var(--green)' : 'var(--muted2)';
+    revRow.style.color = 'var(--muted2)';
     revRow.textContent = '$' + rUSDK + 'K USD + €' + rEURK + 'K + BGN ' + rBGNK + 'K' + (revData != null ? ' live' : ' (Jun 16)');
   }
   var bulbRow = document.getElementById('kpi-bulb-row');
