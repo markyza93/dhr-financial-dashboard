@@ -414,21 +414,21 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <div style="margin-top:2px;font-size:10px;color:var(--muted);" id="kpi-cash-asof">Mercury &amp; Revolut as of 17 Jul 2026 · Bulbank Jun 30</div>
       <!-- Bank rows — one per institution -->
       <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:5px;font-size:11px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:var(--muted2);">🇺🇸 <strong>Mercury</strong></span>
-          <span id="kpi-merc-row" style="color:var(--green);font-weight:600;">$57K live</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+          <span style="color:var(--muted2);white-space:nowrap;flex-shrink:0;">🇪🇺 <strong>Revolut</strong></span>
+          <span id="kpi-rev-row" style="color:var(--green);font-weight:600;text-align:right;">$4K + €37K + BGN $0K live</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:var(--muted2);">💜 <strong>Revolut</strong></span>
-          <span id="kpi-rev-row" style="color:#a78bfa;font-weight:600;">$4K + €37K + BGN $0K live</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+          <span style="color:var(--muted2);white-space:nowrap;flex-shrink:0;">🇧🇬 <strong>Bulbank</strong></span>
+          <span id="kpi-bulb-row" style="color:var(--muted2);font-weight:600;text-align:right;">$55K (Jun 30)</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <span style="color:var(--muted2);">🏛 <strong>Bulbank</strong></span>
-          <span id="kpi-bulb-row" style="color:var(--muted2);font-weight:600;">$55K (Jun 30)</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+          <span style="color:var(--muted2);white-space:nowrap;flex-shrink:0;">🇺🇸 <strong>Mercury</strong></span>
+          <span id="kpi-merc-row" style="color:var(--green);font-weight:600;text-align:right;">$57K live</span>
         </div>
-        <div id="chase-overview-pill" style="display:flex;justify-content:space-between;align-items:center;padding:3px 0;border-top:1px dashed rgba(0,106,201,0.2);margin-top:2px;padding-top:5px;">
-          <span style="color:#0d6ec7;">🏦 <strong>JPMorgan Chase</strong></span>
-          <span id="kpi-chase-row" style="color:#0d6ec7;font-weight:600;font-style:italic;">connecting…</span>
+        <div id="chase-overview-pill" style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+          <span style="color:var(--muted2);white-space:nowrap;flex-shrink:0;">🇺🇸 <strong>JPMorgan Chase</strong></span>
+          <span id="kpi-chase-row" style="color:var(--muted2);font-weight:600;font-style:italic;text-align:right;">connecting…</span>
         </div>
       </div>
       <!-- Hidden meta kept for JS compatibility -->
@@ -474,7 +474,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <span>🎯</span>
           <span><strong>2026 Annual Target:</strong> BGN 16,000,000 &nbsp;·&nbsp; USD $9,353,600</span>
         </div>
-        <div style="display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:5px 10px;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.18);border-radius:6px;font-size:11px;color:rgba(251,191,36,0.75);margin-left:6px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;margin-top:4px;padding:5px 10px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:6px;font-size:11px;color:rgb(251,191,36);margin-left:6px;">
           <span>📅</span>
           <span><strong>2026 Monthly Target:</strong> BGN 1,333,333 &nbsp;·&nbsp; USD $779,467</span>
         </div>
@@ -1696,7 +1696,7 @@ new Chart(document.getElementById('revTargetChart'), {
         tension: 0,
       },
       {
-        label: 'Adaptive Target (rolling)',
+        label: 'Adaptive Target',
         // Hardcoded from Revenue (17) sheet Row 23 — Jul–Dec projected at $890K
         // Jan: $779K | Feb: $823K | Mar: $824K | Apr: $833K | May: $842K | Jun: $875K
         // Jul–Dec: $890K/mo needed to reach $9.35M annual goal
@@ -1724,6 +1724,9 @@ new Chart(document.getElementById('revTargetChart'), {
             if (!items.length) return '';
             var c = items[0];
             var mon = months12[c.dataIndex] || '';
+            var dsIdx = c.datasetIndex;
+            // Target lines: no (actual)/(proj.) suffix — just name + month
+            if (dsIdx === 5 || dsIdx === 6) return c.dataset.label + ' — ' + mon + ' 2026';
             var suffix = c.dataIndex < 6 ? ' (actual)' : ' (proj.)';
             return c.dataset.label + suffix + ' — ' + mon + ' 2026';
           },
@@ -1733,10 +1736,8 @@ new Chart(document.getElementById('revTargetChart'), {
             var idx = c.dataIndex; // 0=Jan…5=Jun
             var dsIdx = c.datasetIndex;
             // Target lines (ds5 = flat base, ds6 = adaptive) — always show as target
-            if (dsIdx === 5) return ' Base Target: $' + Math.round(v).toLocaleString();
-            if (dsIdx === 6) return idx < 6
-              ? ' Adaptive Target: $' + Math.round(v).toLocaleString()
-              : ' Adaptive Target (projected): $' + Math.round(v).toLocaleString();
+            if (dsIdx === 5) return ' $' + Math.round(v).toLocaleString();
+            if (dsIdx === 6) return ' $' + Math.round(v).toLocaleString() + (idx >= 6 ? ' (projected)' : '');
             // Projected months (Jul+) — simple label only
             if (idx >= 6) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
             var lines = [' Actual Total Revenue:  $' + Math.round(v).toLocaleString()];
@@ -2342,17 +2343,18 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     return             Math.ceil(v * 1.12 / 50000) * 50000;
   }
   // Returns tick formatter appropriate for the given axis max
+  function _expSym() { return (window._expCurrency === 'EUR') ? '€' : '$'; }
   function niceTickFmt(maxVal) {
-    if (maxVal < 2000)  return function(v) { return '$' + Math.round(v); };
-    if (maxVal < 10000) return function(v) { return '$' + (v/1000).toFixed(1) + 'K'; };
-    return function(v) { return '$' + Math.round(v/1000) + 'K'; };
+    if (maxVal < 2000)  return function(v) { return _expSym() + Math.round(v); };
+    if (maxVal < 10000) return function(v) { return _expSym() + (v/1000).toFixed(1) + 'K'; };
+    return function(v) { return _expSym() + Math.round(v/1000) + 'K'; };
   }
   // Returns a formatted string for a single bar-total label
   function niceValFmt(v) {
-    var neg = v < 0, av = Math.abs(v);
-    if (av < 1000)  return (neg ? '−' : '') + '$' + Math.round(av);
-    if (av < 10000) return (neg ? '−' : '') + '$' + (av/1000).toFixed(1) + 'K' + (neg ? ' net' : '');
-    return (neg ? '−' : '') + '$' + Math.round(av/1000).toLocaleString() + 'K' + (neg ? ' net' : '');
+    var neg = v < 0, av = Math.abs(v), sym = _expSym();
+    if (av < 1000)  return (neg ? '−' : '') + sym + Math.round(av);
+    if (av < 10000) return (neg ? '−' : '') + sym + (av/1000).toFixed(1) + 'K' + (neg ? ' net' : '');
+    return (neg ? '−' : '') + sym + Math.round(av/1000).toLocaleString() + 'K' + (neg ? ' net' : '');
   }
 
 
@@ -2505,22 +2507,26 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     _updateGranChart();
     // Update YTD strip currency label
     _refreshYtdStrip();
+    // Re-render transaction table with correct currency symbol
+    if (typeof txnRender === 'function') txnRender();
   };
 
   function _refreshYtdStrip() {
     var cur = window._expCurrency || 'USD';
     var fx  = window._expCurrencyFX;
     var sym = cur === 'EUR' ? '€' : '$';
-    var conv = function(arr, mIdx) { return arr.map(function(v,i){ return cur === 'EUR' ? Math.round(v/(fx[i]||1)) : v; }); };
+    var conv = function(arr) { return arr.map(function(v,i){ return cur === 'EUR' ? Math.round(v/(fx[i]||1)) : v; }); };
     var eoodC = conv(eoodExp); var bgC = conv(bgOps); var usC = conv(usExp); var dhrC = conv(dhrExp);
+    var imC = conv(dhrIncMat);  // DHR Inc Materials — fold into US Ops for totals
+    var _usWithMat = usC.map(function(v,i){ return v + imC[i]; });
     var sum = function(a){ return a.reduce(function(s,v){return s+(v||0);},0); };
     function fmtK(v) { return sym + Math.round(Math.abs(v)/1000).toLocaleString() + 'K'; }
     var el;
-    el = document.getElementById('ytdTotal');  if(el) el.textContent = sym + (Math.round((sum(eoodC)+sum(bgC)+sum(usC)+sum(dhrC))/1000)).toLocaleString() + 'K';
+    el = document.getElementById('ytdTotal');  if(el) el.textContent = sym + (Math.round((sum(eoodC)+sum(bgC)+sum(_usWithMat)+sum(dhrC))/1000)).toLocaleString() + 'K';
     el = document.getElementById('ytdBGOps'); if(el) el.textContent = 'BG Ops ' + fmtK(sum(bgC));
     el = document.getElementById('ytdMat');   if(el) el.textContent = 'Materials ' + fmtK(sum(eoodC));
     el = document.getElementById('ytd3DHR');  if(el) el.textContent = '3DHR ' + fmtK(sum(dhrC));
-    el = document.getElementById('ytdUSops'); if(el) el.textContent = 'US Ops ' + fmtK(sum(usC));
+    el = document.getElementById('ytdUSops'); if(el) el.textContent = 'US Ops ' + fmtK(sum(_usWithMat));
   }
 
   // Category tab handler — filters both chart and transaction list
@@ -3119,9 +3125,17 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
     txnFiltered = rows;
 
     // Summary line
-    var totalUSD = 0, hasNeg = false;
-    rows.forEach(function(r) { var v = toUSD(r); if (v > 0) totalUSD += v; else hasNeg = true; });
-    var negUSD = rows.reduce(function(s, r) { var v = toUSD(r); return v < 0 ? s + v : s; }, 0);
+    var isEUR = (window._expCurrency === 'EUR');
+    var txnFX = window._expCurrencyFX || [1.1743,1.1823,1.1568,1.1696,1.1684,1.1507];
+    function toDisp(r) {
+      var usd = toUSD(r);
+      return isEUR ? usd / (txnFX[Math.min(r.month - 1, txnFX.length - 1)] || 1) : usd;
+    }
+    var sym = isEUR ? '€' : '$';
+    var curLabel = isEUR ? ' EUR' : ' USD';
+    var totalDisp = 0, hasNeg = false;
+    rows.forEach(function(r) { var v = toDisp(r); if (v > 0) totalDisp += v; else hasNeg = true; });
+    var negDisp = rows.reduce(function(s, r) { var v = toDisp(r); return v < 0 ? s + v : s; }, 0);
     var txnMonthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'YTD'];
     var label = txnMonthLabels[txnCurrent];
     var catLabel = catFilter && catFilter !== 'All' ? ' · ' + catFilter : '';
@@ -3129,8 +3143,8 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
     if (sumEl) {
       sumEl.innerHTML = '<strong>' + label + catLabel + '</strong>'
         + ' &nbsp;·&nbsp; ' + rows.length + ' transactions'
-        + ' &nbsp;·&nbsp; Total: <strong>$' + Math.round(totalUSD).toLocaleString() + ' USD</strong>'
-        + (hasNeg ? ' &nbsp;(incl. <span style="color:var(--green);">$' + Math.round(Math.abs(negUSD)).toLocaleString() + '</span> credits/refunds)' : '');
+        + ' &nbsp;·&nbsp; Total: <strong>' + sym + Math.round(totalDisp).toLocaleString() + curLabel + '</strong>'
+        + (hasNeg ? ' &nbsp;(incl. <span style="color:var(--green);">' + sym + Math.round(Math.abs(negDisp)).toLocaleString() + '</span> credits/refunds)' : '');
     }
 
     // Render rows
@@ -3140,12 +3154,12 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507];
     var html = '';
     toShow.forEach(function(r, rank) {
       var color = txnCatColors[r.cat] || 'rgba(148,163,184,0.6)';
-      var dispAmt = toUSD(r);
+      var dispAmt = toDisp(r);
       var isNeg = dispAmt < 0;
       var rowBg = rank % 2 === 0 ? '' : 'background:rgba(255,255,255,0.02);';
       var amtStr = isNeg
-        ? '<span style="color:var(--green);">$' + Math.round(-dispAmt).toLocaleString() + ' cr</span>'
-        : '$' + Math.round(dispAmt).toLocaleString();
+        ? '<span style="color:var(--green);">' + sym + Math.round(-dispAmt).toLocaleString() + ' cr</span>'
+        : sym + Math.round(dispAmt).toLocaleString();
       var usdEq = Math.abs(toUSD(r));
       var totalForPct = rows.reduce(function(s, x) { var v = toUSD(x); return v > 0 ? s + v : s; }, 0);
       var pct = totalForPct > 0 ? (usdEq / totalForPct * 100) : 0;
@@ -3417,7 +3431,7 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   }
   var revRow = document.getElementById('kpi-rev-row');
   if (revRow) {
-    revRow.style.color = revData != null ? '#a78bfa' : 'var(--muted2)';
+    revRow.style.color = revData != null ? 'var(--green)' : 'var(--muted2)';
     revRow.textContent = '$' + rUSDK + 'K USD + €' + rEURK + 'K + BGN ' + rBGNK + 'K' + (revData != null ? ' live' : ' (Jun 16)');
   }
   var bulbRow = document.getElementById('kpi-bulb-row');
@@ -3478,11 +3492,12 @@ function fetchLiveData() {
 // ── Populate YTD totals strip ──
 // NOTE: These use the same source arrays as the chart — update automatically when monthly data updates.
 (function() {
-  var eoodYTD = eoodExp.reduce(function(a,b){return a+b;},0);  // Materials net VAT
-  var bgYTD   = bgOps.reduce(function(a,b){return a+b;},0);    // BG Operations incl. Land CapEx
-  var usYTD   = usExp.reduce(function(a,b){return a+b;},0);    // US Operations
-  var dhr3YTD = dhrExp.reduce(function(a,b){return a+b;},0);   // 3DHR
-  var total   = eoodYTD + bgYTD + usYTD + dhr3YTD;
+  var eoodYTD = eoodExp.reduce(function(a,b){return a+b;},0);    // Materials net VAT
+  var bgYTD   = bgOps.reduce(function(a,b){return a+b;},0);      // BG Operations incl. Land CapEx
+  var usYTD   = usExp.reduce(function(a,b){return a+b;},0)
+              + dhrIncMat.reduce(function(a,b){return a+b;},0);  // US Ops + DHR Inc Materials
+  var dhr3YTD = dhrExp.reduce(function(a,b){return a+b;},0);     // 3DHR
+  var total   = eoodYTD + bgYTD + usYTD + dhr3YTD;               // = actExp YTD
   function fmtK(v) { return '$' + Math.round(Math.abs(v)/1000) + 'K'; }
   var el;
   el = document.getElementById('ytdTotal');   if(el) el.textContent = '$' + (Math.round(total/1000)).toLocaleString() + 'K';
