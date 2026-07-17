@@ -1618,9 +1618,9 @@ const monthlyExp   = 191806;  // model baseline (used for projection only)
 const eoodExp = [161077,169971,209694,149080,-50003,130411];  // Materials EOOD net VAT — Expenses (42) SSOT
 const usExp   = [7885,50,0,110252,8216,44719];  // US Ops ex-intercompany — Expenses (42) SSOT
 // BG Operations incl. Land purchases (Jan €42K, Mar €403.9K)
-const bgOps   = [138609,167356,659180,215748,244698,245774];  // BG Ops incl. Land — Expenses (42) SSOT
+const bgOps   = [138609,167356,659180,215748,244698,241652];  // BG Ops incl. Land — Expenses (45) SSOT
 // 3DHR: sheet metal/laser + 3D printing farm + payroll
-const dhrExp  = [3578,136218,623429,-106582,34046,16253];  // 3DHR — Expenses (42) SSOT  // Apr: net recovery ЕЙТ СЕЛ
+const dhrExp  = [3578,136218,623429,-106582,34046,20375];  // 3DHR — Expenses (45) SSOT  // Apr: net recovery ЕЙТ СЕЛ
 const dhrIncMat = [0,0,0,0,33501,5200];  // DHR Inc Materials — Expenses (42) SSOT
 const actExp  = eoodExp.map((e,i) => e + usExp[i] + bgOps[i] + dhrExp[i] + dhrIncMat[i]); // $311K·$473K·$1.49M·$368K·$270K·$442K  YTD: $3.36M
 
@@ -2192,18 +2192,18 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
 // Source: Expenses - DHR Global (5).xlsx · corrected category tags per Expenses sheet
 // Tabs: All | US Ops | BG Ops | Materials | 3DHR  — drives both chart visibility and transaction list
 (function() {
-  var bgPaySS        = [49461,104585,119158,130350,146033,180033];  // BG Ops - Payroll & Benefits — Source: Expenses (37) rows 23+24
+  var bgPaySS        = [49461,104585,119158,131366,151081,168506];  // BG Ops - Payroll & Benefits — Source: Expenses (45) rows 23+24
   // ── Materials sub-categories (Source: Expenses - DHR Global (9).xlsx rows 36–61) ──
-  var matCapEx       = [0,72880,74128,5555,771,740];  // Materials - Equipment & Robotics — Source: Expenses (37) row 47
-  var usTaxes        = [5386,50,0,102486,849,14859];  // US Ops - Taxes — SSOT (22) // US Operations - Taxes
+  var matCapEx       = [0,51421,74128,5555,771,740];  // Materials - Equipment & Robotics (EOOD) — Source: Expenses (44) row 47
+  var usTaxes        = [5386,50,0,102486,849,44719];  // US Ops - Taxes & Compliance — Source: Expenses (44) rows 12+20
   var matMarketing   = [11049,12236,11479,11696,12836,116];  // BG Ops - Marketing & Branding — SSOT (22) // BG Ops - Marketing & Branding — Source: Expenses (19) rows 36-37
   var matITSoftware  = [2034,16703,22518,11301,8480,1041];  // BG Ops - IT & Software — SSOT (22) // BG Ops - IT & Software — Source: Expenses (19) rows 33-35
   var matOfficeRent  = [14811,17789,12651,19966,9751,0];  // BG Ops - Office Rent — Source: Expenses (37) row 39
   var dhr3Materials  = [3578,132648,619581,-110473,29927,16254];  // 3DHR - Net Mechanical — Source: Expenses (44) rows 81-82 (Sheet Metal cost + 3D Farm net; Apr recovery = 3D Farm +$114K offset by Sheet Metal -$3.6K)
-  var dhr3Pay        = [0,3570,3848,3891,3887,0];  // 3DHR - Payroll — Source: Expenses (44) row 83 (Jun: $0 — no payroll recorded)
+  var dhr3Pay        = [0,3570,3848,3891,3887,4122];  // 3DHR - Payroll — Source: Expenses (45) row 80
   var dhr3Ops        = [0,0,0,0,232,0];  // 3DHR - Ops — Source: Expenses (44) row 84
-  var matLogistics   = [23664,55382,6223,25926,43107,43036];  // Materials - Logistics — Source: Expenses (37) row 71
-  var matTravel      = [4755,8618,8744,21373,39208,25508];  // BG Ops - Travel — Source: Expenses (37) row 42
+  var matLogistics   = [23664,55382,6223,25926,46133,43036];  // Materials - Logistics — Source: Expenses (44) row 71
+  var matTravel      = [4755,8618,8744,21373,39208,25373];  // BG Ops - Travel — Source: Expenses (44) row 42
   var matMechanical  = [55692,12921,92614,42871,45157,35333];  // Materials - Mechanical — Source: Expenses (37) rows 57-70
   var matOfficeFurn  = [3320,265,4847,572,853,1071];  // BG Ops - Office Supplies — SSOT (22) // BG Ops - Office Supplies & Furniture — Source: Expenses (19) row 38
   var matOfficeClean = [0,0,3109,2356,1626,414];  // BG Ops - Office Maintenance — SSOT (22) // BG Ops - Office Maintenance & Cleaning — Source: Expenses (19) row 39
@@ -2215,19 +2215,22 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var usRent         = [0,0,0,1938,950,0];  // US Ops - Rent — SSOT (22) // US Operations - Office Rent
   var matRecruiting  = [144,580,312,611,210,449];  // BG Ops - Recruiting — SSOT (22) // BG Ops (EOOD) - Recruiting (row 32)
   var matFarm3D      = [0,0,711,318,0,88];  // Consumables: 3D Farm — SSOT (22) // Materials - Consumables: 3D Farm & Filament (row 59)
-  var bgTaxes        = [0,0,0,550,0,0];  // BG Ops - Taxes — SSOT (22) // BG Operations - Taxes & Compliance — Source: Expenses (19) row 24
-  var bgAdmin        = [13,37,39,258,1265,1265];  // BG Ops - Banking — SSOT (22) // BG Operations - Banking Fees (Bulbank+EOOD) — Source: Expenses (19) rows 22+27
-  var bgProfSvc      = [0,3405,3332,3368,5188,5188];  // BG Ops - Professional Services — SSOT (22) // BG Operations - Professional Services (Accounting + Legal) — Source: Expenses (19) rows 21-22
+  var bgTaxes        = [0,0,0,550,0,26574];  // BG Ops - Taxes & Compliance — Source: Expenses (44) row 28
+  var bgAdmin        = [13,37,44,258,1265,73];  // BG Ops - Banking & Finance — Source: Expenses (44) row 27
+  var bgProfSvc      = [0,3405,3332,3368,5188,3521];  // BG Ops - Professional Services (Accounting + Legal) — Source: Expenses (44) rows 25+26
   var bgImport       = [236,341,2369,0,268,10065];  // BG Ops - Import — SSOT (22) // BG Operations - Import Expense — Source: Expenses (19) row 25
-  var bgInsurance    = [1851,0,0,0,2768,0];  // BG Ops - Insurance — Source: Expenses (37) row 31
+  var bgInsurance    = [2631,1435,2594,1421,5391,4318];  // BG Ops - Insurance — Source: Expenses (44) row 31
   var bgBusDev       = [0,0,0,3930,0,0];  // BG Ops - Business Dev — SSOT (22) // BG Operations - Business Development — Source: Expenses (19) row 44
   var bgLand         = [49321,0,467174,0,0,0];  // BG Ops - Land Purchase (CapEx) — ssotData: 8 transactions (Jan ×2, Mar ×6); Mar sum from ssotData
-  var usPay          = [0,0,0,200,5166,0];  // US Ops - Payroll — SSOT (22) // US Operations - Payroll & Benefits — Source: Expenses (19)
+  var usPay          = [0,0,0,200,5166,0];  // US Ops - Payroll & Benefits (Payroll + HR Admin) — Source: Expenses (44) rows 17+18
+  var usIT           = [0,0,0,0,1251,0];   // US Ops - IT & Software (Office Hardware) — Source: Expenses (44) row 14
+  var usBanking      = [0,0,0,105,0,0];    // US Ops - Banking & Finance (Banking Fees) — Source: Expenses (44) row 16
   var matWorkCloth   = [180,687,210,76,1166,21];  // Consumables: PPE — SSOT (22) // Materials - Consumables: PPE & Work Clothing (row 60)
   var matConstCons  = [ 68,  0,  0,  0,  262, 85];  // Consumables: Construction — SSOT (22)
   var matVATRefund   = [-35535,-20650,-34070,-27285,-170483,0];  // Materials - VAT Refund (negative) — SSOT (22) // Materials - BG VAT Refund — Source: Expenses (19) row 75
-  // matGrossForChart = eoodExp + |matVATRefund|  — always positive, used in All-tab category bar
-  var matGrossForChart = [196612, 212080, 243764, 176365, 117454, 130411];  // Materials gross spend before VAT credit
+  // matGrossForChart = EOOD materials gross + dhrIncMat — always positive, used in All-tab category bar
+  // dhrIncMat (DHR Inc Materials) reclassified under Materials per Expenses (44) taxonomy (Entity: DHR Inc, Category: Materials)
+  var matGrossForChart = [196612, 212080, 243764, 176365, 150955, 135611];  // Materials gross spend (EOOD + DHR Inc) before VAT credit
 
   // ── Electrical sub-items (rows 37–45, USD, Source: Expenses - DHR Global (9).xlsx) ──
   var elecCables    = [30714, 13449,  7405, 72904, 10495,  1430]; // Cables & Cable Management
@@ -2259,12 +2262,12 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
 
   var granTotal = actExp.slice();
 
-  // US Operations category total: usExp (DHR Inc operating) + dhrIncMat (DHR Inc materials purchases)
-  // Folding dhrIncMat here ensures the category-level chart and all derived YTD totals equal actExp.
-  var usExpCat = usExp.map(function(v,i){ return v + dhrIncMat[i]; });
+  // US Operations category bar: usExp only — dhrIncMat moved to Materials per Expenses (44) taxonomy
+  // (Entity: DHR Inc, Category: Materials — not US Operations)
+  var usExpCat = usExp;  // no longer includes dhrIncMat
 
   // Authoritative category tags (per Expenses sheet mapping)
-  var dsCatMap = {"BG Operations - Payroll & SS": "BG Operations", "Materials - Equipment & Robotics": "Materials", "US Operations - Taxes": "US Operations", "Materials - Marketing & Branding": "BG Operations", "BG Operations - IT & Software": "BG Operations", "Materials - Office Rent": "BG Operations", "3DHR - Materials": "3DHR", "3DHR - Payroll Expense": "3DHR", "3DHR - Operations": "3DHR", "Materials - Logistics": "Materials", "Materials - Travel": "BG Operations", "Materials - Mechanical": "Materials", "Materials - Office Supplies & Furniture": "BG Operations", "Materials - Office Maintenance & Cleaning": "BG Operations", "US Operations - Travel": "US Operations", "Materials - Electrical": "Materials", "Materials - General & Administrative": "BG Operations", "US Operations - Admin, HR, Banking": "US Operations", "Materials - Consumables: Welding, Laser & Abrasives": "Materials", "US Operations - Office Rent": "US Operations", "Materials - Recruiting": "BG Operations", "Materials - Consumables: 3D Farm & Filament": "Materials", "BG Operations - Taxes": "BG Operations", "BG Operations - Banking Fees": "BG Operations", "Materials - Consumables: PPE & Work Clothing": "Materials", "Materials - BG VAT Refund (20%)": "Materials", "US Operations - Equipment & Robotics": "US Operations", "BG Operations - Land Purchase": "BG Operations"};
+  var dsCatMap = {"BG Operations - Payroll & SS": "BG Operations", "Materials - Equipment & Robotics": "Materials", "US Operations - Taxes": "US Operations", "Materials - Marketing & Branding": "BG Operations", "BG Operations - IT & Software": "BG Operations", "Materials - Office Rent": "BG Operations", "3DHR - Materials": "3DHR", "3DHR - Payroll Expense": "3DHR", "3DHR - Operations": "3DHR", "Materials - Logistics": "Materials", "Materials - Travel": "BG Operations", "Materials - Mechanical": "Materials", "Materials - Office Supplies & Furniture": "BG Operations", "Materials - Office Maintenance & Cleaning": "BG Operations", "US Operations - Travel": "US Operations", "Materials - Electrical": "Materials", "Materials - General & Administrative": "BG Operations", "US Operations - Admin, HR, Banking": "US Operations", "Materials - Consumables: Welding, Laser & Abrasives": "Materials", "US Operations - Office Rent": "US Operations", "Materials - Recruiting": "BG Operations", "Materials - Consumables: 3D Farm & Filament": "Materials", "BG Operations - Taxes": "BG Operations", "BG Operations - Banking Fees": "BG Operations", "Materials - Consumables: PPE & Work Clothing": "Materials", "Materials - BG VAT Refund (20%)": "Materials", "Materials - DHR Inc: Equipment & Robotics": "Materials", "BG Operations - Land Purchase": "BG Operations"};
 
   var datasets = [
     // ── Category-level (shown in 'All' tab) ──
@@ -2326,7 +2329,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     { label:'Materials - Consumables: PPE',            dhrCat:'Materials',     dhrSubCat:'Consumables',              data: matWorkCloth,  backgroundColor: 'rgb(156,163,175)', borderRadius:3, borderSkipped:false },
     { label:'Materials - Consumables: Construction',    dhrCat:'Materials',     dhrSubCat:'Consumables',              data: matConstCons,  backgroundColor: 'rgb(251,146,60)',  borderRadius:3, borderSkipped:false },
     { label:'Materials - BG VAT Refund (20%)',         dhrCat:'Materials',     dhrSubCat:'VAT Refund',               data: matVATRefund,backgroundColor: 'rgb(74,222,128)', borderRadius:3, borderSkipped:false },
-    { label:'US Operations - Equipment & Robotics',    dhrCat:'US Operations', dhrSubCat:'Equipment & Robotics',     data: [0,0,0,0,33501,5200], backgroundColor: 'rgb(239,68,68)', borderRadius:3, borderSkipped:false },
+    { label:'Materials - DHR Inc: Equipment & Robotics',dhrCat:'Materials',     dhrSubCat:'Equipment & Robotics',    data: dhrIncMat,  backgroundColor: 'rgb(250,204,21)',  borderRadius:3, borderSkipped:false },
     // ── New sub-cat datasets (previously aggregated or missing) ──
     { label:'BG Operations - Professional Services',   dhrCat:'BG Operations', dhrSubCat:'Professional Services',    data: bgProfSvc,  backgroundColor: 'rgb(168,85,247)',   borderRadius:3, borderSkipped:false },
     { label:'BG Operations - Import Expense',          dhrCat:'BG Operations', dhrSubCat:'Import Expense',           data: bgImport,   backgroundColor: 'rgb(234,179,8)',   borderRadius:3, borderSkipped:false },
@@ -2334,6 +2337,8 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     { label:'BG Operations - Business Development',    dhrCat:'BG Operations', dhrSubCat:'Business Development',     data: bgBusDev,   backgroundColor: 'rgb(245,158,11)',   borderRadius:3, borderSkipped:false },
     { label:'BG Operations - Land Purchase (CapEx)',   dhrCat:'BG Operations', dhrSubCat:'Land',                     data: bgLand,     backgroundColor: 'rgb(120,53,15)',    borderRadius:3, borderSkipped:false },
     { label:'US Operations - Payroll & Benefits',      dhrCat:'US Operations', dhrSubCat:'Payroll & Benefits',       data: usPay,      backgroundColor: 'rgb(239,68,68)',   borderRadius:3, borderSkipped:false },
+    { label:'US Operations - IT & Software',           dhrCat:'US Operations', dhrSubCat:'IT & Software',            data: usIT,       backgroundColor: 'rgb(96,165,250)',   borderRadius:3, borderSkipped:false },
+    { label:'US Operations - Banking & Finance',       dhrCat:'US Operations', dhrSubCat:'Banking & Finance',        data: usBanking,  backgroundColor: 'rgb(52,211,153)',   borderRadius:3, borderSkipped:false },
   ];
 
   // ── Adaptive Y-axis helper ──
@@ -2524,16 +2529,16 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     var sym = cur === 'EUR' ? '€' : '$';
     var conv = function(arr) { return arr.map(function(v,i){ return cur === 'EUR' ? Math.round(v/(fx[i]||1)) : v; }); };
     var eoodC = conv(eoodExp); var bgC = conv(bgOps); var usC = conv(usExp); var dhrC = conv(dhrExp);
-    var imC = conv(dhrIncMat);  // DHR Inc Materials — fold into US Ops for totals
-    var _usWithMat = usC.map(function(v,i){ return v + imC[i]; });
+    var imC = conv(dhrIncMat);  // DHR Inc Materials — reclassified under Materials per Expenses (44)
+    var _matWithIM = eoodC.map(function(v,i){ return v + imC[i]; });  // EOOD Materials + DHR Inc Materials
     var sum = function(a){ return a.reduce(function(s,v){return s+(v||0);},0); };
     function fmtK(v) { return sym + Math.round(Math.abs(v)/1000).toLocaleString() + 'K'; }
     var el;
-    el = document.getElementById('ytdTotal');  if(el) el.textContent = sym + (Math.round((sum(eoodC)+sum(bgC)+sum(_usWithMat)+sum(dhrC))/1000)).toLocaleString() + 'K';
+    el = document.getElementById('ytdTotal');  if(el) el.textContent = sym + (Math.round((sum(_matWithIM)+sum(bgC)+sum(usC)+sum(dhrC))/1000)).toLocaleString() + 'K';
     el = document.getElementById('ytdBGOps'); if(el) el.textContent = 'BG Ops ' + fmtK(sum(bgC));
-    el = document.getElementById('ytdMat');   if(el) el.textContent = 'Materials ' + fmtK(sum(eoodC));
+    el = document.getElementById('ytdMat');   if(el) el.textContent = 'Materials ' + fmtK(sum(_matWithIM));
     el = document.getElementById('ytd3DHR');  if(el) el.textContent = '3DHR ' + fmtK(sum(dhrC));
-    el = document.getElementById('ytdUSops'); if(el) el.textContent = 'US Ops ' + fmtK(sum(_usWithMat));
+    el = document.getElementById('ytdUSops'); if(el) el.textContent = 'US Ops ' + fmtK(sum(usC));
   }
 
   // Category tab handler — filters both chart and transaction list
@@ -3523,10 +3528,10 @@ function fetchLiveData() {
 // ── Populate YTD totals strip ──
 // NOTE: These use the same source arrays as the chart — update automatically when monthly data updates.
 (function() {
-  var eoodYTD = eoodExp.reduce(function(a,b){return a+b;},0);    // Materials net VAT
+  var eoodYTD = eoodExp.reduce(function(a,b){return a+b;},0)      // EOOD Materials net VAT
+              + dhrIncMat.reduce(function(a,b){return a+b;},0);  // + DHR Inc Materials (reclassified here per Expenses (44))
   var bgYTD   = bgOps.reduce(function(a,b){return a+b;},0);      // BG Operations incl. Land CapEx
-  var usYTD   = usExp.reduce(function(a,b){return a+b;},0)
-              + dhrIncMat.reduce(function(a,b){return a+b;},0);  // US Ops + DHR Inc Materials
+  var usYTD   = usExp.reduce(function(a,b){return a+b;},0);      // US Ops operating only (excl. Materials)
   var dhr3YTD = dhrExp.reduce(function(a,b){return a+b;},0);     // 3DHR
   var total   = eoodYTD + bgYTD + usYTD + dhr3YTD;               // = actExp YTD
   function fmtK(v) { return '$' + Math.round(Math.abs(v)/1000) + 'K'; }
