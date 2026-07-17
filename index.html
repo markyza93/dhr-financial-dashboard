@@ -3530,10 +3530,7 @@ function applyChaseData(data, tsLabel) {
     chaseRow.style.fontStyle = 'normal';
   }
   // Update the chase-overview-pill header text (now just the row container)
-  if (ovEl) {
-    var hdr = ovEl.querySelector('span:first-child');
-    if (hdr) { hdr.style.color = 'var(--green)'; }
-  }
+  // label stays muted to match Revolut / Bulbank / Mercury
 
   // Inject live balance into the bank balance trend chart (last data point)
   if (window._updateChaseInChart) window._updateChaseInChart(total);
