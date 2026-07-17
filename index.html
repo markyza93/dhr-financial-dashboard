@@ -2259,6 +2259,10 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
 
   var granTotal = actExp.slice();
 
+  // US Operations category total: usExp (DHR Inc operating) + dhrIncMat (DHR Inc materials purchases)
+  // Folding dhrIncMat here ensures the category-level chart and all derived YTD totals equal actExp.
+  var usExpCat = usExp.map(function(v,i){ return v + dhrIncMat[i]; });
+
   // Authoritative category tags (per Expenses sheet mapping)
   var dsCatMap = {"BG Operations - Payroll & SS": "BG Operations", "Materials - Equipment & Robotics": "Materials", "US Operations - Taxes": "US Operations", "Materials - Marketing & Branding": "BG Operations", "BG Operations - IT & Software": "BG Operations", "Materials - Office Rent": "BG Operations", "3DHR - Materials": "3DHR", "3DHR - Payroll Expense": "3DHR", "3DHR - Operations": "3DHR", "Materials - Logistics": "Materials", "Materials - Travel": "BG Operations", "Materials - Mechanical": "Materials", "Materials - Office Supplies & Furniture": "BG Operations", "Materials - Office Maintenance & Cleaning": "BG Operations", "US Operations - Travel": "US Operations", "Materials - Electrical": "Materials", "Materials - General & Administrative": "BG Operations", "US Operations - Admin, HR, Banking": "US Operations", "Materials - Consumables: Welding, Laser & Abrasives": "Materials", "US Operations - Office Rent": "US Operations", "Materials - Recruiting": "BG Operations", "Materials - Consumables: 3D Farm & Filament": "Materials", "BG Operations - Taxes": "BG Operations", "BG Operations - Banking Fees": "BG Operations", "Materials - Consumables: PPE & Work Clothing": "Materials", "Materials - BG VAT Refund (20%)": "Materials", "US Operations - Equipment & Robotics": "US Operations", "BG Operations - Land Purchase": "BG Operations"};
 
@@ -2266,7 +2270,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     // ── Category-level (shown in 'All' tab) ──
     { label:'Materials',     dhrCat:'__cat__', isCatLevel:true, data: matGrossForChart, backgroundColor: 'rgb(56,189,248)',   borderRadius:3, borderSkipped:false },
     { label:'BG Operations', dhrCat:'__cat__', isCatLevel:true, data: bgOps,   backgroundColor: 'rgb(192,132,252)', borderRadius:3, borderSkipped:false },
-    { label:'US Operations', dhrCat:'__cat__', isCatLevel:true, data: usExp,   backgroundColor: 'rgb(248,113,113)',  borderRadius:3, borderSkipped:false },
+    { label:'US Operations', dhrCat:'__cat__', isCatLevel:true, data: usExpCat, backgroundColor: 'rgb(248,113,113)',  borderRadius:3, borderSkipped:false },
     { label:'3DHR',          dhrCat:'__cat__', isCatLevel:true, data: dhrExp,  backgroundColor: 'rgb(52,211,153)',   borderRadius:3, borderSkipped:false },
     { label:'VAT Refund',    dhrCat:'__cat__', isCatLevel:true, data: matVATRefund, backgroundColor: 'rgb(74,222,128)', borderRadius:3, borderSkipped:false },
     // ── Sub-category level (shown when a specific category tab is active) ──
