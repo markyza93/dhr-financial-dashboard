@@ -906,13 +906,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <div class="bank-sub">DHR Engineering EOOD · BG Entity · 3 accounts</div>
         </div>
       </div>
-      <div class="bank-amount" style="color:var(--red);">€172,335</div>
-      <div class="bank-detail">
-        Total: €172,335 (Bulbank / UniCredit Bulgaria) ≈ $201,356<br>
-        Statement N5 · Period: May 1–29, 2026 · Issued June 1, 2026
+      <div id="bulbank-amount" class="bank-amount" style="color:var(--red);">$55K</div>
+      <div id="bulbank-detail" class="bank-detail">
+        Jun 30, 2026 closing · Source: Profitability (9)<br>
+        Bulbank BG88: $53,899 · Bulbank BG16: $765
       </div>
       <div class="bank-tags">
-        <span class="tag tag-amber">Stmt N5 — June 1, 2026</span>
+        <span id="bulbank-status-tag" class="tag tag-amber">Jun 30, 2026</span>
         <span class="tag tag-red">BGN + EUR</span>
       </div>
     </div>
@@ -970,12 +970,13 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Bank Account Balances — Month-End Trend</h3>
-        <p>Dec 2025 opening through Jun 30 2026 close · All in USD · Revolut = USD + EUR · Bulbank BGN→USD at monthly FX · Source: Profitability (9) for Jun 30 closing balances · JPMorgan Chase excluded (Plaid disconnected)</p>
+        <p id="bank-balance-card-sub">Dec 2025 opening through Jun 30 2026 close · All in USD · Revolut = USD + EUR · Bulbank BGN→USD at monthly FX · Source: Profitability (9) for Jun 30 closing balances · JPMorgan Chase excluded (Plaid disconnected)</p>
       </div>
       <div class="legend">
         <div class="leg"><div class="ln" style="background:#38bdf8"></div>Mercury</div>
         <div class="leg"><div class="ln" style="background:#c084fc"></div>Revolut</div>
         <div class="leg"><div class="ln" style="background:#fb923c"></div>Bulbank</div>
+        <div class="leg"><div class="ln" style="background:#0d6ec7"></div>Chase</div>
         <div class="leg"><div class="ln" style="background:rgba(148,163,184,0.5);border-style:dashed"></div>Total</div>
       </div>
     </div>
@@ -3372,7 +3373,29 @@ function fmtMoney(n) {
   return '$' + Math.round(n).toLocaleString();
 }
 
-var BULBANK_STATIC = 54663;  // Bulbank 86: $53,898.72 + Bulbank 16: $764.62 — from Profitability (9) Jun 30 closing balances
+var BULBANK_STATIC = 54663;  // USD — Bulbank BG88: $53,899 + Bulbank BG16: $765 — Source: Profitability (9) Jun 30 closing
+var BULBANK_EUR    = null;   // EUR — set when Jun Bulbank statement is uploaded (update alongside BULBANK_STATIC)
+var BULBANK_LABEL  = 'Jun 30, 2026';  // Statement label — update when new statement arrives
+
+// Drive the Unicredit card from BULBANK_STATIC so it always matches the total strip
+(function() {
+  var amtEl  = document.getElementById('bulbank-amount');
+  var detEl  = document.getElementById('bulbank-detail');
+  var tagEl  = document.getElementById('bulbank-status-tag');
+  if (amtEl) {
+    if (BULBANK_EUR != null) {
+      amtEl.textContent = '€' + Math.round(BULBANK_EUR).toLocaleString() + ' ≈ $' + Math.round(BULBANK_STATIC/1000) + 'K';
+    } else {
+      amtEl.textContent = '~$' + Math.round(BULBANK_STATIC/1000) + 'K';
+    }
+  }
+  if (detEl && BULBANK_EUR == null) {
+    detEl.innerHTML = BULBANK_LABEL + ' closing · Source: Profitability (9)<br>EUR amount pending June bank statement';
+  } else if (detEl) {
+    detEl.innerHTML = BULBANK_LABEL + ' closing · €' + Math.round(BULBANK_EUR).toLocaleString() + ' ≈ $' + Math.round(BULBANK_STATIC/1000) + 'K';
+  }
+  if (tagEl) tagEl.textContent = BULBANK_LABEL;
+})();
 
 function applyMercuryData(data, tsLabel) {
   if (!data || data.status === 'error') { setLiveStatus('error', 'Mercury error'); return null; }
@@ -3506,6 +3529,9 @@ function applyChaseData(data, tsLabel) {
     if (hdr) { hdr.style.color = 'var(--green)'; }
   }
 
+  // Inject live balance into the bank balance trend chart (last data point)
+  if (window._updateChaseInChart) window._updateChaseInChart(total);
+
   return total;
 }
 
@@ -3533,7 +3559,12 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   // Update individual bank rows
   var ts = tsLabel || new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
   var kpiAsOf = document.getElementById('kpi-cash-asof');
-  if (kpiAsOf && (mercBal != null || revData != null)) kpiAsOf.textContent = 'Mercury & Revolut as of ' + ts + ' · Bulbank Jun 30';
+  if (kpiAsOf && (mercBal != null || revData != null || chaseBal != null)) {
+    var liveAccounts = [];
+    if (mercBal != null || revData != null) liveAccounts.push('Mercury & Revolut');
+    if (chaseBal != null) liveAccounts.push('Chase');
+    kpiAsOf.textContent = liveAccounts.join(' & ') + ' as of ' + ts + ' · Bulbank Jun 30';
+  }
 
   var mercRow = document.getElementById('kpi-merc-row');
   if (mercRow) {
@@ -3557,12 +3588,18 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   var csRevNote = document.getElementById('cs-revolut-note');
 
   if (csTotVal) csTotVal.textContent = '$' + grand.toLocaleString() + ' USD';
-  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + ' · Chase excluded (Plaid disconnected)';
-  // Chase cs-item — always show as N/A until Plaid reconnects
+  var chaseNote = chaseBal != null ? ' · Chase $' + Math.round(chaseBal/1000) + 'K Live' : ' · Chase excluded (Plaid disconnected)';
+  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + chaseNote;
+  // Chase cs-item — conditional on whether Plaid is working
   var csChaseVal  = document.getElementById('cs-chase-val');
   var csChaseNote = document.getElementById('cs-chase-note');
-  if (csChaseVal) { csChaseVal.textContent = 'N/A'; csChaseVal.style.color = 'var(--muted2)'; }
-  if (csChaseNote) { csChaseNote.textContent = 'Plaid disconnected'; }
+  if (chaseBal != null) {
+    if (csChaseVal) { csChaseVal.textContent = '$' + Math.round(chaseBal/1000) + 'K'; csChaseVal.style.color = '#0d6ec7'; }
+    if (csChaseNote) { csChaseNote.textContent = Math.round(chaseBal/grand*100) + '% of total · Live via Plaid'; }
+  } else {
+    if (csChaseVal) { csChaseVal.textContent = 'N/A'; csChaseVal.style.color = 'var(--muted2)'; }
+    if (csChaseNote) { csChaseNote.textContent = 'Plaid disconnected'; }
+  }
   if (csMercVal) csMercVal.textContent = '$' + Math.round(mBal/1000) + 'K';
   if (csMercPct) csMercPct.textContent = Math.round(mBal/grand*100) + '% of total';
   if (csRevVal)  csRevVal.textContent  = '$' + Math.round(rTot/1000) + 'K';
@@ -3640,9 +3677,10 @@ function fetchLiveData() {
   var mercPts  = [ 50649,  83691, 127546,  70093, 110984,   1353];  // Jun 30: $1,353.24 — Profitability (9)
   var revPts   = [444092, 284335,  16201,  63055, 133630, 209419];  // Jun 30: Revolut USD $208,116 + EUR $1,303 — Profitability (9)
   var bulkPts  = [453422, 526354, 321027, 151322, 180630,  54663];  // Jun 30: Bulbank 86 $53,899 + Bulbank 16 $765 — Profitability (9)
-  var totalPts = mercPts.map(function(m,i){ return m + revPts[i] + bulkPts[i]; });
+  var chasePts = [null,   null,   null,   null,   null,   null  ];  // Live via Plaid — updated by window._updateChaseInChart()
+  var totalPts = mercPts.map(function(m,i){ return m + revPts[i] + bulkPts[i] + (chasePts[i] || 0); });
 
-  new Chart(document.getElementById('balTrendChart'), {
+  window._balTrendChart = new Chart(document.getElementById('balTrendChart'), {
     type: 'line',
     data: {
       labels: labels,
@@ -3675,6 +3713,16 @@ function fetchLiveData() {
           borderWidth: 2, fill: false, tension: 0.3,
         },
         {
+          label: 'Chase',
+          data: chasePts,
+          borderColor: 'rgb(13,110,199)',
+          backgroundColor: 'rgba(13,110,199,0.08)',
+          pointBackgroundColor: 'rgb(13,110,199)',
+          pointRadius: 5, pointHoverRadius: 7,
+          borderWidth: 2, fill: false, tension: 0.3,
+          spanGaps: false,
+        },
+        {
           label: 'Total',
           data: totalPts,
           borderColor: 'rgba(148,163,184,0.55)',
@@ -3693,18 +3741,21 @@ function fetchLiveData() {
           callbacks: {
             title: function(items) { return items[0].label.replace('\n',' ') + ' 2026'; },
             label: function(c) {
+              if (c.raw == null) return null;
               return ' ' + c.dataset.label + ': $' + Math.round(c.raw).toLocaleString();
             },
             footer: function(items) {
               if (!items.length) return [];
               var idx = items[0].dataIndex;
-              return [
+              var lines = [
                 'Mercury : $' + mercPts[idx].toLocaleString(),
                 'Revolut : $' + revPts[idx].toLocaleString(),
                 'Bulbank : $' + bulkPts[idx].toLocaleString(),
-                '─────────────',
-                'Total   : $' + totalPts[idx].toLocaleString(),
               ];
+              if (chasePts[idx] != null) lines.push('Chase   : $' + Math.round(chasePts[idx]).toLocaleString());
+              lines.push('─────────────');
+              lines.push('Total   : $' + totalPts[idx].toLocaleString());
+              return lines;
             }
           }
         }
@@ -3724,6 +3775,25 @@ function fetchLiveData() {
       }
     }
   });
+
+  // Expose update function so applyChaseData can inject live balance into last data point
+  window._updateChaseInChart = function(bal) {
+    var lastIdx = chasePts.length - 1;
+    chasePts[lastIdx] = bal;
+    // Rebuild totalPts including Chase
+    for (var i = 0; i < totalPts.length; i++) {
+      totalPts[i] = mercPts[i] + revPts[i] + bulkPts[i] + (chasePts[i] || 0);
+    }
+    if (window._balTrendChart) {
+      // Chase is dataset index 3, Total is index 4
+      window._balTrendChart.data.datasets[3].data = chasePts.slice();
+      window._balTrendChart.data.datasets[4].data = totalPts.slice();
+      window._balTrendChart.update();
+      // Update subtitle to reflect Chase is now live
+      var sub = document.getElementById('bank-balance-card-sub');
+      if (sub) sub.textContent = sub.textContent.replace('JPMorgan Chase excluded (Plaid disconnected)', 'JPMorgan Chase: $' + Math.round(bal/1000) + 'K live via Plaid (last data point)');
+    }
+  };
 })();
 
 // ── Direct Method SCF Waterfall Chart (Jan 1 – Jun 30, 2026) ──
