@@ -3000,12 +3000,13 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   });
 
   // Vendor name lookup per rank per month: [Jan, Feb, Mar, Apr, May, Jun]
+  // Names are vendor-specific (matching v1-v5 arrays), not rank-based per month
   var vendorNames = [
-    ["Бюра за развити", "ЕЙТ СЕЛ ООД", "ГРЕЙТ МАСТЪР", "ЕХНАТОН БЪЛГАРИ", "ДИСКОРДИА АД", "ДИСКОРДИА АД"],
-    ["Филкаб", "WTO", "ЕЙТ СЕЛ ООД", "WTO", "РАСТ 3Д ЕООД", "ЕХНАТОН БЪЛГАРИ"],
-    ["ифм електроник", "KUKA", "ФАНУК БЪЛГАРИЯ", "МАТИК МОУШЪН", "КА-Лес 24", "БЛИК 99 ЕООД"],
-    ["WTO", "ФАНУК БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИ", "Филкаб", "МАТИК МОУШЪН", "ШУНК ИНТЕК"],
-    ["НЕОН.БГ ООД", "САМУДРА ИМПЕКС", "БЛИК 99 ЕООД", "БЛИК 99 ЕООД", "Димекслифт", "Филкаб"],
+    ["ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР"],
+    ["ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД"],
+    ["ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ"],
+    ["WTO", "WTO", "WTO", "WTO", "WTO", "WTO"],
+    ["ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ"],
     ['Others', 'Others', 'Others', 'Others', 'Others', 'Others'],
   ];
 
@@ -3083,7 +3084,9 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
               var mi = c.dataIndex;
               var name = (vendorNames[ri] || [])[mi] || ('Rank ' + (ri + 1));
               var val = Math.round(c.parsed.y);
-              return ' ' + name + ':  €' + val.toLocaleString();
+              return val < 0
+                ? ' ' + name + ' (return):  €' + Math.abs(val).toLocaleString()
+                : ' ' + name + ':  €' + val.toLocaleString();
             },
             footer: function(items) {
               var mi = items[0].dataIndex;

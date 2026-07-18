@@ -324,7 +324,7 @@ body { padding: 24px 32px; min-height: 100vh; }
     <div class="card-head">
       <div>
         <h3>Materials Breakdown - By Vendor</h3>
-        <p>Jan–May 2026 (May 2026) · Source: DHR EOOD Expenses ledger · All months shown side by side · <strong style="color:var(--amber);">Amounts include VAT (gross)</strong></p>
+        <p>Jan–Jun 2026 (Jun 2026) · Source: DHR EOOD Expenses ledger · All months shown side by side · <strong style="color:var(--amber);">Amounts include VAT (gross)</strong></p>
       </div>
     </div>
 
@@ -810,51 +810,46 @@ const stackTotalsPlugin = {
   }
 };
 
-const months5      = ['Jan','Feb','Mar','Apr','May'];
+const months5      = ['Jan','Feb','Mar','Apr','May','Jun'];
 </script>
 <script>
 (function() {
-  // Top-5 vendors per month (EUR, ranked by that month's spend) — Source: Materials By Vendor sheet, Expenses (22)
-  // [Jan, Feb, Mar, Apr, May]
-  var v1 = [23140, 45419, 60500, 57354, 10585];
-  var v2 = [22886, 28161, 24509, 17330, 10471];
-  var v3 = [19786, 18150, 24290, 12021, 10071];
-  var v4 = [16068, 11539, 15508, 9898, 7264];
-  var v5 = [13544, 10831, 15495, 9748, 6569];
+  // Top vendors per month (EUR) — vendor-specific arrays — Source: Materials By Vendor sheet, Expenses (44)
+  // [Jan, Feb, Mar, Apr, May, Jun]
+  var v1 = [0, 0, 262686, 0, 0, 0];       // ГРЕЙТ МАСТЪР ЕООД
+  var v2 = [0, 108993, 256560, -107551, 0, 0]; // ЕЙТ СЕЛ ООД (Apr = return)
+  var v3 = [7067, 2038, 24509, 57354, 6146, 28764]; // ЕХНАТОН БЪЛГАРИЯ АД
+  var v4 = [16068, 45419, 1391, 17330, 7020, 2718]; // WTO
+  var v5 = [0, 0, 60500, 0, 0, 0];        // ФАНУК БЪЛГАРИЯ ЕООД
 
-  // Credits / returns (negative values shown below zero as a distinct segment)
-  var vCredit = [0, 0, 0, -107551, 0]; // Apr: ЕЙТ СЕЛ ООД return
+  // Total materials per month (EUR) — Materials By Vendor sheet
+  var projTotal = [170476, 273424, 746322, 56337, 157402, 131975];
 
-  // Total materials per month (EUR, gross positive spend) — Source: Materials By Vendor sheet total row
-  var projTotal = [153307, 182627, 221491, 161039, 98539];
-
-  // Others = total - top5 sum (gross; vCredit handled separately below zero)
+  // Others = total - named vendor sum
   var vOther = projTotal.map(function(t, i) {
     return t - v1[i] - v2[i] - v3[i] - v4[i] - v5[i];
   });
 
-  // Vendor name lookup per rank per month: [Jan, Feb, Mar, Apr, May]
+  // Names are vendor-specific (matching v1-v5 arrays), not rank-based per month
   var vendorNames = [
-    ["Бюра за развити", "WTO", "ФАНУК БЪЛГАРИЯ ", "ЕХНАТОН БЪЛГАРИ", "РАСТ 3Д ЕООД"],
-    ["Филкаб", "KUKA", "ЕХНАТОН БЪЛГАРИ", "WTO", "КА-Лес 24"],
-    ["ифм електроник ", "ФАНУК БЪЛГАРИЯ ", "БЛИК 99 ЕООД", "МАТИК МОУШЪН ЕО", "МАТИК МОУШЪН ЕО"],
-    ["WTO", "САМУДРА ИМПЕКС ", "Бактрейд ООД", "Филкаб", "Димекслифт Груп"],
-    ["Вайд Бул ЕООД", "ТЕКУНИ ЕООД", "Диометран ООД", "БЛИК 99 ЕООД", "Ангел Стоилов"],
-    ["", "", "", "ЕЙТ СЕЛ ООД", ""],                 // Credits row
-    ['Others', 'Others', 'Others', 'Others', 'Others'],
+    ["ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР", "ГРЕЙТ МАСТЪР"],
+    ["ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД"],
+    ["ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ"],
+    ["WTO", "WTO", "WTO", "WTO", "WTO", "WTO"],
+    ["ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ"],
+    ['Others', 'Others', 'Others', 'Others', 'Others', 'Others'],
   ];
 
-  // Stacked bar: each dataset = one rank position, color consistent by rank
+  // Stacked bar: each dataset = one vendor, color consistent
   var rankColors = [
-    'rgb(56,189,248)',   // Rank 1 — sky blue
-    'rgb(192,132,252)',  // Rank 2 — purple
-    'rgb(250,204,21)',   // Rank 3 — yellow
-    'rgb(52,211,153)',   // Rank 4 — emerald
-    'rgb(251,146,60)',   // Rank 5 — orange
-    'rgb(239,68,68)',    // Credits — red (renders below zero)
+    'rgb(56,189,248)',   // ГРЕЙТ МАСТЪР — sky blue
+    'rgb(192,132,252)',  // ЕЙТ СЕЛ ООД — purple
+    'rgb(250,204,21)',   // ЕХНАТОН — yellow
+    'rgb(52,211,153)',   // WTO — emerald
+    'rgb(251,146,60)',   // ФАНУК — orange
     'rgb(174,177,185)',  // Others — muted gray
   ];
-  var rankData = [v1, v2, v3, v4, v5, vCredit, vOther];
+  var rankData = [v1, v2, v3, v4, v5, vOther];
 
   // Custom plugin: draw vendor name labels inside each segment where space allows
   var vendorLabelPlugin = {
@@ -898,7 +893,7 @@ const months5      = ['Jan','Feb','Mar','Apr','May'];
     data: {
       labels: months5,
       datasets: rankData.map(function(data, ri) {
-        var dsLabel = ri === 5 ? 'Credits' : ri === 6 ? 'Others' : 'Rank ' + (ri + 1);
+        var dsLabel = ri === 5 ? 'Others' : (vendorNames[ri] || ['Rank '+(ri+1)])[0];
         return {
           label: dsLabel,
           data: data,
