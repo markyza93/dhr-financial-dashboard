@@ -82,24 +82,22 @@ jobs:
             echo "No token rotation — nothing to update"
           fi
 
-      # ── 5. Commit balances.json ───────────────────────────────────────────
+      # ── 5. Commit balances.json via GitHub API ───────────────────────────
+      #    Uses the REST API instead of git push — no merge conflicts possible.
       - name: Commit balances.json
         if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Save new file, hard-reset to latest origin (no stash/rebase conflicts),
-          # then restore our freshly-fetched version on top
-          cp balances.json /tmp/balances_new.json
-          git fetch origin main
-          git reset --hard origin/main
-          cp /tmp/balances_new.json balances.json
-          git add balances.json
-          # Only commit if something actually changed
-          if git diff --cached --quiet; then
-            echo "balances.json unchanged — no commit needed"
-          else
-            git commit -m "chore: refresh balances $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
-            echo "✓ balances.json committed and pushed"
-          fi
+          REPO="${{ github.repository }}"
+          MSG="chore: refresh balances $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # Get the current file's SHA (required by the API to update an existing file)
+          SHA=$(gh api /repos/$REPO/contents/balances.json --jq '.sha')
+          gh api \
+            --method PUT \
+            -H "Accept: application/vnd.github+json" \
+            /repos/$REPO/contents/balances.json \
+            -f message="$MSG" \
+            -f content="$(base64 -w 0 balances.json)" \
+            -f sha="$SHA"
+          echo "✓ balances.json updated via GitHub API"
