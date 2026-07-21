@@ -48,6 +48,9 @@ jobs:
 
       # ── 3. Fetch balances ─────────────────────────────────────────────────
       - name: Run fetch_balances.py
+        # continue-on-error so the commit step always runs even if a service
+        # (e.g. Plaid/Chase) fails — partial data is better than stale data
+        continue-on-error: true
         env:
           MERCURY_API_KEY:            ${{ secrets.MERCURY_API_KEY }}
           REVOLUT_CLIENT_ID:          ${{ secrets.REVOLUT_CLIENT_ID }}
@@ -81,6 +84,7 @@ jobs:
 
       # ── 5. Commit balances.json ───────────────────────────────────────────
       - name: Commit balances.json
+        if: always()
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
