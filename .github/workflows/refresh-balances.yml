@@ -88,9 +88,11 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Save freshly-fetched file, pull latest, then restore (avoids stash conflicts)
+          # Save new file, hard-reset to latest origin (no stash/rebase conflicts),
+          # then restore our freshly-fetched version on top
           cp balances.json /tmp/balances_new.json
-          git pull --rebase origin main
+          git fetch origin main
+          git reset --hard origin/main
           cp /tmp/balances_new.json balances.json
           git add balances.json
           # Only commit if something actually changed
