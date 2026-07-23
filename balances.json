@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-22T09:26:57.940940+00:00",
+  "timestamp": "2026-07-23T09:24:54.759709+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 155857.98,
-        "mtdOutflows": -158154.11,
+        "mtdOutflows": -132154.11,
         "recentTransactions": [
           {
             "date": "2026-07-14T14:55:15.964304Z",
@@ -128,12 +128,6 @@
             "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
             "amount": -12150.77,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-23T14:28:36.523334Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -26000.0,
-            "kind": "outgoingPayment"
           }
         ]
       },
@@ -167,17 +161,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 41694.33,
+    "total": 26728.6,
     "usd": 1167.18,
-    "eur": 34650.44,
+    "eur": 21854.84,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 34650.44,
-        "available": 34650.44,
+        "balance": 21854.84,
+        "available": 21854.84,
         "state": "active"
       },
       {
@@ -215,8 +209,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 54845.88,
-        "current": 940.88
+        "available": 35740.29,
+        "current": 8967.72
       },
       {
         "name": "BUS COMPLETE CHK",
