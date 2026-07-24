@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-23T09:24:54.759709+00:00",
+  "timestamp": "2026-07-24T09:22:10.350875+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 57042.01,
-        "availableBalance": 57042.01,
+        "currentBalance": 56960.17,
+        "availableBalance": 56960.17,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
         "mtdInflows": 155857.98,
-        "mtdOutflows": -132154.11,
+        "mtdOutflows": -101687.7,
         "recentTransactions": [
+          {
+            "date": "2026-07-24T01:07:35.066588Z",
+            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
+            "amount": -81.84,
+            "kind": "other"
+          },
           {
             "date": "2026-07-14T14:55:15.964304Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -116,18 +122,6 @@
             "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
             "amount": -800.72,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-24T01:16:41.815166Z",
-            "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
-            "amount": -18397.48,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-24T01:16:37.19486Z",
-            "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
-            "amount": -12150.77,
-            "kind": "other"
           }
         ]
       },
@@ -161,17 +155,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 26728.6,
+    "total": 21742.44,
     "usd": 1167.18,
-    "eur": 21854.84,
+    "eur": 17591.71,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 21854.84,
-        "available": 21854.84,
+        "balance": 17591.71,
+        "available": 17591.71,
         "state": "active"
       },
       {
@@ -209,8 +203,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 35740.29,
-        "current": 8967.72
+        "available": 22893.44,
+        "current": 16970.94
       },
       {
         "name": "BUS COMPLETE CHK",
