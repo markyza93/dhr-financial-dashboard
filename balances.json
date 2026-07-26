@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-25T09:02:31.911112+00:00",
+  "timestamp": "2026-07-26T09:12:52.519353+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 155857.98,
-        "mtdOutflows": -101687.7,
+        "mtdOutflows": -100709.07,
         "recentTransactions": [
           {
             "date": "2026-07-24T01:07:35.066588Z",
@@ -110,18 +110,6 @@
             "description": "IO AUTOPAY",
             "amount": -465.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-26T01:06:41.985303Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -177.91,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-26T01:06:41.588619Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -800.72,
-            "kind": "other"
           }
         ]
       },
@@ -155,8 +143,8 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 20904.47,
-    "usd": 1167.18,
+    "total": 20884.47,
+    "usd": 1147.18,
     "eur": 16875.25,
     "bgn": 0.0,
     "accounts": [
@@ -172,8 +160,8 @@
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 1167.18,
-        "available": 1167.18,
+        "balance": 1147.18,
+        "available": 1147.18,
         "state": "active"
       },
       {
