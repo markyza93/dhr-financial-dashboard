@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-26T09:12:52.519353+00:00",
+  "timestamp": "2026-07-27T10:43:27.621988+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -143,17 +143,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 20884.47,
+    "total": 17430.06,
     "usd": 1147.18,
-    "eur": 16875.25,
+    "eur": 13921.75,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 16875.25,
-        "available": 16875.25,
+        "balance": 13921.75,
+        "available": 13921.75,
         "state": "active"
       },
       {
@@ -184,22 +184,22 @@
   },
   "chase": {
     "status": "ok",
-    "total": 127639.74,
+    "total": 117563.96,
     "accounts": [
       {
         "name": "A. ANGELOV",
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 53849.69,
-        "current": 10075.78
+        "available": 63225.33,
+        "current": 73.53
       },
       {
         "name": "BUS COMPLETE CHK",
         "mask": "3582",
         "type": "depository",
         "subtype": "checking",
-        "available": 127639.74,
+        "available": 117563.96,
         "current": 127639.74
       }
     ]
