@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-29T09:37:51.584277+00:00",
+  "timestamp": "2026-07-30T09:30:58.820874+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 167840.17,
+        "currentBalance": 127840.17,
         "availableBalance": 127840.17,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 266737.98,
-        "mtdOutflows": -100709.07,
+        "mtdInflows": 266731.0,
+        "mtdOutflows": -140244.07,
         "recentTransactions": [
+          {
+            "date": "2026-07-29T14:22:14.811375Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -40000.0,
+            "kind": "outgoingPayment"
+          },
           {
             "date": "2026-07-28T12:36:29.187434Z",
             "description": "Durin Mining Tec; 0000000054; DHR Inc",
@@ -104,18 +110,6 @@
             "description": "IO PAYMENT",
             "amount": -20.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-06-30T00:06:57.212617Z",
-            "description": null,
-            "amount": 6.98,
-            "kind": "other"
-          },
-          {
-            "date": "2026-06-30T00:05:21.705672Z",
-            "description": "IO AUTOPAY",
-            "amount": -465.0,
-            "kind": "other"
           }
         ]
       },
@@ -149,25 +143,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 110938.0,
-    "usd": 109441.73,
-    "eur": 1279.3,
+    "total": 149290.58,
+    "usd": 148878.05,
+    "eur": 352.71,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 1279.3,
-        "available": 1279.3,
+        "balance": 352.71,
+        "available": 352.71,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 109441.73,
-        "available": 109441.73,
+        "balance": 148878.05,
+        "available": 148878.05,
         "state": "active"
       },
       {
@@ -197,8 +191,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 62744.19,
-        "current": 581.75
+        "available": 62543.27,
+        "current": 694.83
       },
       {
         "name": "BUS COMPLETE CHK",
