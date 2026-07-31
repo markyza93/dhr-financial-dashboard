@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-30T09:30:58.820874+00:00",
+  "timestamp": "2026-07-31T09:45:34.834633+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,26 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 127840.17,
-        "availableBalance": 127840.17,
+        "currentBalance": 127776.15,
+        "availableBalance": 127776.15,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 266731.0,
-        "mtdOutflows": -140244.07,
+        "mtdInflows": 266731.98,
+        "mtdOutflows": -140309.07,
         "recentTransactions": [
+          {
+            "date": "2026-07-31T00:07:31.169389Z",
+            "description": null,
+            "amount": 0.98,
+            "kind": "other"
+          },
+          {
+            "date": "2026-07-31T00:05:17.547707Z",
+            "description": "IO AUTOPAY",
+            "amount": -65.0,
+            "kind": "other"
+          },
           {
             "date": "2026-07-29T14:22:14.811375Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -143,25 +155,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 149290.58,
-    "usd": 148878.05,
-    "eur": 352.71,
+    "total": 1809.13,
+    "usd": 711.74,
+    "eur": 938.26,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 352.71,
-        "available": 352.71,
+        "balance": 938.26,
+        "available": 938.26,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 148878.05,
-        "available": 148878.05,
+        "balance": 711.74,
+        "available": 711.74,
         "state": "active"
       },
       {
@@ -184,23 +196,23 @@
   },
   "chase": {
     "status": "ok",
-    "total": 117563.96,
+    "total": 482736.89,
     "accounts": [
       {
         "name": "A. ANGELOV",
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 62543.27,
-        "current": 694.83
+        "available": 61340.3,
+        "current": 852.01
       },
       {
         "name": "BUS COMPLETE CHK",
         "mask": "3582",
         "type": "depository",
         "subtype": "checking",
-        "available": 117563.96,
-        "current": 117563.96
+        "available": 482736.89,
+        "current": 482736.89
       }
     ]
   },
