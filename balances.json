@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-31T09:45:34.834633+00:00",
+  "timestamp": "2026-08-01T09:06:18.350124+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 127776.15,
-        "availableBalance": 127776.15,
+        "currentBalance": 107776.15,
+        "availableBalance": 107776.15,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
         "mtdInflows": 266731.98,
-        "mtdOutflows": -140309.07,
+        "mtdOutflows": -160309.07,
         "recentTransactions": [
+          {
+            "date": "2026-07-31T14:34:08.488329Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -20000.0,
+            "kind": "outgoingPayment"
+          },
           {
             "date": "2026-07-31T00:07:31.169389Z",
             "description": null,
@@ -155,25 +161,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 1809.13,
-    "usd": 711.74,
-    "eur": 938.26,
+    "total": 21391.42,
+    "usd": 20711.74,
+    "eur": 581.12,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 938.26,
-        "available": 938.26,
+        "balance": 581.12,
+        "available": 581.12,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 711.74,
-        "available": 711.74,
+        "balance": 20711.74,
+        "available": 20711.74,
         "state": "active"
       },
       {
@@ -203,8 +209,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 61340.3,
-        "current": 852.01
+        "available": 53598.58,
+        "current": 2018.31
       },
       {
         "name": "BUS COMPLETE CHK",
