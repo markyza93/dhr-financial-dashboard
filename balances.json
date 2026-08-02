@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-01T09:06:18.350124+00:00",
+  "timestamp": "2026-08-02T09:09:08.232199+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -12,8 +12,8 @@
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 266731.98,
-        "mtdOutflows": -160309.07,
+        "mtdInflows": 266731.68,
+        "mtdOutflows": -159139.07,
         "recentTransactions": [
           {
             "date": "2026-07-31T14:34:08.488329Z",
@@ -104,30 +104,6 @@
             "description": "JPMorgan Chase; ACCTVERIFY; Auth",
             "amount": 0.41,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-03T01:18:19.165433Z",
-            "description": "PEOPLE CENTER; BILL; DHR INC",
-            "amount": -200.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-07-03T01:15:35.259047Z",
-            "description": "GREEN DESK LLC 2; SIGONFILE; DHR Inc",
-            "amount": -950.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-07-02T13:01:23.452011Z",
-            "description": null,
-            "amount": 0.3,
-            "kind": "other"
-          },
-          {
-            "date": "2026-07-02T13:00:48.065706Z",
-            "description": "IO PAYMENT",
-            "amount": -20.0,
-            "kind": "other"
           }
         ]
       },
@@ -161,25 +137,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 21391.42,
-    "usd": 20711.74,
-    "eur": 581.12,
+    "total": 18717.52,
+    "usd": 18537.94,
+    "eur": 153.54,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 581.12,
-        "available": 581.12,
+        "balance": 153.54,
+        "available": 153.54,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 20711.74,
-        "available": 20711.74,
+        "balance": 18537.94,
+        "available": 18537.94,
         "state": "active"
       },
       {
