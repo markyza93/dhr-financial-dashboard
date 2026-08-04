@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-03T10:42:49.077880+00:00",
+  "timestamp": "2026-08-04T09:38:43.717127+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 107776.15,
-        "availableBalance": 107776.15,
+        "currentBalance": 106826.15,
+        "availableBalance": 106826.15,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
         "mtdInflows": 266731.68,
-        "mtdOutflows": -159139.07,
+        "mtdOutflows": -160089.07,
         "recentTransactions": [
+          {
+            "date": "2026-08-04T01:28:28.029263Z",
+            "description": "GREEN DESK LLC 2; SIGONFILE; DHR Inc",
+            "amount": -950.0,
+            "kind": "other"
+          },
           {
             "date": "2026-07-31T14:34:08.488329Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -137,25 +143,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 18541.05,
-    "usd": 18526.07,
-    "eur": 12.81,
+    "total": 18334.78,
+    "usd": 16485.74,
+    "eur": 1580.92,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 12.81,
-        "available": 12.81,
+        "balance": 1580.92,
+        "available": 1580.92,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 18526.07,
-        "available": 18526.07,
+        "balance": 16485.74,
+        "available": 16485.74,
         "state": "active"
       },
       {
@@ -185,7 +191,7 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 54135.82,
+        "available": 53443.74,
         "current": 9614.18
       },
       {
