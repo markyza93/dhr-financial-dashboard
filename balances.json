@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-07T08:14:20.633597+00:00",
+  "timestamp": "2026-08-07T23:44:51.772585+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -12,8 +12,8 @@
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 266730.98,
-        "mtdOutflows": -160288.37,
+        "mtdInflows": 160890.98,
+        "mtdOutflows": -110288.37,
         "recentTransactions": [
           {
             "date": "2026-08-07T01:09:55.007726Z",
@@ -86,18 +86,6 @@
             "description": "JPMorgan Chase; Ext Trnsfr; DHR INC",
             "amount": 10.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-08T16:02:09.31993Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -50000.0,
-            "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-07-08T12:34:58.790737Z",
-            "description": "Durin Mining Tec; 51; DHR Inc",
-            "amount": 105840.0,
-            "kind": "other"
           }
         ]
       },
@@ -131,25 +119,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 129892.87,
-    "usd": 126883.24,
-    "eur": 2573.21,
+    "total": 127502.96,
+    "usd": 121863.24,
+    "eur": 4821.92,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 2573.21,
-        "available": 2573.21,
+        "balance": 4821.92,
+        "available": 4821.92,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 126883.24,
-        "available": 126883.24,
+        "balance": 121863.24,
+        "available": 121863.24,
         "state": "active"
       },
       {
@@ -193,14 +181,16 @@
     ]
   },
   "bulbank": {
-    "status": "ok",
+    "status": "stale",
     "balance_bgn": 201356,
     "balance_usd": 120390.75,
-    "note": "Manual \u2014 from MT940 statement"
+    "note": "Live email fetch failed this run \u2014 showing last known balance (?)"
   },
   "fx": {
     "eur_usd": 1.1696,
     "bgn_usd": 0.5979
   },
-  "errors": []
+  "errors": [
+    "Bulbank: mt-940 not installed \u2014 run: pip install mt-940"
+  ]
 }
