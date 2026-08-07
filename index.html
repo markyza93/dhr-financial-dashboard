@@ -899,8 +899,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <div class="divider"></div>
       <div class="cs-item">
         <div class="cs-item-label">Bulbank (BG)</div>
-        <div class="cs-item-val" style="color:var(--red);">$55K</div>
-        <div class="cs-item-note">Jun 30 closing</div>
+        <div id="cs-bulbank-val" class="cs-item-val" style="color:var(--red);">$55K</div>
+        <div id="cs-bulbank-note" class="cs-item-note">Jun 30 closing</div>
       </div>
       <div class="divider"></div>
       <div class="cs-item">
@@ -3681,9 +3681,15 @@ function updateCashTile(mercBal, revData, chaseBal, bulbBal, tsLabel) {
     if (csChaseNote) { csChaseNote.textContent = 'Plaid disconnected'; }
   }
   if (csMercVal) csMercVal.textContent = '$' + Math.round(mBal/1000) + 'K';
-  if (csMercPct) csMercPct.textContent = Math.round(mBal/grand*100) + '% of total';
+  if (csMercPct) csMercPct.textContent = Math.round(mBal/grand*100) + '% of total' + (mercBal != null ? ' · Live' : '');
   if (csRevVal)  csRevVal.textContent  = '$' + Math.round(rTot/1000) + 'K';
-  if (csRevNote) csRevNote.textContent = Math.round(rTot/grand*100) + '% — USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K';
+  if (csRevNote) csRevNote.textContent = Math.round(rTot/grand*100) + '% — USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K' + (revData != null ? ' · Live' : '');
+
+  // Bulbank cs-item — mirrors Mercury/Revolut/Chase above (was static-only before; now live)
+  var csBulbVal  = document.getElementById('cs-bulbank-val');
+  var csBulbNote = document.getElementById('cs-bulbank-note');
+  if (csBulbVal)  { csBulbVal.textContent = '$' + Math.round(bBal/1000) + 'K'; csBulbVal.style.color = bulbBal != null ? '#dc2626' : 'var(--red)'; }
+  if (csBulbNote) { csBulbNote.textContent = Math.round(bBal/grand*100) + '% of total' + (bulbBal != null ? ' · Live' : ' · ' + BULBANK_LABEL); }
 }
 
 // Immediately mark Chase as disconnected — don't wait for balances.json fetch
