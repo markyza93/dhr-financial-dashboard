@@ -1,6 +1,6 @@
 # .github/workflows/refresh-balances.yml
 #
-# Fetches live Mercury + Revolut balances daily and commits balances.json
+# Fetches live Mercury + Revolut + Bulbank balances daily and commits balances.json
 # so the public GitHub Pages dashboard always shows fresh data.
 #
 # Required GitHub Secrets (Settings → Secrets and variables → Actions → New repository secret):
@@ -9,6 +9,8 @@
 #   REVOLUT_DOMAIN           Domain registered with Revolut (e.g. dhr.is — no https://)
 #   REVOLUT_PRIVATE_KEY      Full contents of revolut_private.pem (paste the whole file)
 #   REVOLUT_REFRESH_TOKEN    Current Revolut OAuth refresh token
+#   BULBANK_GMAIL_USER           Gmail address that receives the daily Bulbank Online Report
+#   BULBANK_GMAIL_APP_PASSWORD   16-char Google App Password for that Gmail account
 #   GH_PAT                   GitHub Personal Access Token with repo scope
 #                            (needed to update REVOLUT_REFRESH_TOKEN if Revolut rotates it)
 
@@ -16,8 +18,14 @@ name: Refresh Balances
 
 on:
   schedule:
-    # 07:00 UTC every day (10:00 Sofia / EET+3 in summer)
+    # 07:00 UTC every day (10:00 Sofia / EET+3 in summer) — Mercury/Revolut fresh;
+    # Bulbank picks up whichever statement email arrived most recently (often
+    # still "yesterday's" at this hour — the second run below catches same-day).
     - cron: '0 7 * * *'
+    # 16:00 UTC every day — by now the daily "Bulbank Online Report" email has
+    # almost always arrived (observed arrivals ~10:00–15:01 UTC), so this run
+    # refreshes the Bulbank card with same-day figures.
+    - cron: '0 16 * * *'
   # Also allow manual trigger from the Actions tab
   workflow_dispatch:
 
@@ -44,7 +52,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install requests PyJWT cryptography plaid-python
+        run: pip install requests PyJWT cryptography plaid-python mt-940
 
       # ── 3. Fetch balances ─────────────────────────────────────────────────
       - name: Run fetch_balances.py
@@ -60,6 +68,8 @@ jobs:
           PLAID_CLIENT_ID:            ${{ secrets.PLAID_CLIENT_ID }}
           PLAID_SECRET:               ${{ secrets.PLAID_SECRET }}
           PLAID_CHASE_ACCESS_TOKEN:   ${{ secrets.PLAID_CHASE_ACCESS_TOKEN }}
+          BULBANK_GMAIL_USER:         ${{ secrets.BULBANK_GMAIL_USER }}
+          BULBANK_GMAIL_APP_PASSWORD: ${{ secrets.BULBANK_GMAIL_APP_PASSWORD }}
         run: python fetch_balances.py
 
       # ── 4. Rotate refresh token if Revolut issued a new one ───────────────
