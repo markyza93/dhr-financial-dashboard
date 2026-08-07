@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-06T09:39:57.496795+00:00",
+  "timestamp": "2026-08-07T08:14:20.633597+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 106826.15,
-        "availableBalance": 106826.15,
+        "currentBalance": 106626.15,
+        "availableBalance": 106626.15,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
         "mtdInflows": 266730.98,
-        "mtdOutflows": -160088.37,
+        "mtdOutflows": -160288.37,
         "recentTransactions": [
+          {
+            "date": "2026-08-07T01:09:55.007726Z",
+            "description": "PEOPLE CENTER; BILL; DHR INC",
+            "amount": -200.0,
+            "kind": "other"
+          },
           {
             "date": "2026-08-04T01:28:28.029263Z",
             "description": "GREEN DESK LLC 2; SIGONFILE; DHR Inc",
@@ -125,25 +131,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 136877.07,
-    "usd": 127097.74,
-    "eur": 8361.26,
+    "total": 129892.87,
+    "usd": 126883.24,
+    "eur": 2573.21,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 8361.26,
-        "available": 8361.26,
+        "balance": 2573.21,
+        "available": 2573.21,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 127097.74,
-        "available": 127097.74,
+        "balance": 126883.24,
+        "available": 126883.24,
         "state": "active"
       },
       {
@@ -173,8 +179,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 63121.35,
-        "current": 735.23
+        "available": 62955.41,
+        "current": 821.5
       },
       {
         "name": "BUS COMPLETE CHK",
