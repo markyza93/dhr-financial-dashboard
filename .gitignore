@@ -8,6 +8,8 @@
 !index.html
 !balances.json
 !fetch_balances.py
+!bulbank_mt940.py
+!requirements.txt
 !vendor_breakdown.html
 !.github/
 !.github/**
