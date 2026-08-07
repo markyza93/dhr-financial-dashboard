@@ -1,6 +1,6 @@
 # .github/workflows/deploy-firebase.yml
 #
-# Auto-deploys index.html to Firebase Hosting on every push to main.
+# Auto-deploys index.html and revenue.html to Firebase Hosting on every push to main.
 # Requires one GitHub Secret:
 #   FIREBASE_SERVICE_ACCOUNT   — service account JSON (see setup below)
 #
@@ -18,11 +18,12 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'revenue.html'
       - 'dhr_logo.png'
 
 jobs:
   deploy:
-    name: Deploy index.html → Firebase
+    name: Deploy index.html + revenue.html → Firebase
     runs-on: ubuntu-latest
 
     steps:
@@ -33,8 +34,9 @@ jobs:
         run: |
           mkdir -p public
           cp index.html public/index.html
+          cp revenue.html public/revenue.html
           cp dhr_logo.png public/dhr_logo.png
-          echo "✓ Copied index.html and dhr_logo.png to public/"
+          echo "✓ Copied index.html, revenue.html, and dhr_logo.png to public/"
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0

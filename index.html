@@ -422,7 +422,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="kpi-topbar">
       <div class="top-kpi">
         <div class="top-kpi-label">Revenue YTD</div>
-        <div class="top-kpi-value">$4.01M</div>
+        <div class="top-kpi-value">$4.00M</div>
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Expenses YTD</div>
@@ -430,7 +430,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Profit</div>
-        <div class="top-kpi-value" style="color:var(--green)">$656K</div>
+        <div class="top-kpi-value" style="color:var(--green)">$643K</div>
       </div>
       <div class="top-kpi">
         <div class="top-kpi-label">Total Cash</div>
@@ -449,8 +449,8 @@ tbody tr:hover td { background: #f5f8fc !important; }
   <div class="kpi-grid">
     <div class="kpi k1">
       <div class="kpi-label">Revenue YTD — All Entities (Jan–Jun)</div>
-      <div class="kpi-value">$4.01M</div>
-      <div class="kpi-meta"><span class="up">↑ +282%</span> vs $1.05M full year 2025 · service-date recognition (Durin + Framework) · Jun surge: +$263K new invoices</div>
+      <div class="kpi-value">$4.00M</div>
+      <div class="kpi-meta"><span class="up">↑ +281%</span> vs $1.05M full year 2025 · service-date recognition (Durin + Framework) · Jun surge: +$263K new invoices</div>
     </div>
     <div class="kpi k2">
       <div class="kpi-label">Expenses YTD — Full Actual (Jan–Jun)</div>
@@ -459,12 +459,12 @@ tbody tr:hover td { background: #f5f8fc !important; }
     </div>
     <div class="kpi k3">
       <div class="kpi-label">Profit YTD (Jan–Jun)</div>
-      <div class="kpi-value">$656K</div>
-      <div class="kpi-meta"><span class="up">16.4% margin</span> · Revenue $4.01M minus $3.36M full actual costs</div>
+      <div class="kpi-value">$643K</div>
+      <div class="kpi-meta"><span class="up">16.1% margin</span> · Revenue $4.00M minus $3.36M full actual costs</div>
       <div style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:4px;font-size:11px;">
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">
           <span style="color:var(--muted2);">EBITDA Proxy</span>
-          <span style="color:var(--green);font-weight:700;">$1,353K &nbsp;·&nbsp; 33.7%</span>
+          <span style="color:var(--green);font-weight:700;">$1,340K &nbsp;·&nbsp; 33.5%</span>
         </div>
         <div style="font-size:10px;color:var(--muted);line-height:1.5;">+$696K add-backs: land CapEx ($516K Jan+Mar) + taxes paid ($180K)</div>
       </div>
@@ -524,7 +524,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <div class="main">
           <div class="sec"><h2>Revenue Analysis</h2><div class="rule"></div></div>
   <div style="margin-bottom:12px;padding:8px 14px;background:rgba(56,189,248,0.06);border-left:3px solid rgba(56,189,248,0.4);border-radius:0 6px 6px 0;font-size:11.5px;color:var(--muted2);line-height:1.6;">
-    <strong style="color:var(--fg);">Recognition basis — service date (all clients).</strong> Revenue is recorded in the month the engineering work or service was performed. Durin &amp; Framework: by engineering sprint month. Hadrian: by invoice date per Revenue (13).xlsx (discrete invoices from Jan 2026 onward). Rainmaker &amp; Унипак АД: by service month.
+    <strong style="color:var(--fg);">Recognition basis — service date (all clients).</strong> Revenue is recorded in the month the engineering work or service was performed. Durin &amp; Framework: by engineering sprint month. Hadrian: by service month per Revenue (19).xlsx. Materials invoices are typically issued the month <em>after</em> the service month, so they are recognised one month earlier than their invoice date. Rainmaker &amp; Унипак АД: by service month.
   </div>
 
   <div class="card" style="margin-bottom:14px;">
@@ -560,7 +560,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Revenue Breakdown: Services vs Materials</h3>
-        <p>Jan–Jun 2026 actuals · Hadrian: actual by-type from Revenue (13); Jan–Apr via Revolut lump-sum · May INV-507/509 · Jun INV-529/530 · Rainmaker + Унипак АД: services only</p>
+        <p>Jan–Jun 2026 actuals · all clients by-type from Revenue (19), keyed to service month · Rainmaker + Унипак АД: services only</p>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
         <div style="display:flex;gap:4px;">
@@ -578,7 +578,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
     </div>
     <div class="wrap h380"><canvas id="revSvcMatChart"></canvas></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Jun actual by-type from Revenue (13). Jan–Apr received as Revolut lump-sum (no separate invoice split). May: INV-507 (Services $152K) + INV-509 (Materials $101K). Jun: INV-529 (Services $159K) + INV-530 (Materials $96K). Rainmaker + Унипак АД are pure services with no materials component.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Jun actual by-type from Revenue (19), keyed to service month. Services #448/#459/#471/#491/#507/#529 · Materials #467/#474/#492/#509/#531/#541 — each materials invoice is issued the month after the service month it belongs to. Rainmaker + Унипак АД are pure services with no materials component.</div>
   </div>
 
   <!-- EXPENSES -->
@@ -709,77 +709,77 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <tbody>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">Jan</td>
-            <td style="padding:5px 8px;text-align:right;">$305,921</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">$311,149</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-$5,228</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-2%</td>
+            <td style="padding:5px 8px;text-align:right;">$429,373</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">$311,150</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$118,223</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">28%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$54,707</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$49,478</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">16.2%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$172,930</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">40.3%</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">Feb</td>
-            <td style="padding:5px 8px;text-align:right;">$810,452</td>
+            <td style="padding:5px 8px;text-align:right;">$792,945</td>
             <td style="padding:5px 8px;text-align:right;color:var(--red);">$473,595</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$336,857</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">42%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$319,350</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">40%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$50</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$336,907</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">41.6%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$319,400</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">40.3%</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">Mar</td>
-            <td style="padding:5px 8px;text-align:right;">$742,409</td>
+            <td style="padding:5px 8px;text-align:right;">$656,521</td>
             <td style="padding:5px 8px;text-align:right;color:var(--red);">$1,492,303</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-$749,894</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-101%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">-$835,782</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">-127%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$467,174</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-$282,720</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">-38.1%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">-$368,609</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">-56.1%</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">Apr</td>
-            <td style="padding:5px 8px;text-align:right;">$762,341</td>
+            <td style="padding:5px 8px;text-align:right;">$722,039</td>
             <td style="padding:5px 8px;text-align:right;color:var(--red);">$368,498</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$393,843</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">52%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$353,541</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">49%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$103,035</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$496,879</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">65.2%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$456,577</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">63.2%</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">May</td>
-            <td style="padding:5px 8px;text-align:right;">$608,978</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--red);">$270,458</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$338,520</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">56%</td>
+            <td style="padding:5px 8px;text-align:right;">$604,460</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--red);">$270,459</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$334,001</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">55%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted);border-left:1px solid rgba(56,189,248,0.15);">&mdash;</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$338,520</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">55.6%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$334,001</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">55.3%</td>
           </tr>
           <tr style="border-bottom:1px solid rgba(26,40,64,0.5);">
             <td style="padding:5px 8px;color:var(--muted2);">Jun</td>
-            <td style="padding:5px 8px;text-align:right;">$784,678</td>
+            <td style="padding:5px 8px;text-align:right;">$796,513</td>
             <td style="padding:5px 8px;text-align:right;color:var(--red);">$442,357</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$342,321</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$354,156</td>
             <td style="padding:5px 8px;text-align:right;color:var(--green);">44%</td>
             <td style="padding:5px 8px;text-align:right;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$71,294</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">$413,614</td>
-            <td style="padding:5px 8px;text-align:right;color:var(--green);">52.7%</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">$425,450</td>
+            <td style="padding:5px 8px;text-align:right;color:var(--green);">53.4%</td>
           </tr>
           <tr style="background:rgba(56,189,248,0.04);border-top:2px solid rgba(56,189,248,0.2);">
             <td style="padding:6px 8px;font-weight:700;color:var(--blue);">YTD</td>
-            <td style="padding:6px 8px;text-align:right;font-weight:700;">$4,014,779</td>
-            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--red);">$3,358,360</td>
-            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">$656,419</td>
+            <td style="padding:6px 8px;text-align:right;font-weight:700;">$4,001,851</td>
+            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--red);">$3,358,361</td>
+            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">$643,490</td>
             <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">16%</td>
             <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--muted2);border-left:1px solid rgba(56,189,248,0.15);">+$696,259</td>
-            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">$1,352,678</td>
-            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">33.7%</td>
+            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">$1,339,749</td>
+            <td style="padding:6px 8px;text-align:right;font-weight:700;color:var(--green);">33.5%</td>
           </tr>
-        </tbody>
+                </tbody>
       </table>
-      <p style="margin-top:8px;font-size:10.5px;color:var(--muted);line-height:1.5;"><strong>Margin</strong> = Net Profit ÷ Revenue — the share of each revenue dollar retained after all costs. <strong>Add-backs</strong> = CapEx (land acquisitions only, capitalised not expensed) + Taxes paid in the month — items that reduce reported profit but are not recurring operational costs. <strong>EBITDA Proxy</strong> = Profit + Add-backs — a simplified proxy for recurring operating cash generation. <strong>EBITDA Proxy Margin</strong> = EBITDA Proxy ÷ Revenue, which normalises across months (e.g. Mar margin of −101% is distorted by a one-time $467K land purchase; EBITDA Proxy Margin of −38% strips that out).</p>
+      <p style="margin-top:8px;font-size:10.5px;color:var(--muted);line-height:1.5;"><strong>Margin</strong> = Net Profit ÷ Revenue — the share of each revenue dollar retained after all costs. <strong>Add-backs</strong> = CapEx (land acquisitions only, capitalised not expensed) + Taxes paid in the month — items that reduce reported profit but are not recurring operational costs. <strong>EBITDA Proxy</strong> = Profit + Add-backs — a simplified proxy for recurring operating cash generation. <strong>EBITDA Proxy Margin</strong> = EBITDA Proxy ÷ Revenue, which normalises across months (e.g. Mar margin of −127% is distorted by a one-time $467K land purchase; EBITDA Proxy Margin of −56% strips that out).</p>
   </div>
 
   
@@ -1646,35 +1646,111 @@ const stackTotalsPlugin = {
 // ── RAW DATA ──
 // Source: Revenue SSOT — Revenue - DHR Global.xlsx · Sheet: Revenue / DHR Inc Income 2026
 // Jan–Jun 2026 actuals · Bulbank N5/2026 statement confirmed (close €172,334.77)
-const durin2026    = [123695, 136947, 124526, 152971, 123889, 135616];  // service-date recognition — Source: Revenue (15).xlsx · Jun: +$24,736 materials
-const frame2026    = [0,      199847, 231546, 281158, 232187, 365173];   // service-date recognition — Source: Revenue (15).xlsx · Jun: +$210,293 materials
-const hadrian2026  = [180383, 389356, 386337, 300449, 252902, 255847];   // May: INV-507 Engineering Services ($152,124) + INV-509 Materials ($100,778) · Jun: INV-529/530
-const rainmaker2026 = [1843, 70210, 0, 0, 0, 0];   // Source: Revenue (15) row 16 — all services
-const unipak2026    = [0, 14092, 0, 27763, 0, 28042];   // Унипак АД — Source: Revenue (15) · Feb/Apr minor corrections + Jun new invoice
+// ALL revenue arrays are keyed by SERVICE MONTH (not invoice-issue month).
+// Materials invoices are typically issued the month AFTER the service month.
+const durin2026    = [123694.79, 136947.08, 124526.30, 152971.44, 123889.19, 135616.38];  // Revenue (19) row 14
+const frame2026    = [0,         199847.31, 231545.83, 281158.14, 231967.90, 365172.93];  // Revenue (19) row 15
+const hadrian2026  = [303834.93, 371849.14, 300448.84, 260146.28, 248602.82, 267682.54];  // Revenue (19) row 13 — materials re-keyed to service month
+const rainmaker2026 = [1843.12, 70210.03, 0, 0, 0, 0];   // Revenue (19) row 16 — all services
+const unipak2026    = [0, 14091.60, 0, 27763.20, 0, 28041.60];   // Унипак АД — Revenue (19) row 17
 
-// ── INVOICE REFERENCE NUMBERS — update with actual invoice numbers as issued ──
-// Format: [Jan, Feb, Mar, Apr, May]  · null = no invoice that month
-const invHadrian = ['Ref#0000000448, #0000000453', 'Ref#0000000459, #0000000467', 'Ref#0000000471, #0000000474', 'Ref#0000000491, #0000000492', 'INV-507', 'INV-529, INV-530']; // Revolut col G wire references
-const invDurin   = ['Inv#32, Inv#33', 'Inv#35, Inv#36', 'Inv#38, Inv#40', 'Inv#41, Inv#43', 'Inv#46, Inv#48', 'Inv#54']; // DHR Income 2026 col A
-const invFrame   = [null,             null,              'Inv#37, Inv#39', 'Inv#42, Inv#44', 'Inv#45, Inv#47', 'Inv#0000000055']; // DHR Income 2026 col A (Inv#49 excluded — Just for Customs)
-
-// Per-type invoice refs (Services / Materials split)
-const invHadrianRef = ['Ref#0000000448, #0000000453', 'Ref#0000000459, #0000000467', 'Ref#0000000471, #0000000474', 'Ref#0000000491, #0000000492', null, null]; // Jan–Apr: Revolut wire refs; May has separate invoices
-const invDurinSvc   = ['Inv#33', 'Inv#35', 'Inv#38', 'Inv#41', 'Inv#46', 'Inv#54'];
-const invDurinMat   = ['Inv#32', 'Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', 'Inv#56'];
-const invFrameSvc   = [null, null, 'Inv#37', 'Inv#42', 'Inv#45', 'Inv#0000000055'];
-const invFrameMat   = [null, null, 'Inv#39', 'Inv#44', 'Inv#47', 'Inv#57'];
+// ── INVOICE REFERENCE NUMBERS — keyed by SERVICE MONTH ──
+// Format: [Jan, Feb, Mar, Apr, May, Jun] · null = no invoice for that service month
+// NOTE: these were previously keyed by invoice-ISSUE month, which is one month later
+// for materials (and for all Framework invoices). Source: Revenue (19) service-month cols.
+const invHadrianSvc = ['#0000000448', '#0000000459', '#0000000471', '#0000000491', '#0000000507', '#0000000529'];
+const invHadrianMat = ['#0000000467', '#0000000474', '#0000000492', '#0000000509', '#0000000531', '#0000000541'];
+const invDurinSvc   = ['Inv#35', 'Inv#38', 'Inv#41', 'Inv#46', 'Inv#51', 'Inv#54'];
+const invDurinMat   = ['Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', 'Inv#53', 'Inv#56'];
+const invFrameSvc   = [null, 'Inv#37', 'Inv#42', 'Inv#45', 'Inv#50', 'Inv#0000000055'];
+const invFrameMat   = [null, 'Inv#39', 'Inv#44', 'Inv#47', 'Inv#52', 'Inv#57'];
 
 // Services / Materials revenue split by client (Jan–Jun 2026)
-// Hadrian: actual by-type from Revenue (13) rows 42-43 · Jan–Apr per Revolut lump-sum receipt
+// Hadrian: actual by-type from Revenue (19) rows 42-43 · materials keyed to service month
 // Hadrian May: INV-507 (services) + INV-509 (materials) · Jun: INV-529 (services) + INV-530 (materials)
-const hadrianSvc = [59359,  144880, 159368, 159368, 152124, 159368];  // Actual — Revenue (13) row 42
-const hadrianMat = [121025, 244476, 226969, 141081, 100778, 96479];   // Actual — Revenue (13) row 43
-// Durin & Framework: actual per-invoice breakdown from Revenue (13)
-const durinSvc   = [100800, 100800, 110880, 110880, 105840, 110880];  // Revenue (15) row 47
-const durinMat   = [22895,  36147,  13646,  42091,  18049,  24736];   // Revenue (15) row 48 · Jun: new materials invoice
-const frameSvc   = [0,      105600, 116160, 116160, 147840, 154880];  // Revenue (15) row 52
-const frameMat   = [0,      94247,  115386, 164998, 84347,  210293];  // Revenue (15) row 53 · Jun: new materials invoice
+const hadrianSvc = [59358.78, 144880, 159368, 159368, 152124, 159368];  // Revenue (19) row 42
+const hadrianMat = [244476.15, 226969.14, 141080.84, 100778.28, 96478.82, 108314.54];  // Revenue (19) row 43 — service month
+// Durin & Framework: actual per-invoice breakdown from Revenue (19)
+const durinSvc   = [100800, 100800, 110880, 110880, 105840, 110880];  // Revenue (19) row 47
+const durinMat   = [22894.79, 36147.08, 13646.30, 42091.44, 18049.19, 24736.38];   // Revenue (19) row 48
+const frameSvc   = [0, 105600, 116160, 116160, 147840, 154880];  // Revenue (19) row 52
+const frameMat   = [0, 94247.31, 115385.83, 164998.14, 84127.90, 210292.93];  // Revenue (19) row 53
+
+// ── MARGIN BY CLIENT BY MONTH — Source: Client Margin Analysis.xlsx · sheet 'Margin Analysis' ──
+// Services margin = (revenue − fully-loaded labor − overhead allocation) ÷ revenue
+// Materials margin = (revenue − materials cost post-VAT − 3D printing labor) ÷ revenue
+// null = no revenue that month. Rainmaker / Унипак are not in the margin model.
+const hadrianSvcMargin = [0.5883, 0.8101, 0.8145, 0.7812, 0.7789, 0.8350];
+const hadrianMatMargin = [0.2895, 0.2972, 0.3612, 0.2120, 0.2701, 0.2425];
+const durinSvcMargin   = [0.8701, 0.8433, 0.8528, 0.8447, 0.7904, 0.8386];
+const durinMatMargin   = [0.4132, 0.2830, 0.3477, 0.4001, 0.3930, 0.3701];
+const frameSvcMargin   = [null, 0.7481, 0.7458, 0.7401, 0.7965, 0.8365];
+const frameMatMargin   = [null, 0.2624, 0.2791, 0.3401, -0.2747, 0.2534];
+// ── UNIVERSAL REVENUE TOOLTIP BUILDER ──────────────────────────────
+// One structure for every client. Gates ONLY on revenue — never on the presence
+// of an invoice ref (that was the Framework-February bug: refs were keyed by
+// invoice-issue month, so Feb read null and the whole tooltip was replaced).
+const REV_CLIENTS = {
+  hadrian:   { name: 'Hadrian',    svc: () => hadrianSvc, mat: () => hadrianMat,
+               svcInv: () => invHadrianSvc, matInv: () => invHadrianMat,
+               svcMargin: () => hadrianSvcMargin, matMargin: () => hadrianMatMargin,
+               rateCard: ['3.5 eng \u00d7 $110/hr = $66,733', '3.5 eng \u00d7 $90/hr  = $54,600', '4.0 eng \u00d7 $43/hr  = $29,813'], rateTotal: 151147 },
+  durin:     { name: 'Durin',      svc: () => durinSvc, mat: () => durinMat,
+               svcInv: () => invDurinSvc, matInv: () => invDurinMat,
+               svcMargin: () => durinSvcMargin, matMargin: () => durinMatMargin,
+               rateCard: ['7 engineers \u00d7 $90/hr \u00d7 172 hrs'], rateTotal: 109200 },
+  framework: { name: 'Framework',  svc: () => frameSvc, mat: () => frameMat,
+               svcInv: () => invFrameSvc, matInv: () => invFrameMat,
+               svcMargin: () => frameSvcMargin, matMargin: () => frameMatMargin,
+               rateCard: ['6 engineers \u00d7 $110/hr \u00d7 173 hrs'], rateTotal: 114400 },
+  rainmaker: { name: 'Rainmaker',  svc: () => rainmaker2026, mat: null,
+               svcInv: null, matInv: null, svcMargin: null, matMargin: null,
+               rateCard: null, rateTotal: null },
+  unipak:    { name: '\u0423\u043d\u0438\u043f\u0430\u043a \u0410\u0414', svc: () => unipak2026, mat: null,
+               svcInv: null, matInv: null, svcMargin: null, matMargin: null,
+               rateCard: null, rateTotal: null },
+};
+const REV_RULE = '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500';
+function _usd(v)  { return '$' + Math.round(v).toLocaleString(); }
+function _pad(label, width) { return label + Array(Math.max(1, width - label.length + 1)).join(' '); }
+function _mgn(m)  { return (m === null || m === undefined) ? '' : '   margin ' + (m * 100).toFixed(1) + '%'; }
+
+// Returns an array of tooltip lines for one client / one month index.
+// indent: string prefixed to every line (used by the aggregated 'all' tooltip).
+function buildRevTooltip(key, idx, indent) {
+  const C = REV_CLIENTS[key]; if (!C) return [];
+  const pre = indent || ' ';
+  const svc = C.svc()[idx] || 0;
+  const mat = C.mat ? (C.mat()[idx] || 0) : 0;
+  const total = svc + mat;
+  if (!total) return [pre + 'No revenue this month'];
+
+  const L = [];
+  L.push(pre + _pad('Total Revenue:', 22) + _usd(total));
+  L.push(pre + '  ' + _pad('Services:', 20) + _pad(_usd(svc), 12) + _mgn(C.svcMargin ? C.svcMargin()[idx] : null));
+  if (C.mat) L.push(pre + '  ' + _pad('Materials:', 20) + _pad(_usd(mat), 12) + _mgn(C.matMargin ? C.matMargin()[idx] : null));
+  else       L.push(pre + '  All services \u2014 no materials component');
+
+  if (C.svcInv || C.matInv) {
+    const si = C.svcInv ? C.svcInv()[idx] : null;
+    const mi = C.matInv ? C.matInv()[idx] : null;
+    L.push(pre + REV_RULE);
+    L.push(pre + 'Invoice refs');
+    if (svc) L.push(pre + '  ' + _pad('Services:', 12) + (si || '\u2014 not recorded'));
+    if (C.mat && mat) L.push(pre + '  ' + _pad('Materials:', 12) + (mi || '\u2014 not recorded'));
+  }
+
+  if (C.rateCard) {
+    L.push(pre + REV_RULE);
+    L.push(pre + 'Rate card model');
+    C.rateCard.forEach(function(r) { L.push(pre + '  ' + r); });
+    const delta = svc - C.rateTotal;
+    L.push(pre + '  ' + _pad('Model total:', 16) + _pad(_usd(C.rateTotal), 12) +
+           'vs actual ' + (delta >= 0 ? '+' : '\u2212') + _usd(Math.abs(delta)));
+  }
+  return L.map(function(l){ return l.replace(/\s+$/, ''); });
+}
+
 const total2026    = durin2026.map((d,i) => d + frame2026[i] + hadrian2026[i] + rainmaker2026[i] + unipak2026[i]);
 const months5      = ['Jan','Feb','Mar','Apr','May','Jun'];
 const months12     = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1805,77 +1881,15 @@ new Chart(document.getElementById('revTargetChart'), {
           label: function(c) {
             var v = c.parsed.y;
             if (!v) return null;
-            var idx = c.dataIndex; // 0=Jan…5=Jun
+            var idx = c.dataIndex;      // 0=Jan…5=Jun
             var dsIdx = c.datasetIndex;
-            // Target lines (ds5 = flat base, ds6 = adaptive) — always show as target
+            // Target lines (ds5 = flat base, ds6 = adaptive)
             if (dsIdx === 5) return ' $' + Math.round(v).toLocaleString();
             if (dsIdx === 6) return ' $' + Math.round(v).toLocaleString() + (idx >= 6 ? ' (projected)' : '');
             // Projected months (Jul+) — simple label only
             if (idx >= 6) return ' ' + c.dataset.label + ': $' + Math.round(v).toLocaleString();
-            var lines = [' Actual Total Revenue:  $' + Math.round(v).toLocaleString()];
-            if (dsIdx === 0) {
-              // Hadrian
-              if (idx === 4) {
-                // May: per-invoice split (INV-507 + INV-509)
-                lines.push(' Invoice ref Services:   INV-0000000507');
-                lines.push(' Invoice ref Materials:  INV-0000000509');
-                lines.push(' Actual Service Revenue:    $' + hadrianSvc[4].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + hadrianMat[4].toLocaleString());
-              } else if (idx === 5) {
-                // Jun: per-invoice split (INV-529 + INV-530)
-                lines.push(' Invoice ref Services:   INV-529');
-                lines.push(' Invoice ref Materials:  INV-530');
-                lines.push(' Actual Service Revenue:    $' + hadrianSvc[5].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + hadrianMat[5].toLocaleString());
-              } else {
-                // Jan–Apr: Revolut lump — no separate invoice split
-                lines.push(' Transaction ref: ' + invHadrianRef[idx]);
-              }
-              lines.push(' ─────────────────────────');
-              lines.push(' Modeled Service Revenue (rate card):');
-              lines.push('   3.5 eng × $110/hr = $66,733');
-              lines.push('   3.5 eng × $90/hr  = $54,600');
-              lines.push('   4.0 eng × $43/hr  = $29,813');
-              lines.push('   Model total        = $151,147');
-              if (idx < 4) {
-                // Jan–Apr: actual materials from Revenue (13)
-                lines.push(' ─────────────────────────');
-                lines.push(' Actual Materials Revenue:  $' + Math.round(hadrianMat[idx]).toLocaleString());
-              }
-            } else if (dsIdx === 1) {
-              // Durin — actual per-invoice split always available
-              lines.push(' Invoice ref Services:   ' + (invDurinSvc[idx] || 'N/A'));
-              lines.push(' Invoice ref Materials:  ' + (invDurinMat[idx] || 'N/A'));
-              lines.push(' Actual Service Revenue:    $' + durinSvc[idx].toLocaleString());
-              lines.push(' Actual Materials Revenue:  $' + durinMat[idx].toLocaleString());
-              lines.push(' ─────────────────────────');
-              lines.push(' Modeled Service Revenue (rate card):');
-              lines.push('   7 engineers × $90/hr × 172 hrs');
-              lines.push('   = $109,200 / mo');
-            } else if (dsIdx === 2) {
-              // Framework
-              if (v === 0 || !invFrameSvc[idx]) {
-                lines = [' No invoice this month'];
-              } else {
-                lines.push(' Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push(' Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
-                lines.push(' Actual Service Revenue:    $' + frameSvc[idx].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + frameMat[idx].toLocaleString());
-                lines.push(' ─────────────────────────');
-                lines.push(' Modeled Service Revenue (rate card):');
-                lines.push('   6 engineers × $110/hr × 173 hrs');
-                lines.push('   = $114,400 / mo');
-              }
-            } else if (dsIdx === 3) {
-              // Rainmaker — all services, no materials component
-              if (!v) { lines = [' No revenue this month']; }
-              else { lines.push(' All Services — no materials component'); }
-            } else if (dsIdx === 4) {
-              // Унипак АД — all services, no materials component
-              if (!v) { lines = [' No revenue this month']; }
-              else { lines.push(' All Services — no materials component'); }
-            }
-            return lines;
+            var key = ['hadrian','durin','framework','rainmaker','unipak'][dsIdx];
+            return buildRevTooltip(key, idx);
           }
         },
         displayColors: false,
@@ -1948,121 +1962,28 @@ var revSvcMatChartObj = new Chart(document.getElementById('revSvcMatChart'), {
             if (c.datasetIndex !== 0) return null;
             var idx = c.dataIndex;
             var f = revSvcMatActiveFilter;
-            var lines = [];
-            if (f === 'all') {
-              var grand = hadrianSvc[idx]+hadrianMat[idx]+durinSvc[idx]+durinMat[idx]+frameSvc[idx]+frameMat[idx]+rainmaker2026[idx]+unipak2026[idx];
-              lines.push(' Total Revenue:  $' + Math.round(grand).toLocaleString());
-              // Hadrian
-              lines.push(' ─────────────────────────');
-              lines.push(' Hadrian:  $' + Math.round(hadrianSvc[idx]+hadrianMat[idx]).toLocaleString());
-              if (idx === 4) {
-                lines.push('   Invoice ref Services:   INV-0000000507');
-                lines.push('   Invoice ref Materials:  INV-0000000509');
-                lines.push('   Actual Service Rev:    $' + hadrianSvc[4].toLocaleString());
-                lines.push('   Actual Materials Rev:  $' + hadrianMat[4].toLocaleString());
-              } else if (idx === 5) {
-                lines.push('   Invoice ref Services:   INV-529');
-                lines.push('   Invoice ref Materials:  INV-530');
-                lines.push('   Actual Service Rev:    $' + hadrianSvc[5].toLocaleString());
-                lines.push('   Actual Materials Rev:  $' + hadrianMat[5].toLocaleString());
-              } else {
-                lines.push('   Transaction ref: ' + invHadrianRef[idx]);
-                lines.push('   Actual Service Rev:    $' + hadrianSvc[idx].toLocaleString());
-                lines.push('   Actual Materials Rev:  $' + hadrianMat[idx].toLocaleString());
-              }
-              // Durin
-              lines.push(' ─────────────────────────');
-              lines.push(' Durin:    $' + Math.round(durinSvc[idx]+durinMat[idx]).toLocaleString());
-              lines.push('   Invoice ref Services:   ' + (invDurinSvc[idx] || 'N/A'));
-              lines.push('   Invoice ref Materials:  ' + (invDurinMat[idx] || 'N/A'));
-              lines.push('   Actual Service Rev:    $' + durinSvc[idx].toLocaleString());
-              lines.push('   Actual Materials Rev:  $' + durinMat[idx].toLocaleString());
-              // Framework (only if present)
-              if (frameSvc[idx] + frameMat[idx] > 0) {
-                lines.push(' ─────────────────────────');
-                lines.push(' Framework: $' + Math.round(frameSvc[idx]+frameMat[idx]).toLocaleString());
-                lines.push('   Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push('   Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
-                lines.push('   Actual Service Rev:    $' + frameSvc[idx].toLocaleString());
-                lines.push('   Actual Materials Rev:  $' + frameMat[idx].toLocaleString());
-              }
-              // Rainmaker (only if present)
-              if (rainmaker2026[idx] > 0) {
-                lines.push(' ─────────────────────────');
-                lines.push(' Rainmaker: $' + rainmaker2026[idx].toLocaleString());
-                lines.push('   All Services — no materials');
-              }
-              // Унипак АД (only if present)
-              if (unipak2026[idx] > 0) {
-                lines.push(' ─────────────────────────');
-                lines.push(' Унипак АД: $' + unipak2026[idx].toLocaleString());
-                lines.push('   All Services — no materials');
-              }
-            } else if (f === 'hadrian') {
-              lines.push(' Actual Total Revenue:  $' + Math.round(hadrianSvc[idx]+hadrianMat[idx]).toLocaleString());
-              if (idx === 4) {
-                lines.push(' Invoice ref Services:   INV-0000000507');
-                lines.push(' Invoice ref Materials:  INV-0000000509');
-                lines.push(' Actual Service Revenue:    $' + hadrianSvc[4].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + hadrianMat[4].toLocaleString());
-              } else if (idx === 5) {
-                lines.push(' Invoice ref Services:   INV-529');
-                lines.push(' Invoice ref Materials:  INV-530');
-                lines.push(' Actual Service Revenue:    $' + hadrianSvc[5].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + hadrianMat[5].toLocaleString());
-              } else {
-                lines.push(' Transaction ref: ' + invHadrianRef[idx]);
-              }
-              lines.push(' ─────────────────────────');
-              lines.push(' Modeled Service Revenue (rate card):');
-              lines.push('   3.5 eng × $110/hr = $66,733');
-              lines.push('   3.5 eng × $90/hr  = $54,600');
-              lines.push('   4.0 eng × $43/hr  = $29,813');
-              lines.push('   Model total        = $151,147');
-              if (idx < 4) {
-                lines.push(' ─────────────────────────');
-                lines.push(' Actual Materials Revenue:  $' + Math.round(hadrianMat[idx]).toLocaleString());
-              }
-            } else if (f === 'durin') {
-              lines.push(' Actual Total Revenue:  $' + Math.round(durinSvc[idx]+durinMat[idx]).toLocaleString());
-              lines.push(' Invoice ref Services:   ' + (invDurinSvc[idx] || 'N/A'));
-              lines.push(' Invoice ref Materials:  ' + (invDurinMat[idx] || 'N/A'));
-              lines.push(' Actual Service Revenue:    $' + durinSvc[idx].toLocaleString());
-              lines.push(' Actual Materials Revenue:  $' + durinMat[idx].toLocaleString());
-              lines.push(' ─────────────────────────');
-              lines.push(' Modeled Service Revenue (rate card):');
-              lines.push('   7 engineers × $90/hr × 172 hrs');
-              lines.push('   = $109,200 / mo');
-            } else if (f === 'framework') {
-              if (!frameSvc[idx]) {
-                lines.push(' No invoice this month');
-              } else {
-                lines.push(' Actual Total Revenue:  $' + Math.round(frameSvc[idx]+frameMat[idx]).toLocaleString());
-                lines.push(' Invoice ref Services:   ' + invFrameSvc[idx]);
-                lines.push(' Invoice ref Materials:  ' + (invFrameMat[idx] || 'N/A'));
-                lines.push(' Actual Service Revenue:    $' + frameSvc[idx].toLocaleString());
-                lines.push(' Actual Materials Revenue:  $' + frameMat[idx].toLocaleString());
-                lines.push(' ─────────────────────────');
-                lines.push(' Modeled Service Revenue (rate card):');
-                lines.push('   6 engineers × $110/hr × 173 hrs');
-                lines.push('   = $114,400 / mo');
-              }
-            } else if (f === 'rainmaker') {
-              if (!rainmaker2026[idx]) {
-                lines.push(' No revenue this month');
-              } else {
-                lines.push(' Actual Total Revenue:  $' + rainmaker2026[idx].toLocaleString());
-                lines.push(' All Services — no materials component');
-              }
-            } else if (f === 'unipak') {
-              if (!unipak2026[idx]) {
-                lines.push(' No revenue this month');
-              } else {
-                lines.push(' Actual Total Revenue:  $' + unipak2026[idx].toLocaleString());
-                lines.push(' All Services — no materials component');
-              }
-            }
-            return lines;
+            if (f !== 'all') return buildRevTooltip(f, idx);
+            // Aggregated view — grand total, then each client that billed this month
+            var keys = ['hadrian','durin','framework','rainmaker','unipak'];
+            var grand = 0;
+            keys.forEach(function(k) {
+              var C = REV_CLIENTS[k];
+              grand += (C.svc()[idx] || 0) + (C.mat ? (C.mat()[idx] || 0) : 0);
+            });
+            var lines = [' Total Revenue:  $' + Math.round(grand).toLocaleString()];
+            // Compact per-client rollup — full detail (invoice refs, rate card)
+            // lives on the single-client pills and the main revenue chart.
+            keys.forEach(function(k) {
+              var C = REV_CLIENTS[k];
+              var svc = C.svc()[idx] || 0;
+              var mat = C.mat ? (C.mat()[idx] || 0) : 0;
+              if (!(svc + mat)) return;   // client did not bill this month — omit entirely
+              lines.push(REV_RULE);
+              lines.push(' ' + _pad(C.name + ':', 14) + _usd(svc + mat));
+              lines.push('   ' + _pad('Services:', 12) + _pad(_usd(svc), 12) + _mgn(C.svcMargin ? C.svcMargin()[idx] : null));
+              if (C.mat && mat) lines.push('   ' + _pad('Materials:', 12) + _pad(_usd(mat), 12) + _mgn(C.matMargin ? C.matMargin()[idx] : null));
+            });
+            return lines.map(function(l) { return l.replace(/\s+$/, ''); });
           }
         },
       },
@@ -3990,10 +3911,23 @@ window.addEventListener('load', fetchLiveData);
   firebase.initializeApp(firebaseConfig);
   var auth = firebase.auth();
 
+  // Accounts listed here can sign in (same Firebase project as the full
+  // dashboard) but only get the Revenue-only view — see revenue.html.
+  // Add an email here any time you create a Revenue-only account.
+  var REVENUE_ONLY_EMAILS = ['lyubomir@dhr.is'];
+
   auth.onAuthStateChanged(function(user) {
     var loginPage = document.getElementById('login-page');
     var app       = document.getElementById('app');
     if (user) {
+      if (REVENUE_ONLY_EMAILS.indexOf((user.email || '').toLowerCase()) !== -1) {
+        auth.signOut();
+        var errEl = document.getElementById('login-error');
+        var btn   = document.getElementById('login-btn');
+        if (errEl) { errEl.textContent = 'This account only has access to the Revenue dashboard — open revenue.html instead.'; errEl.style.display = 'block'; }
+        if (btn)   { btn.disabled = false; btn.textContent = 'Sign in'; }
+        return;
+      }
       loginPage.style.display = 'none';
       app.style.display = 'block';
       // populate user pill
