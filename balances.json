@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-07T23:44:51.772585+00:00",
+  "timestamp": "2026-08-07T23:49:23.962826+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -181,16 +181,38 @@
     ]
   },
   "bulbank": {
-    "status": "stale",
-    "balance_bgn": 201356,
-    "balance_usd": 120390.75,
-    "note": "Live email fetch failed this run \u2014 showing last known balance (?)"
+    "status": "ok",
+    "source": "email-mt940",
+    "statement_date": "2026-08-07",
+    "total_eur": 298160.12,
+    "total_usd": 348728.08,
+    "accounts": [
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 80209.6,
+        "value_date": "2026-08-07"
+      },
+      {
+        "iban": "BG88UNCR70001526079989",
+        "label": "BG88",
+        "currency": "EUR",
+        "closing_balance": 308.78,
+        "value_date": "2026-08-07"
+      },
+      {
+        "iban": "BG16UNCR70001526136672",
+        "label": "BG16 \u2014 Reserve",
+        "currency": "EUR",
+        "closing_balance": 217641.74,
+        "value_date": "2026-08-07"
+      }
+    ]
   },
   "fx": {
     "eur_usd": 1.1696,
     "bgn_usd": 0.5979
   },
-  "errors": [
-    "Bulbank: mt-940 not installed \u2014 run: pip install mt-940"
-  ]
+  "errors": []
 }
