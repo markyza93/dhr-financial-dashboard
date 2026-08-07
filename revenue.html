@@ -338,6 +338,23 @@ tbody tr:hover td { background: #f5f8fc !important; }
   display:none;margin-top:10px;color:#dc2626;
   font-size:13px;text-align:center;width:100%;
 }
+.txn-pill {
+  padding: 4px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.txn-pill:hover { color: var(--fg); border-color: var(--blue); }
+.txn-pill-active {
+  background: var(--blue);
+  color: #0f172a;
+  border-color: var(--blue);
+  font-weight: 600;
+}
 </style>
 
 </head>
