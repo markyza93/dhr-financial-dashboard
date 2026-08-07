@@ -3393,6 +3393,9 @@ function fmtMoney(n) {
   return '$' + Math.round(n).toLocaleString();
 }
 
+// Fallback values only — shown on first paint and if balances.json has no live
+// Bulbank data yet. Once fetchLiveData() succeeds, applyBulbankData() overwrites
+// these elements with the real per-account balances from the daily statement email.
 var BULBANK_STATIC = 54663;  // USD — Bulbank BG88: $53,899 + Bulbank BG16: $765 — Source: Profitability (9) Jun 30 closing
 var BULBANK_EUR    = null;   // EUR — set when Jun Bulbank statement is uploaded (update alongside BULBANK_STATIC)
 var BULBANK_LABEL  = 'Jun 30, 2026';  // Statement label — update when new statement arrives
@@ -3410,12 +3413,52 @@ var BULBANK_LABEL  = 'Jun 30, 2026';  // Statement label — update when new sta
     }
   }
   if (detEl && BULBANK_EUR == null) {
-    detEl.innerHTML = BULBANK_LABEL + ' closing · Source: Profitability (9)<br>EUR amount pending June bank statement';
+    detEl.innerHTML = BULBANK_LABEL + ' closing · Source: Profitability (9)<br>Loading live Bulbank data…';
   } else if (detEl) {
     detEl.innerHTML = BULBANK_LABEL + ' closing · €' + Math.round(BULBANK_EUR).toLocaleString() + ' ≈ $' + Math.round(BULBANK_STATIC/1000) + 'K';
   }
   if (tagEl) tagEl.textContent = BULBANK_LABEL;
 })();
+
+// Bulbank — live data from the daily "Bulbank Online Report" email (MT940),
+// fetched by fetch_balances.py and read here from balances.json, exactly like
+// Mercury/Revolut/Chase below. Returns the USD total (or null on failure, in
+// which case the caller keeps showing the BULBANK_STATIC fallback above).
+function applyBulbankData(data, tsLabel) {
+  var amtEl = document.getElementById('bulbank-amount');
+  var detEl = document.getElementById('bulbank-detail');
+  var tagEl = document.getElementById('bulbank-status-tag');
+
+  if (!data || (data.status !== 'ok' && data.status !== 'stale')) {
+    if (tagEl) { tagEl.textContent = 'Email fetch error'; tagEl.className = 'tag tag-red'; }
+    return null;
+  }
+
+  var totalUsd = data.total_usd;
+  var totalEur = data.total_eur;
+  var asOf     = data.statement_date || tsLabel;
+
+  if (amtEl) amtEl.textContent = '€' + Math.round(totalEur).toLocaleString() + ' ≈ $' + Math.round(totalUsd/1000) + 'K';
+
+  if (detEl) {
+    var lines = (data.accounts || []).map(function(a) {
+      return a.label + ': €' + Math.round(a.closing_balance).toLocaleString();
+    }).join('<br>');
+    detEl.innerHTML = asOf + ' closing · Source: Bulbank Online Report (email)' + (lines ? '<br>' + lines : '');
+  }
+
+  if (tagEl) {
+    if (data.status === 'stale') {
+      tagEl.textContent = 'Stale · ' + asOf;
+      tagEl.className = 'tag tag-amber';
+    } else {
+      tagEl.textContent = asOf;
+      tagEl.className = 'tag tag-green';
+    }
+  }
+
+  return totalUsd;
+}
 
 function applyMercuryData(data, tsLabel) {
   if (!data || data.status === 'error') { setLiveStatus('error', 'Mercury error'); return null; }
@@ -3553,14 +3596,15 @@ function applyChaseData(data, tsLabel) {
   return total;
 }
 
-function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
+function updateCashTile(mercBal, revData, chaseBal, bulbBal, tsLabel) {
   var mBal  = mercBal != null ? mercBal : 111000;   // Jun 16 2026 live pull
   var rTot  = revData  != null ? revData.total : 5000;   // Jun 16 2026 live pull
   var rUSD  = revData  != null ? revData.usd   : 4000;
   var rEUR  = revData  != null ? revData.eur   : 855;
   var rBGN  = revData  != null ? revData.bgn   : 0;
   var chBal = chaseBal != null ? chaseBal : 0;
-  var grand = Math.round(mBal) + rTot + BULBANK_STATIC + Math.round(chBal);
+  var bBal  = bulbBal  != null ? bulbBal  : BULBANK_STATIC;   // live email pull, else static fallback
+  var grand = Math.round(mBal) + rTot + bBal + Math.round(chBal);
 
   // KPI tile
   var kpiTotal = document.getElementById('kpi-cash-total');
@@ -3594,11 +3638,12 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
   // Update individual bank rows
   var ts = tsLabel || new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
   var kpiAsOf = document.getElementById('kpi-cash-asof');
-  if (kpiAsOf && (mercBal != null || revData != null || chaseBal != null)) {
+  if (kpiAsOf && (mercBal != null || revData != null || chaseBal != null || bulbBal != null)) {
     var liveAccounts = [];
     if (mercBal != null || revData != null) liveAccounts.push('Mercury & Revolut');
     if (chaseBal != null) liveAccounts.push('Chase');
-    kpiAsOf.textContent = liveAccounts.join(' & ') + ' as of ' + ts + ' · Bulbank Jun 30';
+    var bulbSuffix = bulbBal != null ? ' · Bulbank live' : ' · Bulbank ' + BULBANK_LABEL;
+    kpiAsOf.textContent = liveAccounts.join(' & ') + ' as of ' + ts + bulbSuffix;
   }
 
   var mercRow = document.getElementById('kpi-merc-row');
@@ -3612,7 +3657,7 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
     revRow.textContent = '$' + rUSDK + 'K USD + €' + rEURK + 'K + BGN ' + rBGNK + 'K' + (revData != null ? ' live' : ' (Jun 16)');
   }
   var bulbRow = document.getElementById('kpi-bulb-row');
-  if (bulbRow) bulbRow.textContent = '$' + Math.round(BULBANK_STATIC/1000) + 'K (Jun 30)';
+  if (bulbRow) bulbRow.textContent = '$' + Math.round(bBal/1000) + 'K' + (bulbBal != null ? ' live' : ' (' + BULBANK_LABEL + ')');
 
   // Total Consolidated Cash summary bar
   var csTotVal  = document.getElementById('cs-total-value');
@@ -3624,7 +3669,7 @@ function updateCashTile(mercBal, revData, chaseBal, tsLabel) {
 
   if (csTotVal) csTotVal.textContent = '$' + grand.toLocaleString() + ' USD';
   var chaseNote = chaseBal != null ? ' · Chase $' + Math.round(chaseBal/1000) + 'K Live' : ' · Chase excluded (Plaid disconnected)';
-  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(BULBANK_STATIC/1000) + 'K · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + chaseNote;
+  if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(bBal/1000) + 'K (' + (bulbBal != null ? 'live' : BULBANK_LABEL) + ') · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + chaseNote;
   // Chase cs-item — conditional on whether Plaid is working
   var csChaseVal  = document.getElementById('cs-chase-val');
   var csChaseNote = document.getElementById('cs-chase-note');
@@ -3664,8 +3709,9 @@ function fetchLiveData() {
       var mercBal   = applyMercuryData(data.mercury, tsLabel);
       var revData   = applyRevolutData(data.revolut, tsLabel);
       var chaseBal  = applyChaseData(data.chase, tsLabel);
+      var bulbBal   = applyBulbankData(data.bulbank, tsLabel);
       if (chaseBal === null) showChaseDisconnected();
-      updateCashTile(mercBal, revData, chaseBal, tsLabel);
+      updateCashTile(mercBal, revData, chaseBal, bulbBal, tsLabel);
 
       var errors = data.errors || [];
       if (errors.length === 0) {

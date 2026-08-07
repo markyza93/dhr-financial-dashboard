@@ -10,9 +10,20 @@ Required environment variables:
     REVOLUT_DOMAIN           Registered domain for Revolut JWT (e.g. dhr.is — no https://)
     REVOLUT_PRIVATE_KEY      Contents of revolut_private.pem (the RSA private key, multi-line)
     REVOLUT_REFRESH_TOKEN    Current Revolut OAuth refresh token
+    BULBANK_GMAIL_USER       Gmail address that receives the daily "Bulbank Online Report"
+                             email from pb@unicreditgroup.bg (App Password login)
+    BULBANK_GMAIL_APP_PASSWORD   16-char Google App Password for that Gmail account
+                             (Google Account → Security → 2-Step Verification → App passwords)
 
 Optional:
-    BULBANK_STATIC           BGN balance override (default 201356 = Jun 1 2026 statement)
+    BULBANK_STATIC           Last-resort USD fallback if no Bulbank email can be read at all
+                              (default 54663 = Jun 30 2026 closing, from the dashboard)
+
+Bulbank balances come from the MT940 statement attached to that daily email — see
+bulbank_mt940.py (requires `pip install mt-940`). If the email fetch/parse fails for
+any reason, the script falls back to the previous run's committed balances.json
+values first, and only to BULBANK_STATIC if there is no prior data at all — so a
+transient Gmail hiccup never blanks out the Bulbank card.
 
 After a successful run:
     balances.json            Written to cwd — commit this to the repo
@@ -21,8 +32,8 @@ After a successful run:
                              REVOLUT_REFRESH_TOKEN before the old one expires.
 """
 
-import json, os, sys, time, uuid
-from datetime import datetime, timezone
+import imaplib, email, json, os, sys, time, uuid
+from datetime import datetime, timezone, timedelta
 
 # ── Optional: Plaid (Chase) ────────────────────────────────────────────────────
 PLAID_CLIENT_ID    = os.environ.get("PLAID_CLIENT_ID", "")
@@ -38,6 +49,11 @@ except ImportError:
     print("[ERROR] Missing deps. Run: pip install requests PyJWT cryptography")
     sys.exit(1)
 
+try:
+    from bulbank_mt940 import parse_bulbank_statement
+except ImportError:
+    parse_bulbank_statement = None  # handled at call time — pip install mt-940
+
 # ── Constants ──────────────────────────────────────────────────────────────────
 MERCURY_BASE  = "https://api.mercury.com/api/v1"
 REV_BASE      = "https://b2b.revolut.com/api/1.0"
@@ -46,8 +62,11 @@ REV_TOKEN_URL = REV_BASE + "/auth/token"
 FX_EUR        = 1.1696   # EUR → USD  (update as needed)
 FX_BGN        = 0.5979   # BGN → USD
 
-# Bulbank (manual — update when you receive your MT940 statement)
-BULBANK_STATIC = int(os.environ.get("BULBANK_STATIC", 201356))
+# Bulbank — last-resort fallback only, used if no email AND no prior balances.json exist
+BULBANK_STATIC = int(os.environ.get("BULBANK_STATIC", 54663))
+
+BULBANK_SENDER      = "pb@unicreditgroup.bg"
+BULBANK_IMAP_HOST   = "imap.gmail.com"
 
 # ── Credentials from environment ───────────────────────────────────────────────
 MERCURY_KEY       = os.environ.get("MERCURY_API_KEY", "")
@@ -55,6 +74,8 @@ REV_CLIENT_ID     = os.environ.get("REVOLUT_CLIENT_ID", "")
 REV_DOMAIN        = os.environ.get("REVOLUT_DOMAIN", "")
 REV_PRIVATE_KEY   = os.environ.get("REVOLUT_PRIVATE_KEY", "")   # PEM content (not path)
 REV_REFRESH_TOKEN = os.environ.get("REVOLUT_REFRESH_TOKEN", "")
+BULBANK_GMAIL_USER     = os.environ.get("BULBANK_GMAIL_USER", "")
+BULBANK_GMAIL_PASSWORD = os.environ.get("BULBANK_GMAIL_APP_PASSWORD", "")
 
 
 def _check_env():
@@ -276,7 +297,136 @@ def fetch_revolut():
     return data, new_rt
 
 
+# ── Bulbank (via daily email) ───────────────────────────────────────────────────
+BULBANK_LABELS = {
+    # IBAN → friendly short label shown on the dashboard.
+    # Extend this if/when Bulbank adds or closes an account.
+    "BG86UNCR70001526136673": "BG86 — Operating",
+    "BG88UNCR70001526079989": "BG88",
+    "BG16UNCR70001526136672": "BG16 — Reserve",
+}
+
+
+def _fetch_latest_bulbank_attachment():
+    """
+    Logs into Gmail via IMAP (App Password auth) and returns the raw text of the
+    MT940 attachment from the most recent "Bulbank Online Report" email.
+    Returns (raw_text, message_date_iso). Raises on any failure.
+    """
+    if not BULBANK_GMAIL_USER or not BULBANK_GMAIL_PASSWORD:
+        raise RuntimeError("Missing BULBANK_GMAIL_USER / BULBANK_GMAIL_APP_PASSWORD")
+
+    imap = imaplib.IMAP4_SSL(BULBANK_IMAP_HOST)
+    try:
+        imap.login(BULBANK_GMAIL_USER, BULBANK_GMAIL_PASSWORD)
+        imap.select("INBOX")
+
+        # Only look a few days back — we just need the most recent report.
+        since = (datetime.now(timezone.utc) - timedelta(days=5)).strftime("%d-%b-%Y")
+        status, msg_ids = imap.search(None, f'(FROM "{BULBANK_SENDER}" SINCE {since})')
+        if status != "OK" or not msg_ids or not msg_ids[0]:
+            raise RuntimeError(f"No email from {BULBANK_SENDER} in the last 5 days")
+
+        # IMAP SEARCH returns ids in ascending order — take the newest.
+        latest_id = msg_ids[0].split()[-1]
+        status, msg_data = imap.fetch(latest_id, "(RFC822)")
+        if status != "OK" or not msg_data or not msg_data[0]:
+            raise RuntimeError("Failed to fetch latest Bulbank email")
+
+        msg = email.message_from_bytes(msg_data[0][1])
+        msg_date = msg.get("Date", "")
+
+        attachment_text = None
+        for part in msg.walk():
+            filename = part.get_filename()
+            if not filename:
+                continue  # skip the inline body — only take real attachments
+            payload = part.get_payload(decode=True)
+            if not payload:
+                continue
+            try:
+                attachment_text = payload.decode("utf-8")
+            except UnicodeDecodeError:
+                attachment_text = payload.decode("cp1251", errors="replace")
+            break
+
+        if not attachment_text:
+            raise RuntimeError("Bulbank email had no readable attachment")
+
+        return attachment_text, msg_date
+    finally:
+        try:
+            imap.logout()
+        except Exception:
+            pass
+
+
+def fetch_bulbank_email():
+    """
+    Fetches + parses today's (or most recent) Bulbank MT940 email into the same
+    shape used elsewhere in this script. Currency is EUR for every account.
+    """
+    if parse_bulbank_statement is None:
+        raise RuntimeError("mt-940 not installed — run: pip install mt-940")
+
+    raw_text, msg_date = _fetch_latest_bulbank_attachment()
+    accounts = parse_bulbank_statement(raw_text)
+    if not accounts:
+        raise RuntimeError("MT940 attachment parsed but contained no accounts")
+
+    total_eur = round(sum(a["closing_balance"] for a in accounts if a["currency"] == "EUR"), 2)
+    other_currency_accounts = [a for a in accounts if a["currency"] != "EUR"]
+    if other_currency_accounts:
+        # Shouldn't normally happen post euro-adoption, but don't silently drop money.
+        print("[WARN] Bulbank accounts in non-EUR currency: " + str(other_currency_accounts))
+
+    total_usd = round(total_eur * FX_EUR, 2)
+    statement_date = max((a["value_date"] for a in accounts if a["value_date"]), default=None)
+
+    out_accounts = []
+    for a in accounts:
+        out_accounts.append({
+            "iban":            a["iban"],
+            "label":           BULBANK_LABELS.get(a["iban"], a["iban"][-4:]),
+            "currency":        a["currency"],
+            "closing_balance": a["closing_balance"],
+            "value_date":      a["value_date"],
+        })
+
+    print(
+        "[Bulbank] OK — " + str(len(accounts)) + " accounts | total €"
+        + str(round(total_eur)) + " → $" + str(round(total_usd))
+        + " | statement date " + str(statement_date)
+        + " | email date " + msg_date
+    )
+
+    return {
+        "status":         "ok",
+        "source":         "email-mt940",
+        "statement_date": statement_date,
+        "total_eur":      total_eur,
+        "total_usd":      total_usd,
+        "accounts":       out_accounts,
+    }
+
+
 # ── Main ───────────────────────────────────────────────────────────────────────
+def _load_previous_bulbank():
+    """Reads the bulbank block from the balances.json committed by the PREVIOUS run,
+    so a transient email/parse failure degrades to yesterday's real balance instead
+    of a hardcoded placeholder."""
+    prev_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "balances.json")
+    try:
+        with open(prev_path) as f:
+            prev = json.load(f)
+        prev_bulbank = prev.get("bulbank")
+        if prev_bulbank and prev_bulbank.get("status") == "ok":
+            return prev_bulbank
+    except Exception:
+        pass
+    return None
+
+
 def main():
     _check_env()
 
@@ -285,12 +435,35 @@ def main():
         "mercury":   None,
         "revolut":   None,
         "chase":     None,
-        "bulbank":   {"status": "ok", "balance_bgn": BULBANK_STATIC,
-                      "balance_usd": round(BULBANK_STATIC * FX_BGN, 2),
-                      "note": "Manual — from MT940 statement"},
+        "bulbank":   None,
         "fx":        {"eur_usd": FX_EUR, "bgn_usd": FX_BGN},
         "errors":    [],
     }
+
+    # Bulbank (daily email — MT940 attachment)
+    try:
+        result["bulbank"] = fetch_bulbank_email()
+    except Exception as e:
+        msg = "Bulbank: " + str(e)
+        result["errors"].append(msg)
+        print("[ERROR] " + msg)
+
+        prev_bulbank = _load_previous_bulbank()
+        if prev_bulbank:
+            result["bulbank"] = dict(prev_bulbank, status="stale", note=(
+                "Live email fetch failed this run — showing last known balance "
+                f"({prev_bulbank.get('statement_date', '?')})"
+            ))
+            print("[Bulbank] Falling back to previous run's balance")
+        else:
+            result["bulbank"] = {
+                "status": "fallback", "source": "static",
+                "total_usd": BULBANK_STATIC,
+                "total_eur": round(BULBANK_STATIC / FX_EUR, 2),
+                "accounts": [],
+                "note": "No email reachable and no prior balances.json — using BULBANK_STATIC placeholder",
+            }
+            print("[Bulbank] No prior data either — using BULBANK_STATIC placeholder")
 
     # Mercury
     try:
@@ -347,7 +520,7 @@ def main():
               (result["mercury"]["accounts"][0]["currentBalance"]
                if result["mercury"] and result["mercury"].get("accounts") else 0)
               + (result["revolut"]["total"] if result["revolut"] else 0)
-              + BULBANK_STATIC * FX_BGN
+              + (result["bulbank"]["total_usd"] if result["bulbank"] else 0)
           )))
 
 
