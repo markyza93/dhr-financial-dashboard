@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-08T16:23:32.667534+00:00",
+  "timestamp": "2026-08-09T07:54:04.803944+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 160880.98,
-        "mtdOutflows": -110288.37,
+        "mtdOutflows": -101296.84,
         "recentTransactions": [
           {
             "date": "2026-08-07T01:09:55.007726Z",
@@ -74,12 +74,6 @@
             "description": "JPMorgan Chase; Ext Trnsfr; DHR INC",
             "amount": 50000.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-10T01:03:58.057314Z",
-            "description": "CA DEPT TAX FEE; CDTFA EPMT; DHR INC",
-            "amount": -8991.53,
-            "kind": "other"
           }
         ]
       },
@@ -113,8 +107,8 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 127447.79,
-    "usd": 121810.75,
+    "total": 125878.59,
+    "usd": 120241.55,
     "eur": 4819.63,
     "bgn": 0.0,
     "accounts": [
@@ -130,8 +124,8 @@
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 121810.75,
-        "available": 121810.75,
+        "balance": 120241.55,
+        "available": 120241.55,
         "state": "active"
       },
       {
