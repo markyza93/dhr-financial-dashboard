@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-13T08:21:16.862320+00:00",
+  "timestamp": "2026-08-13T16:47:49.280959+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -12,8 +12,8 @@
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 160880.98,
-        "mtdOutflows": -101296.84,
+        "mtdInflows": 110880.98,
+        "mtdOutflows": -61296.84,
         "recentTransactions": [
           {
             "date": "2026-08-07T01:09:55.007726Z",
@@ -62,18 +62,6 @@
             "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
             "amount": -81.84,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-14T14:55:15.964304Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -40000.0,
-            "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-07-14T12:44:27.860557Z",
-            "description": "JPMorgan Chase; Ext Trnsfr; DHR INC",
-            "amount": 50000.0,
-            "kind": "other"
           }
         ]
       },
@@ -107,17 +95,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 68396.19,
+    "total": 67538.97,
     "usd": 64727.18,
-    "eur": 3136.98,
+    "eur": 2404.06,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 3136.98,
-        "available": 3136.98,
+        "balance": 2404.06,
+        "available": 2404.06,
         "state": "active"
       },
       {
@@ -155,7 +143,7 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 61358.05,
+        "available": 61354.5,
         "current": 2070.95
       },
       {
