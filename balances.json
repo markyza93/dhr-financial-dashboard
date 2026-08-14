@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-14T08:15:54.466911+00:00",
+  "timestamp": "2026-08-14T16:42:31.783993+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -95,25 +95,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 67418.07,
-    "usd": 64727.18,
-    "eur": 2300.69,
+    "total": 67361.31,
+    "usd": 64712.18,
+    "eur": 2264.99,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 2300.69,
-        "available": 2300.69,
+        "balance": 2264.99,
+        "available": 2264.99,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 64727.18,
-        "available": 64727.18,
+        "balance": 64712.18,
+        "available": 64712.18,
         "state": "active"
       },
       {
@@ -143,7 +143,7 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 61354.5,
+        "available": 61328.42,
         "current": 2416.8
       },
       {
@@ -159,7 +159,7 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-13",
+    "statement_date": "2026-08-14",
     "total_eur": 298160.12,
     "total_usd": 348728.08,
     "accounts": [
@@ -168,21 +168,21 @@
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 308.78,
-        "value_date": "2026-08-13"
+        "value_date": "2026-08-14"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217641.74,
-        "value_date": "2026-08-13"
+        "value_date": "2026-08-14"
       },
       {
         "iban": "BG86UNCR70001526136673",
         "label": "BG86 \u2014 Operating",
         "currency": "EUR",
         "closing_balance": 80209.6,
-        "value_date": "2026-08-13"
+        "value_date": "2026-08-14"
       }
     ]
   },
