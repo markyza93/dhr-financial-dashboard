@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-14T16:42:31.783993+00:00",
+  "timestamp": "2026-08-15T07:31:02.398731+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -144,7 +144,7 @@
         "type": "credit",
         "subtype": "credit card",
         "available": 61328.42,
-        "current": 2416.8
+        "current": 2591.79
       },
       {
         "name": "BUS COMPLETE CHK",
