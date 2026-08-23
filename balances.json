@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-22T16:14:25.345565+00:00",
+  "timestamp": "2026-08-23T07:33:18.671821+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 110880.98,
-        "mtdOutflows": -61296.84,
+        "mtdOutflows": -61215.0,
         "recentTransactions": [
           {
             "date": "2026-08-07T01:09:55.007726Z",
@@ -55,12 +55,6 @@
             "date": "2026-07-28T12:36:29.187434Z",
             "description": "Durin Mining Tec; 0000000054; DHR Inc",
             "amount": 110880.0,
-            "kind": "other"
-          },
-          {
-            "date": "2026-07-24T01:07:35.066588Z",
-            "description": "RIPPLING PAYMENT; GLOBAL_PAY; DHR INC",
-            "amount": -81.84,
             "kind": "other"
           }
         ]
