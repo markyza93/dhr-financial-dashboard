@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-24T07:57:57.389121+00:00",
+  "timestamp": "2026-08-24T16:26:37.908055+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -89,25 +89,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 171875.71,
-    "usd": 144009.83,
-    "eur": 23825.14,
+    "total": 161990.06,
+    "usd": 140754.83,
+    "eur": 18155.98,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 23825.14,
-        "available": 23825.14,
+        "balance": 18155.98,
+        "available": 18155.98,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 144009.83,
-        "available": 144009.83,
+        "balance": 140754.83,
+        "available": 140754.83,
         "state": "active"
       },
       {
@@ -130,14 +130,14 @@
   },
   "chase": {
     "status": "ok",
-    "total": 459719.08,
+    "total": 457047.5,
     "accounts": [
       {
         "name": "A. ANGELOV",
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 61328.42,
+        "available": 64000.0,
         "current": 2671.58
       },
       {
@@ -145,7 +145,7 @@
         "mask": "3582",
         "type": "depository",
         "subtype": "checking",
-        "available": 459719.08,
+        "available": 457047.5,
         "current": 459719.08
       }
     ]
@@ -153,30 +153,30 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-21",
-    "total_eur": 271574.11,
-    "total_usd": 317633.08,
+    "statement_date": "2026-08-24",
+    "total_eur": 271457.32,
+    "total_usd": 317496.48,
     "accounts": [
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 53506.8,
+        "value_date": "2026-08-24"
+      },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 308.78,
-        "value_date": "2026-08-21"
+        "value_date": "2026-08-24"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217641.74,
-        "value_date": "2026-08-21"
-      },
-      {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
-        "currency": "EUR",
-        "closing_balance": 53623.59,
-        "value_date": "2026-08-21"
+        "value_date": "2026-08-24"
       }
     ]
   },
