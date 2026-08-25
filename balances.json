@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-25T07:43:37.964703+00:00",
+  "timestamp": "2026-08-25T16:27:16.589710+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,20 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 106626.15,
-        "availableBalance": 106626.15,
+        "currentBalance": 93426.15,
+        "availableBalance": 93426.15,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
         "mtdInflows": 110880.98,
-        "mtdOutflows": -61215.0,
+        "mtdOutflows": -74415.0,
         "recentTransactions": [
+          {
+            "date": "2026-08-25T14:24:14.384823Z",
+            "description": "Send Money transaction initiated on Mercury",
+            "amount": -13200.0,
+            "kind": "outgoingPayment"
+          },
           {
             "date": "2026-08-07T01:09:55.007726Z",
             "description": "PEOPLE CENTER; BILL; DHR INC",
@@ -89,25 +95,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 159907.67,
-    "usd": 140754.83,
-    "eur": 16375.55,
+    "total": 154066.22,
+    "usd": 143954.83,
+    "eur": 8645.17,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 16375.55,
-        "available": 16375.55,
+        "balance": 8645.17,
+        "available": 8645.17,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 140754.83,
-        "available": 140754.83,
+        "balance": 143954.83,
+        "available": 143954.83,
         "state": "active"
       },
       {
@@ -146,37 +152,37 @@
         "type": "depository",
         "subtype": "checking",
         "available": 457047.5,
-        "current": 459719.08
+        "current": 457047.5
       }
     ]
   },
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-24",
-    "total_eur": 271457.32,
-    "total_usd": 317496.48,
+    "statement_date": "2026-08-25",
+    "total_eur": 270240.39,
+    "total_usd": 316073.16,
     "accounts": [
       {
         "iban": "BG86UNCR70001526136673",
         "label": "BG86 \u2014 Operating",
         "currency": "EUR",
-        "closing_balance": 53506.8,
-        "value_date": "2026-08-24"
+        "closing_balance": 52289.87,
+        "value_date": "2026-08-25"
       },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 308.78,
-        "value_date": "2026-08-24"
+        "value_date": "2026-08-25"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217641.74,
-        "value_date": "2026-08-24"
+        "value_date": "2026-08-25"
       }
     ]
   },
