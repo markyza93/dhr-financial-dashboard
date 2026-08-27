@@ -1183,7 +1183,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 8px;">Top 5 Vendors by Monthly Spend (EUR) + Others</div>
     <div style="font-size:11px;color:var(--muted2);margin-bottom:10px;">Each month's top-5 vendors ranked by that month's spend · segment labels shown on bars where space allows · hover for vendor name &amp; amount</div>
     <div class="wrap" style="height:260px;"><canvas id="eoodVendorChart"></canvas></div>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Values in EUR · Amounts include VAT (gross) · "Others" = all remaining vendors incl. client-attributed materials · Source: Expenses - DHR Global (3).xlsx · Summary by Vendor</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Values in EUR · Amounts include VAT (gross) · "Others" = all remaining vendors incl. client-attributed materials · Source: Expenses - DHR Global (59).xlsx · Materials By Vendor</div>
 
     <!-- Top Vendors table — months as columns, sorted by YTD EUR spend -->
     <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Top 20 Vendors by YTD Spend (EUR) — shown in original currency</div>
@@ -1197,36 +1197,37 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Apr</th>
           <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">May</th>
           <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Jun</th>
+          <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">Jul</th>
           <th style="text-align:right;padding:4px 8px;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.5px;">YTD</th>
         </tr>
       </thead>
       <tbody>
 
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ГРЕЙТ МАСТЪР ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€262,686</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€262,686</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ЕЙТ СЕЛ ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€108,993</td><td style="padding:3px 8px;text-align:right;">€256,560</td><td style="padding:3px 8px;text-align:right;color:var(--error);">(€107,551)</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€258,002</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ЕХНАТОН БЪЛГАРИЯ АД</td><td style="padding:3px 8px;text-align:right;">€7,067</td><td style="padding:3px 8px;text-align:right;">€2,038</td><td style="padding:3px 8px;text-align:right;">€24,509</td><td style="padding:3px 8px;text-align:right;">€57,354</td><td style="padding:3px 8px;text-align:right;">€6,146</td><td style="padding:3px 8px;text-align:right;">€28,764</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€125,879</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">WTO</td><td style="padding:3px 8px;text-align:right;">€16,068</td><td style="padding:3px 8px;text-align:right;">€45,419</td><td style="padding:3px 8px;text-align:right;">€1,391</td><td style="padding:3px 8px;text-align:right;">€17,330</td><td style="padding:3px 8px;text-align:right;">€4,430</td><td style="padding:3px 8px;text-align:right;">€2,718</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€87,357</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ФАНУК БЪЛГАРИЯ ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€18,150</td><td style="padding:3px 8px;text-align:right;">€60,500</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€78,650</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">БЛИК 99 ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€24,290</td><td style="padding:3px 8px;text-align:right;">€9,748</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€20,016</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€54,053</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ДИСКОРДИА АД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€19,915</td><td style="padding:3px 8px;text-align:right;">€33,315</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€53,230</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Филкаб</td><td style="padding:3px 8px;text-align:right;">€22,886</td><td style="padding:3px 8px;text-align:right;">€4,108</td><td style="padding:3px 8px;text-align:right;">€4,426</td><td style="padding:3px 8px;text-align:right;">€9,898</td><td style="padding:3px 8px;text-align:right;">€1,378</td><td style="padding:3px 8px;text-align:right;">€5,389</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€48,086</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Диометран ООД</td><td style="padding:3px 8px;text-align:right;">€7,512</td><td style="padding:3px 8px;text-align:right;">€10,195</td><td style="padding:3px 8px;text-align:right;">€15,495</td><td style="padding:3px 8px;text-align:right;">€5,571</td><td style="padding:3px 8px;text-align:right;">€3,355</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€42,128</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Вайд Бул ЕООД</td><td style="padding:3px 8px;text-align:right;">€13,544</td><td style="padding:3px 8px;text-align:right;">€6,164</td><td style="padding:3px 8px;text-align:right;">€5,545</td><td style="padding:3px 8px;text-align:right;">€5,160</td><td style="padding:3px 8px;text-align:right;">€2,820</td><td style="padding:3px 8px;text-align:right;">€5,140</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€38,373</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Ангел Стоилов</td><td style="padding:3px 8px;text-align:right;">€2,314</td><td style="padding:3px 8px;text-align:right;">€3,202</td><td style="padding:3px 8px;text-align:right;">€10,947</td><td style="padding:3px 8px;text-align:right;">€3,125</td><td style="padding:3px 8px;text-align:right;">€6,569</td><td style="padding:3px 8px;text-align:right;">€4,053</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€30,210</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">KUKA</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€28,161</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€28,161</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бюра за развитие и техника ЕООД</td><td style="padding:3px 8px;text-align:right;">€23,140</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,157</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€27,297</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">САМУДРА ИМПЕКС ЕООД</td><td style="padding:3px 8px;text-align:right;">€12,681</td><td style="padding:3px 8px;text-align:right;">€11,539</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€1,928</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€26,148</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ифм електроник ЕООД</td><td style="padding:3px 8px;text-align:right;">€19,786</td><td style="padding:3px 8px;text-align:right;">€1,617</td><td style="padding:3px 8px;text-align:right;">€3,719</td><td style="padding:3px 8px;text-align:right;">€84</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€25,205</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">МАТИК МОУШЪН ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€12,021</td><td style="padding:3px 8px;text-align:right;">€10,071</td><td style="padding:3px 8px;text-align:right;">€2,612</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€24,705</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бактрейд ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€15,508</td><td style="padding:3px 8px;text-align:right;">€1,173</td><td style="padding:3px 8px;text-align:right;">€4,387</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€21,069</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">КА-Лес 24</td><td style="padding:3px 8px;text-align:right;">€2,741</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€3,337</td><td style="padding:3px 8px;text-align:right;">€2,318</td><td style="padding:3px 8px;text-align:right;">€10,471</td><td style="padding:3px 8px;text-align:right;">€292</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€19,159</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Димекслифт Груп АД</td><td style="padding:3px 8px;text-align:right;">€430</td><td style="padding:3px 8px;text-align:right;">€1,077</td><td style="padding:3px 8px;text-align:right;">€8,284</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€7,264</td><td style="padding:3px 8px;text-align:right;">€118</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€17,172</td></tr>
-        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">НЕОН.БГ ООД</td><td style="padding:3px 8px;text-align:right;">€15,369</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€565</td><td style="padding:3px 8px;text-align:right;">€848</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€16,783</td></tr>
-        <tr style="border-top:2px solid var(--border);background:rgba(26,40,64,0.04);"><td style="padding:3px 8px;color:var(--muted2);font-style:italic;">Others</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€73,227</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€79,311</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€117,777</td><td style="padding:3px 8px;text-align:right;color:var(--error);">(€50,014)</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€66,136</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€32,100</td><td style="padding:3px 8px;text-align:right;font-weight:600;color:var(--muted2);">€318,537</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ГРЕЙТ МАСТЪР ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€262,686</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€262,686</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ЕЙТ СЕЛ ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€108,993</td><td style="padding:3px 8px;text-align:right;">€256,560</td><td style="padding:3px 8px;text-align:right;color:var(--error);">(€107,551)</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€258,002</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ЕХНАТОН БЪЛГАРИЯ АД</td><td style="padding:3px 8px;text-align:right;">€7,067</td><td style="padding:3px 8px;text-align:right;">€2,038</td><td style="padding:3px 8px;text-align:right;">€24,509</td><td style="padding:3px 8px;text-align:right;">€57,354</td><td style="padding:3px 8px;text-align:right;">€6,146</td><td style="padding:3px 8px;text-align:right;">€30,538</td><td style="padding:3px 8px;text-align:right;">€9,551</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€137,204</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">WTO</td><td style="padding:3px 8px;text-align:right;">€16,068</td><td style="padding:3px 8px;text-align:right;">€45,419</td><td style="padding:3px 8px;text-align:right;">€1,391</td><td style="padding:3px 8px;text-align:right;">€17,330</td><td style="padding:3px 8px;text-align:right;">€7,020</td><td style="padding:3px 8px;text-align:right;">€2,718</td><td style="padding:3px 8px;text-align:right;">€102</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€90,049</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ДИСКОРДИА АД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€19,915</td><td style="padding:3px 8px;text-align:right;">€39,820</td><td style="padding:3px 8px;text-align:right;">€3,304</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€63,040</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ФАНУК БЪЛГАРИЯ ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€60,500</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€60,500</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Филкаб</td><td style="padding:3px 8px;text-align:right;">€22,886</td><td style="padding:3px 8px;text-align:right;">€4,108</td><td style="padding:3px 8px;text-align:right;">€4,426</td><td style="padding:3px 8px;text-align:right;">€9,898</td><td style="padding:3px 8px;text-align:right;">€1,378</td><td style="padding:3px 8px;text-align:right;">€5,389</td><td style="padding:3px 8px;text-align:right;">€8,588</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€56,674</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">БЛИК 99 ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€24,290</td><td style="padding:3px 8px;text-align:right;">€9,748</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€20,016</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€54,053</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Вайд Бул ЕООД</td><td style="padding:3px 8px;text-align:right;">€13,544</td><td style="padding:3px 8px;text-align:right;">€6,164</td><td style="padding:3px 8px;text-align:right;">€5,545</td><td style="padding:3px 8px;text-align:right;">€5,160</td><td style="padding:3px 8px;text-align:right;">€2,820</td><td style="padding:3px 8px;text-align:right;">€5,140</td><td style="padding:3px 8px;text-align:right;">€6,775</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€45,149</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Диометран ООД</td><td style="padding:3px 8px;text-align:right;">€7,512</td><td style="padding:3px 8px;text-align:right;">€10,195</td><td style="padding:3px 8px;text-align:right;">€15,495</td><td style="padding:3px 8px;text-align:right;">€5,571</td><td style="padding:3px 8px;text-align:right;">€3,355</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€42,128</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Ангел Стоилов</td><td style="padding:3px 8px;text-align:right;">€2,314</td><td style="padding:3px 8px;text-align:right;">€3,202</td><td style="padding:3px 8px;text-align:right;">€10,947</td><td style="padding:3px 8px;text-align:right;">€3,125</td><td style="padding:3px 8px;text-align:right;">€8,267</td><td style="padding:3px 8px;text-align:right;">€5,891</td><td style="padding:3px 8px;text-align:right;">€2,483</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€36,230</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Square Group LLC</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€28,672</td><td style="padding:3px 8px;text-align:right;">€4,519</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€33,191</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">ифм електроник ЕООД</td><td style="padding:3px 8px;text-align:right;">€19,786</td><td style="padding:3px 8px;text-align:right;">€1,617</td><td style="padding:3px 8px;text-align:right;">€3,719</td><td style="padding:3px 8px;text-align:right;">€84</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€7,360</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€32,565</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Empty</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€8,834</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,902</td><td style="padding:3px 8px;text-align:right;">€832</td><td style="padding:3px 8px;text-align:right;">€546</td><td style="padding:3px 8px;text-align:right;">€14,266</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€29,379</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">KUKA</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€28,161</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€28,161</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бюра за развитие и техника ЕООД</td><td style="padding:3px 8px;text-align:right;">€23,140</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€4,157</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€460</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€27,756</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">МАТИК МОУШЪН ЕООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€12,021</td><td style="padding:3px 8px;text-align:right;">€10,071</td><td style="padding:3px 8px;text-align:right;">€2,612</td><td style="padding:3px 8px;text-align:right;">€1,980</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€26,685</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">САМУДРА ИМПЕКС ЕООД</td><td style="padding:3px 8px;text-align:right;">€12,681</td><td style="padding:3px 8px;text-align:right;">€11,539</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€1,928</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€26,148</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">Бактрейд ООД</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€15,508</td><td style="padding:3px 8px;text-align:right;">€1,173</td><td style="padding:3px 8px;text-align:right;">€4,387</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€87</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€21,155</td></tr>
+        <tr style="border-bottom:1px solid rgba(26,40,64,0.3);"><td style="padding:3px 8px;">КА-Лес 24</td><td style="padding:3px 8px;text-align:right;">€2,741</td><td style="padding:3px 8px;text-align:right;color:var(--muted);">—</td><td style="padding:3px 8px;text-align:right;">€3,337</td><td style="padding:3px 8px;text-align:right;">€2,318</td><td style="padding:3px 8px;text-align:right;">€10,471</td><td style="padding:3px 8px;text-align:right;">€794</td><td style="padding:3px 8px;text-align:right;">€850</td><td style="padding:3px 8px;text-align:right;font-weight:600;">€20,512</td></tr>
+        <tr style="border-top:2px solid var(--border);background:rgba(26,40,64,0.04);"><td style="padding:3px 8px;color:var(--muted2);font-style:italic;">Others</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€44,607</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€43,152</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€57,408</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€35,205</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€49,909</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€24,025</td><td style="padding:3px 8px;text-align:right;color:var(--muted2);">€23,251</td><td style="padding:3px 8px;text-align:right;font-weight:600;color:var(--muted2);">€277,558</td></tr>
       
       </tbody>
     </table>
-    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Source: Expenses - DHR Global (40).xlsx · Materials By Vendor · Sorted by YTD EUR spend · "—" = no spend that month · Values in EUR (gross, incl. VAT) · Parentheses = credit/return · FX: Jan 1.1743 · Feb 1.1823 · Mar 1.1568 · Apr 1.1696 · May 1.1684 · Jun 1.1507 · Jul 1.1426</div>
+    <div style="margin-top:10px;font-size:11px;color:var(--muted2);">Source: Expenses - DHR Global (59).xlsx · Materials By Vendor · Sorted by YTD EUR spend · "—" = no spend that month · Values in EUR (gross, incl. VAT) · Parentheses = credit/return · FX: Jan 1.1743 · Feb 1.1823 · Mar 1.1568 · Apr 1.1696 · May 1.1684 · Jun 1.1507 · Jul 1.1426</div>
     <!-- Month-Toggle Vendor Detail Table -->
     <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
       <div style="font-size:11px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;">Expense by Vendor — Monthly Detail</div>
@@ -1320,169 +1321,328 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <script>
     (function() {
       var vdData = [
-    ["ЕХНАТОН БЪЛГАРИЯ АД", 7067, 2038, 24509, 57354, 6146, 28764, 9551],
-    ["WTO", 16068, 45419, 1391, 17330, 4430, 2718, 102],
-    ["ФАНУК БЪЛГАРИЯ ЕООД", 0, 18150, 60500, 0, 0, 0, 0],
-    ["Филкаб", 22886, 4108, 4426, 9898, 1378, 5389, 7407],
-    ["Диометран ООД", 7512, 10195, 15495, 5571, 3355, 0, 0],
+    ["ГРЕЙТ МАСТЪР ЕООД", 0, 0, 262686, 0, 0, 0, 0],
+    ["ЕЙТ СЕЛ ООД", 0, 108993, 256560, -107551, 0, 0, 0],
+    ["ЕХНАТОН БЪЛГАРИЯ АД", 7067, 2038, 24509, 57354, 6146, 30538, 9551],
+    ["WTO", 16068, 45419, 1391, 17330, 7020, 2718, 102],
+    ["ДИСКОРДИА АД", 0, 0, 0, 0, 19915, 39820, 3304],
+    ["ФАНУК БЪЛГАРИЯ ЕООД", 0, 0, 60500, 0, 0, 0, 0],
+    ["Филкаб", 22886, 4108, 4426, 9898, 1378, 5389, 8588],
     ["БЛИК 99 ЕООД", 0, 0, 24290, 9748, 0, 20016, 0],
     ["Вайд Бул ЕООД", 13544, 6164, 5545, 5160, 2820, 5140, 6775],
+    ["Диометран ООД", 7512, 10195, 15495, 5571, 3355, 0, 0],
+    ["Ангел Стоилов", 2314, 3202, 10947, 3125, 8267, 5891, 2483],
+    ["Square Group LLC", 0, 0, 0, 0, 28672, 4519, 0],
+    ["ифм електроник ЕООД", 19786, 1617, 3719, 84, 0, 0, 7360],
+    ["Empty", 0, 8834, 0, 4902, 832, 546, 14266],
     ["KUKA", 0, 28161, 0, 0, 0, 0, 0],
     ["Бюра за развитие и техника ЕООД", 23140, 0, 0, 0, 4157, 0, 460],
-    ["Ангел Стоилов", 2304, 3202, 10947, 3125, 6569, 4053, 0],
-    ["ифм електроник ЕООД", 19786, 1617, 3719, 84, 0, 0, 7360],
-    ["САМУДРА ИМПЕКС ЕООД", 12681, 11539, 0, 0, 0, 1928, 0],
     ["МАТИК МОУШЪН ЕООД", 0, 0, 0, 12021, 10071, 2612, 1980],
+    ["САМУДРА ИМПЕКС ЕООД", 12681, 11539, 0, 0, 0, 1928, 0],
     ["Бактрейд ООД", 0, 0, 15508, 1173, 4387, 0, 87],
-    ["КА-Лес 24", 2741, 0, 3337, 2318, 10471, 292, 850],
+    ["КА-Лес 24", 2741, 0, 3337, 2318, 10471, 794, 850],
     ["Димекслифт Груп АД", 430, 1077, 8284, 0, 7264, 118, 0],
-    ["Empty", 0, 8834, 0, 4902, 832, 0, 12103],
+    ["ШУНК ИНТЕК ЕООД", 0, 0, 8833, 0, 0, 8078, 0],
+    ["НЕОН.БГ ООД", 15369, 0, 0, 0, 565, 848, 46],
+    ["Техноком Ко ЕООД", 854, 61, 3487, 3740, 2278, 95, 1160],
     ["ТЕКУНИ ЕООД", 0, 10831, 0, 0, 0, 0, 0],
     ["Хенлих ООД", 0, 0, 4165, 5750, 749, 0, 0],
+    ["ТОМИС ЕООД", 306, 1952, 986, 698, 4881, 389, 1401],
     ["РАСТ 3Д ЕООД", 0, 0, 0, 0, 10585, 0, 0],
-    ["ТОМИС ЕООД", 306, 1952, 986, 698, 4881, 0, 1168],
-    ["БЕЛОПИТОВ АД", 368, 6921, 0, 855, 0, 0, 306],
+    ["БЕЛОПИТОВ АД", 368, 6921, 0, 855, 0, 1138, 306],
+    ["Хидравлика ЕООД", 1503, 1818, 2344, 0, 445, 317, 1853],
+    ["Anchor Express Inc", 0, 0, 0, 0, 0, 0, 7693],
     ["РИТБУЛ ЕООД", 4799, 847, 760, 319, 176, 0, 726],
-    ["Техноком Ко ЕООД", 0, 61, 3487, 890, 2278, 0, 1160],
-    ["В И В - ИЗОМАТИК ООД", 4638, 1358, 0, 399, 0, 0, 358],
-    ["Хидравлика ЕООД", 1503, 1818, 2344, 0, 445, 0, 1853],
+    ["В И В - ИЗОМАТИК ООД", 4638, 1636, 0, 399, 0, 306, 358],
+    ["ИТТ България", 474, 293, 1237, 1587, 1328, 954, 1045],
     ["Темпа Систем БГ ООД", 5246, 0, 502, 251, 0, 0, 72],
-    ["Мираж 2000 ЕООД ", 0, 0, 2300, 0, 3642, 0, 0],
-    ["Тежко Машиностроене ИЗ АД", 0, 0, 5400, 0, 0, 0, 0],
+    ["Мираж 2000 ЕООД", 0, 0, 2300, 0, 3642, 0, 0],
+    ["Тежко Машиностроене ИЗ АД", 0, 0, 5400, 0, 0, 426, 0],
+    ["Гиргинови ЕООД", 1464, 102, 718, 788, 479, 1675, 101],
     ["Launhardt", 0, 0, 0, 5220, 0, 0, 0],
-    ["ИТТ България", 474, 293, 1237, 1587, 1328, 0, 1045],
-    ["Валтроник ЕООД", 0, 1522, 91, 8, 2645, 0, 136],
-    ["Ем Ви Ес Строй ЕООД", 624, 0, 276, 1500, 1800, 0, 384],
-    ["Вал Плюс ООД", 110, 775, 2640, 458, 0, 0, 443],
-    ["Гиргинови ЕООД", 1464, 102, 718, 788, 479, 0, 101],
-    ["ВАЛЛДЕР ЕООД", 76, 120, 112, 258, 2942, 0, 34],
+    ["ИН ТАЙМ ООД", 706, 1118, 0, 1796, 196, 563, 691],
+    ["Вал Плюс ООД", 110, 775, 2640, 458, 0, 355, 443],
+    ["Ем Ви Ес Строй ЕООД", 624, 0, 276, 1500, 1800, 144, 384],
+    ["Валтроник ЕООД", 0, 1522, 91, 8, 2645, 172, 136],
+    ["ВАЛЛДЕР ЕООД", 76, 120, 112, 258, 2942, 135, 34],
     ["Suzhou Xinchangsheng Laser", 0, 0, 3458, 0, 0, 0, 0],
-    ["ШУНК ИНТЕК ЕООД", 0, 0, 3248, 0, 0, 7907, 0],
+    ["Mouser Electronics", 601, 570, 374, 501, 352, 819, 0],
+    ["ТРИТ ТЕХ ЕООД", 697, 0, 158, 477, 502, 1052, 0],
+    ["Ка Матик", 34, 180, 73, 2150, 0, 315, 32],
     ["МАГНИ СПРЕЙ ООД", 0, 0, 2700, 0, 0, 0, 0],
-    ["ИН ТАЙМ ООД", 706, 0, 0, 1796, 196, 0, 691],
-    ["Ка Матик ", 34, 180, 73, 2150, 0, 0, 32],
-    ["Mouser Electronics", 601, 570, 374, 501, 352, 0, 0],
+    ["БИБУС България ООД", 0, 0, 0, 0, 0, 734, 1644],
     ["ПЛДЖ Меркези ЕООД", 0, 2280, 0, 0, 0, 0, 0],
     ["Улмер ДМ ЕООД", 0, 0, 0, 612, 1603, 0, 0],
-    ["Кинтрейд ЕООД", 418, 0, 0, 0, 1520, 0, 0],
+    ["СТОЙЧЕВ И СИНОВЕ ООД", 1869, 0, 0, 0, 210, 0, 0],
     ["Куков и Ко ООД", 0, 0, 1841, 0, 0, 0, 116],
-    ["Shandong", 0, 1760, 0, 0, 0, 0, 0],
-    ["Сладур ЕООД", 0, 202, 850, 169, 311, 0, 0],
-    ["ЕЙТ СЕЛ ООД", 0, 108993, 256560, 0, 0, 0, 0],
-    ["ГРЕЙТ МАСТЪР ЕООД", 0, 0, 262686, 0, 0, 0, 0],
-    ["ДИСКОРДИА АД", 0, 0, 0, 0, 19915, 33315, 3304],
-    ["GTW Developments", 0, 1441, 0, 0, 0, 0, 0],
-    ["ФЕСТО ЕООД", 0, 1055, 156, 0, 0, 0, 0],
-    ["ТРИТ ТЕХ ЕООД", 0, 0, 158, 477, 502, 0, 0],
-    ["Спиди", 41, 274, 334, 204, 284, 0, 0],
-    ["КАМ-04 ООД", 0, 278, 0, 314, 528, 0, 102],
-    ["Сейнт Джордж Груп", 0, 448, 213, 340, 111, 0, 138],
-    ["СИАД България ЕООД", 0, 234, 277, 365, 235, 0, 0],
+    ["Кинтрейд ЕООД", 418, 0, 0, 0, 1520, 0, 0],
     ["БГ Машини ООД", 0, 976, 43, 59, 21, 0, 695],
+    ["Shandong", 0, 1760, 0, 0, 0, 0, 0],
+    ["СИАД България ЕООД", 0, 234, 277, 365, 235, 378, 239],
+    ["ЕТ Гейт - Захари Захариев", 0, 58, 521, 379, 0, 764, 0],
+    ["Сладур ЕООД", 0, 202, 850, 169, 311, 11, 0],
+    ["GTW Developments", 0, 1441, 0, 0, 0, 0, 0],
+    ["КАМ-04 ООД", 0, 278, 0, 314, 528, 197, 102],
+    ["Спиди", 41, 274, 334, 204, 284, 250, 0],
+    ["Сейнт Джордж Груп", 0, 448, 213, 340, 111, 49, 138],
+    ["РЕДКО ООД", 216, 466, 74, 127, 52, 124, 222],
+    ["ЕПИРОК БЪЛГАРИЯ ЕООД", 0, 0, 0, 0, 0, 643, 637],
+    ["ФЕСТО ЕООД", 0, 1055, 156, 0, 0, 0, 0],
+    ["Бултех ЕООД", 153, 22, 158, 51, 233, 68, 515],
+    ["ХАНЗА-ФЛЕКС БЪЛГАРИЯ - ООД", 80, 0, 0, 0, 288, 248, 554],
+    ["ЛИНЕСТА ЕООД", 0, 0, 0, 962, 0, 43, 130],
     ["Макстехник - ЕООД", 0, 539, 449, 0, 0, 0, 0],
-    ["ЛИНЕСТА ЕООД", 0, 0, 0, 962, 0, 0, 130],
     ["Changzhou", 0, 0, 0, 0, 954, 0, 0],
+    ["Квазер", 8, 564, 66, 175, 0, 33, 98],
     ["Техномаркет България ЕАД", 0, 0, 0, 940, 0, 0, 0],
-    ["РЕДКО ООД", 216, 466, 74, 127, 52, 0, 0],
+    ["РЕКА България ЕООД", 816, 0, 21, 0, 0, 0, 26],
     ["Festo EOOD", 0, 0, 852, 0, 0, 0, 0],
     ["БЕСТ БРАНД ГРУП ООД", 0, 0, 0, 0, 838, 0, 0],
-    ["РЕКА България ЕООД", 816, 0, 21, 0, 0, 0, 26],
-    ["Квазер", 8, 564, 66, 175, 0, 0, 96],
     ["Алекс Сервиз ООД", 0, 0, 0, 128, 660, 0, 0],
     ["ДАЙРЕКС ЕАД", 501, 0, 238, 19, 0, 0, 25],
+    ["Практикер", 86, 0, 0, 77, 250, 57, 272],
     ["NINGBO HAISHU HUAHUI METAL PRODUCTS CO., LTD", 0, 0, 0, 624, 0, 0, 0],
-    ["Бултех ЕООД", 153, 22, 158, 51, 233, 0, 149],
     ["Пневмотехника 2002 ЕООД", 0, 311, 70, 214, 0, 0, 0],
-    ["НЕОН.БГ ООД", 15369, 0, 0, 0, 565, 848, 46],
-    ["Захари Захариев", 0, 0, 521, 0, 0, 0, 0],
     ["НИТ Конслутинг ЕООД", 0, 0, 515, 0, 0, 0, 0],
     ["Ташев Галвинг ООД", 0, 171, 132, 44, 167, 0, 0],
+    ["Еконт", 117, 31, 22, 38, 32, 184, 78],
     ["Екзалто ЕООД", 48, 0, 0, 423, 0, 0, 0],
     ["Мотокар Сервиз-Терзиеви и Узунов ООД", 0, 461, 0, 0, 0, 0, 0],
     ["ДЕ ЕФ БЕ МЕТАЛ ТЕХНИК ЕООД", 444, 0, 0, 0, 0, 0, 0],
-    ["ЕТ Гейт - Захари Захариев", 0, 58, 0, 379, 0, 0, 0],
-    ["Практикер", 86, 0, 0, 77, 250, 0, 272],
-    ["VOERF POWER TECHNOLOGY (WUXI) CO., LTD.", 0, 0, 375, 0, 0, 0, 0],
-    ["ХАНЗА-ФЛЕКС БЪЛГАРИЯ - ООД", 80, 0, 0, 0, 288, 0, 554],
+    ["Ви Газ България", 70, 35, 107, 89, 44, 89, 0],
+    ["Маркита 1 ООД", 0, 0, 0, 0, 20, 0, 409],
     ["Викиват ООД", 9, 8, 304, 40, 0, 0, 58],
+    ["SCHMACHTL", 0, 0, 0, 0, 0, 383, 0],
+    ["VOERF POWER TECHNOLOGY (WUXI) CO., LTD.", 0, 0, 375, 0, 0, 0, 0],
     ["СОЛИС ЛУКС ГРУП ЕООД", 0, 353, 0, 0, 0, 0, 0],
-    ["Ви Газ България", 70, 35, 107, 89, 44, 0, 0],
+    ["ЮНИМАСТЪРС ЛОДЖИСТИКС ЕС СИ ЕС ЕООД", 0, 0, 0, 177, 0, 0, 144],
+    ["Илчеви Крепежи ЕООД", 18, 0, 0, 218, 24, 60, 0],
     ["АЛИТЕХ ЕООД", 0, 0, 282, 38, 0, 0, 0],
     ["Цеян ООД", 0, 0, 0, 311, 0, 0, 0],
     ["ХИД-ТЕК ЕООД", 0, 202, 0, 104, 0, 0, 0],
+    ["NINGBO MITO", 0, 0, 0, 0, 0, 300, 0],
+    ["Роси ЕООД", 0, 0, 0, 2, 0, 0, 293],
     ["ЮЗ ПЛАСТ ООД", 0, 0, 0, 272, 0, 0, 0],
-    ["Илчеви Крепежи ЕООД", 18, 0, 0, 218, 24, 0, 0],
     ["ЦЕНТЪР ЗА ЛАЗЕРНИ ТЕХНОЛОГИИ", 260, 0, 0, 0, 0, 0, 0],
     ["РОТА ЕКСПЕРТ ЕООД", 121, 0, 18, 24, 93, 0, 0],
     ["Александрис Инженеринг ЕООД", 232, 0, 0, 11, 0, 0, 0],
-    ["Еконт ", 117, 31, 22, 38, 32, 0, 78],
+    ["НСД Транс ЕООД", 240, 0, 0, 0, 0, 0, 0],
     ["МИП-ТС ООД", 0, 239, 0, 0, 0, 0, 0],
+    ["Ауто Ойлс", 0, 0, 0, 0, 0, 144, 86],
     ["IPS-ELECTRONICS", 0, 0, 0, 224, 0, 0, 0],
-    ["СТОЙЧЕВ И СИНОВЕ ООД", 0, 0, 0, 0, 210, 0, 0],
     ["Нибора ЕООД", 0, 0, 0, 175, 30, 0, 0],
     ["ТМТ Елком ООД", 0, 0, 187, 0, 0, 0, 0],
     ["Digi-Key Electronics", 52, 0, 0, 93, 38, 0, 0],
-    ["ЮНИМАСТЪРС ЛОДЖИСТИКС ЕС СИ ЕС ЕООД", 0, 0, 0, 177, 0, 0, 144],
     ["Сенетик България ЕООД", 0, 174, 0, 0, 0, 0, 0],
+    ["ВСК КЕНТАВЪР - ИЗ ДИНАМИКА ООД", 0, 0, 0, 0, 0, 171, 0],
     ["JiaLiChuang (HongKong) Co., Limited", 0, 0, 0, 165, 0, 0, 0],
     ["ВВМ - М ООД", 0, 161, 0, 0, 0, 0, 0],
+    ["ПАРТНЪРС ООД", 22, 0, 0, 0, 0, 129, 0],
     ["ТОМИКА ЕООД", 0, 148, 0, 0, 0, 0, 0],
-    ["РОМСТАЛ БЪЛГАРИЯ ЕООД", 0, 0, 0, 127, 0, 0, 0],
+    ["РОМСТАЛ БЪЛГАРИЯ ЕООД", 0, 0, 0, 127, 0, 3, 0],
     ["ЕТ МАРИЯ КАМЕНОВА", 0, 0, 122, 0, 0, 0, 0],
+    ["ДХР Инженеринг - ЕООД", 0, 0, 0, 0, 78, 41, 0],
     ["КРЕПЕЖ ГРУП ООБ", 104, 0, 0, 15, 0, 0, 0],
     ["Лидл България", 0, 112, 0, 0, 0, 0, 0],
+    ["СИГАЛ 1 ЕООД", 0, 0, 0, 0, 0, 108, 0],
+    ["Краско-Ко ООД", 24, 0, 0, 0, 0, 72, 0],
     ["ЕМВЕКО АД", 31, 60, 0, 0, 0, 0, 0],
     ["завод за пружини АД", 87, 0, 0, 0, 0, 0, 0],
+    ["МЕТАЛ - М - СОФИЯ ООД", 0, 0, 0, 0, 71, 0, 13],
     ["Роял Електроникс Трейд ЕООД", 0, 0, 0, 0, 82, 0, 0],
     ["АЛФА БОЛТ ЕООД", 0, 0, 0, 0, 81, 0, 0],
-    ["ДХР Инженеринг - ЕООД", 0, 0, 0, 0, 78, 0, 0],
+    ["КОМЕТ ЕЛЕКТРОНИКС", 0, 0, 0, 0, 0, 79, 0],
     ["ЗАВОД ЗА АБРАЗИВНИ ИНСТРУМЕНТИ АД", 0, 0, 73, 0, 0, 0, 0],
     ["Вюрт-България ЕООД", 72, 0, 0, 0, 0, 0, 0],
-    ["МЕТАЛ - М - СОФИЯ ООД", 0, 0, 0, 0, 71, 0, 13],
     ["РМБМ ЕООД", 0, 71, 0, 0, 0, 0, 0],
+    ["СЪЛИВЕР - ООД", 0, 0, 0, 0, 0, 68, 0],
     ["Статекс ООД", 0, 0, 66, 0, 0, 0, 0],
+    ["McMaster-Carr", 0, 0, 0, 0, 0, 61, 0],
     ["GEBO Tools", 0, 58, 0, 0, 0, 0, 0],
     ["АККОН СД България ООД", 0, 0, 0, 28, 28, 0, 0],
+    ["Мерит ООД", 24, 0, 0, 0, 0, 0, 29],
     ["Декатлон", 0, 20, 31, 0, 0, 0, 0],
+    ["Протон", 10, 0, 0, 0, 0, 40, 0],
     ["ЛД ООД", 0, 47, 0, 0, 0, 0, 0],
-    ["ЕЛЕКТРО ПЛЮС ООД", 0, 0, 46, 0, 0, 0, 0],
     ["Баумакс България ООД", 46, 0, 0, 0, 0, 0, 0],
+    ["3 ИЗМЕРНО ООД", 0, 0, 0, 0, 0, 46, 0],
+    ["ЕЛЕКТРО ПЛЮС ООД", 0, 0, 46, 0, 0, 0, 0],
     ["Еко България", 0, 0, 0, 0, 44, 0, 0],
     ["МАГСИ БЪЛГАРИЯ ООД", 0, 0, 0, 0, 42, 0, 0],
+    ["ХУБАТА СИЙЛС СТОР ЕООД", 0, 0, 6, 0, 0, 34, 0],
     ["Гебра 80 ЕООД", 0, 38, 0, 0, 0, 0, 0],
     ["ТЕДИ ТЪРГОВИЯ НА ДРЕБНО", 36, 0, 0, 0, 0, 0, 0],
+    ["ЗД-Цвят ЕООД", 0, 0, 0, 0, 0, 35, 0],
     ["Shenzhen Zhenxing Communication Shares Co., Ltd.", 0, 0, 0, 0, 34, 0, 0],
     ["Datadog", 0, 0, 0, 16, 16, 0, 0],
     ["Ексанто ЕООД", 0, 0, 0, 0, 32, 0, 0],
     ["Ен Ти Ен - България ЕООД", 29, 0, 0, 0, 0, 0, 0],
     ["Български пощи", 0, 0, 27, 0, 0, 0, 0],
+    ["Елимекс Инженеринг ЕООД", 0, 0, 0, 0, 12, 15, 0],
     ["ДИ СИ 2008 ООД", 0, 0, 24, 0, 0, 0, 0],
-    ["Краско-Ко ООД", 24, 0, 0, 0, 0, 0, 0],
-    ["Мерит ООД", 24, 0, 0, 0, 0, 0, 29],
     ["ЗАИ АД", 0, 24, 0, 0, 0, 0, 0],
     ["Крос 3", 0, 0, 0, 23, 0, 0, 0],
     ["Баухаус България ЕООД", 23, 0, 0, 0, 0, 0, 0],
-    ["ПАРТНЪРС ООД", 22, 0, 0, 0, 0, 0, 0],
+    ["ПАНЧЕВ ЕООД", 0, 0, 0, 0, 0, 22, 0],
     ["А1 България ЕАД", 0, 0, 9, 11, 0, 0, 0],
-    ["Маркита 1 ООД", 0, 0, 0, 0, 20, 0, 409],
     ["МИКРОАСУ ЕООД", 0, 0, 0, 14, 0, 0, 0],
-    ["Елимекс Инженеринг ЕООД", 0, 0, 0, 0, 12, 0, 0],
+    ["Диком ООД", 0, 0, 0, 0, 0, 0, 12],
     ["Рила 1 ЕООД", 0, 0, 0, 11, 0, 0, 0],
-    ["Протон", 10, 0, 0, 0, 0, 0, 0],
     ["Хидролукс Груп ЕООД", 0, 9, 0, 0, 0, 0, 0],
-    ["ХУБАТА СИЙЛС СТОР ЕООД", 0, 0, 6, 0, 0, 0, 0],
     ["БАЛКАН ЮГ ООД", 0, 0, 0, 0, 6, 0, 0],
     ["Valtronic", 0, 0, 0, 0, 5, 0, 0],
     ["ПроЕксТийм ЕООД", 0, 0, 0, 0, 3, 0, 0],
-    ["Роси ЕООД", 0, 0, 0, 2, 0, 0, 293],    ["Anchor Express Inc", 0, 0, 0, 0, 0, 0, 7693],
-    ["БИБУС България ООД", 0, 0, 0, 0, 0, 0, 1644],
-    ["ЕПИРОК БЪЛГАРИЯ ЕООД", 0, 0, 0, 0, 0, 0, 637],
+    ["ЧИСТ КО ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ПСБИЛД ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Делчев Инвест ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Калм Петролеум ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Ай Гросс ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Пик Компютър ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Ардес Информационни Технологии ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Кооперация Панда", 0, 0, 0, 0, 0, 0, 0],
+    ["Изотсервиз", 0, 0, 0, 0, 0, 0, 0],
+    ["Ей Пи Ел Юникомс ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["БУЛБРАНД МЕДИЯ ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ДИКОЗО ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["БЕТАЛАБ 2025 ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Хотел Ърбан ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Вали Компютърс ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Жар ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Лемо Трейд ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Рамер Груп ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Кулбокс АД", 0, 0, 0, 0, 0, 0, 0],
+    ["Мегамаг България ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["дм България ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Ивоник Трейд Еоод", 0, 0, 0, 0, 0, 0, 0],
+    ["Авто Атанасов 77 ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["РКТЦ ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Комел Софт Мултимедия - ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Роял Даника ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Технополис България ЕАД", 0, 0, 0, 0, 0, 0, 0],
+    ["Дот Медиа ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ГАРГА БГ ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ПРАМИЗ - ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["АБЦ Фармаси ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ЛУКОЙЛ България  ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["GitLab", 0, 0, 0, 0, 0, 0, 0],
+    ["ДЖЕСУР ГРУП ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Cursor", 0, 0, 0, 0, 0, 0, 0],
+    ["Смарттех-19 ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Пласико Компютърс ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Кофражна Техника АД", 0, 0, 0, 0, 0, 0, 0],
+    ["Горицвет ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Adasoft Ltd", 0, 0, 0, 0, 0, 0, 0],
+    ["Озон Ентъртеймънт", 0, 0, 0, 0, 0, 0, 0],
+    ["Kiwi", 0, 0, 0, 0, 0, 0, 0],
+    ["Мегалан", 0, 0, 0, 0, 0, 0, 0],
+    ["KLM Airline", 0, 0, 0, 0, 0, 0, 0],
+    ["ФОРТ ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Глас тайм 3000 ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Джобс.бг", 0, 0, 0, 0, 0, 0, 0],
+    ["AmericanAir", 0, 0, 0, 0, 0, 0, 0],
+    ["Lufthansa", 0, 0, 0, 0, 0, 0, 0],
+    ["Edreams", 0, 0, 0, 0, 0, 0, 0],
+    ["AirBNB", 0, 0, 0, 0, 0, 0, 0],
+    ["ОФИС ИДЕЯ ПЛЮС ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["LinkedIn", 0, 0, 0, 0, 0, 0, 0],
+    ["СТРОЙРЕНТ ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Грегоре Криейтив Студио ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["CoolBox", 0, 0, 0, 0, 0, 0, 0],
+    ["Офис В ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Anthropic", 0, 0, 0, 0, 0, 0, 0],
+    ["Букинг", 0, 0, 0, 0, 0, 0, 0],
+    ["Дойчев Дизайн ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Turo", 0, 0, 0, 0, 0, 0, 0],
+    ["OpenAI", 0, 0, 0, 0, 0, 0, 0],
+    ["ESKY", 0, 0, 0, 0, 0, 0, 0],
+    ["US Visa Fee", 0, 0, 0, 0, 0, 0, 0],
+    ["Юск", 0, 0, 0, 0, 0, 0, 0],
+    ["Данто Груп ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Vola.ro", 0, 0, 0, 0, 0, 0, 0],
+    ["Димс ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Office1", 0, 0, 0, 0, 0, 0, 0],
+    ["vidaXL Commerce Europe B.V.", 0, 0, 0, 0, 0, 0, 0],
+    ["ГЕОРГИЕВИ СТРОЙМАРКЕТ ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Джи Брокерс ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Хевън Клийн груп ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["RoboDK", 0, 0, 0, 0, 0, 0, 0],
+    ["АБ СЕРВИЗ 2020 - ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Хотел Барбън ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Соларшоп ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Anysphere", 0, 0, 0, 0, 0, 0, 0],
+    ["КОРМОРАН", 0, 0, 0, 0, 0, 0, 0],
+    ["ПЕ КОЛОР ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ПРИЗМА ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Аквафор Пловдив ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["МАКС ГАЛАНТ ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["МЕТРО БЪЛГАРИЯ ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Станков Инвест ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["Pic BG", 0, 0, 0, 0, 0, 0, 0],
+    ["Revolut", 0, 0, 0, 0, 0, 0, 0],
+    ["Simagic", 0, 0, 0, 0, 0, 0, 0],
+    ["Turkish Airlines", 0, 0, 0, 0, 0, 0, 0],
+    ["Quanzhou", 0, 0, 0, 0, 0, 0, 0],
+    ["ЕАГ ООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ОМНИКАР", 0, 0, 0, 0, 0, 0, 0],
+    ["DHR Engineering", 0, 0, 0, 0, 0, 0, 0],
+    ["1-800 Accounting", 0, 0, 0, 0, 0, 0, 0],
+    ["CA DEPT TAX FEE", 0, 0, 0, 0, 0, 0, 0],
+    ["Corp E", 0, 0, 0, 0, 0, 0, 0],
+    ["Green Desk", 0, 0, 0, 0, 0, 0, 0],
+    ["IRS Pull", 0, 0, 0, 0, 0, 0, 0],
+    ["Delaware Corp & Tax", 0, 0, 0, 0, 0, 0, 0],
+    ["Delta Airlines", 0, 0, 0, 0, 0, 0, 0],
+    ["Taxes DE DOR", 0, 0, 0, 0, 0, 0, 0],
+    ["1BR in Downtown", 0, 0, 0, 0, 0, 0, 0],
+    ["Mercury", 0, 0, 0, 0, 0, 0, 0],
+    ["Rippling", 0, 0, 0, 0, 0, 0, 0],
+    ["SAM Directory LLC", 0, 0, 0, 0, 0, 0, 0],
+    ["North Carolina Department of the Treasury of State", 0, 0, 0, 0, 0, 0, 0],
+    ["СНЕДАН ЕООД", 0, 0, 0, 0, 0, 0, 0],
+    ["ОББ ИНТЕРЛИЙЗ ЕАД", 0, 0, 0, 0, 0, 0, 0],
+    ["JIANGSU GOLDENLINE", 0, 0, 0, 0, 0, 0, 0],
+    ["СОФ Кънект ЕАД", 0, 0, 0, 0, 0, 0, 0],
+    ["ШЕЛ", 0, 0, 0, 0, 0, 0, 0],
+    ["Home MAX", 0, 0, 0, 0, 0, 11, 0],
+    ["ойл груп БГ ООД", 0, 0, 0, 0, 0, 9, 0],
+    ["ФОНД ЗА БЕЗОПАСНОСТ НА ДВИЖЕНИЕТО", 0, 0, 0, 0, 0, 0, 0],
+    ["КОМЕТ ЕЛЕКТРОНИКС ООД", 0, 0, 0, 0, 0, 422, 0],
+    ["American Airlines", 0, 0, 0, 0, 0, 0, 0],
+    ["JetBlue", 0, 0, 0, 0, 0, 0, 0],
+    ["Hilton Hotels", 0, 0, 0, 0, 0, 0, 0],
+    ["United Airlines", 0, 0, 0, 0, 0, 0, 0],
+    ["Southwest Airlines", 0, 0, 0, 0, 0, 0, 0],
+    ["LGA Parking", 0, 0, 0, 0, 0, 0, 0],
+    ["Spothero", 0, 0, 0, 0, 0, 0, 0],
+    ["Lyft", 0, 0, 0, 0, 0, 0, 0],
+    ["Chipotle", 0, 0, 0, 0, 0, 0, 0],
+    ["Uber", 0, 0, 0, 0, 0, 0, 0],
+    ["7-ELEVEN", 0, 0, 0, 0, 0, 0, 0],
+    ["MIA IRISH PUB", 0, 0, 0, 0, 0, 0, 0],
+    ["Chevron", 0, 0, 0, 0, 0, 0, 0],
+    ["Bryant PK Market", 0, 0, 0, 0, 0, 0, 0],
+    ["CVS", 0, 0, 0, 0, 0, 0, 0],
+    ["Valerie\'s Taco Shack", 0, 0, 0, 0, 0, 0, 0],
+    ["E-Z Pass", 0, 0, 0, 0, 0, 0, 0],
+    ["McDonalds", 0, 0, 0, 0, 0, 0, 0],
+    ["Three Kings Bar", 0, 0, 0, 0, 0, 0, 0],
+    ["Alberto\'s Mexican Food", 0, 0, 0, 0, 0, 0, 0],
+    ["Carls\' Jr", 0, 0, 0, 0, 0, 0, 0],
+    ["Doordash", 0, 0, 0, 0, 0, 0, 0],
+    ["Betcha Burgers", 0, 0, 0, 0, 0, 0, 0],
+    ["Panda Express", 0, 0, 0, 0, 0, 0, 0],
+    ["Gotham News", 0, 0, 0, 0, 0, 0, 0],
+    ["Chic-Fil-A", 0, 0, 0, 0, 0, 0, 0],
+    ["Amazon", 0, 0, 0, 0, 0, 0, 0],
+    ["QuickTrip", 0, 0, 0, 0, 0, 0, 0],
+    ["Coffee Bean", 0, 0, 0, 0, 0, 0, 0],
+    ["PHX Airport Essentials", 0, 0, 0, 0, 0, 0, 0],
+    ["LAX Sky Coffee Bean", 0, 0, 0, 0, 0, 0, 0],
+    ["Hudson News", 0, 0, 0, 0, 0, 0, 0],
+    ["The New Stand", 0, 0, 0, 0, 0, 0, 0],
     ["ДАГМА ЕООД", 0, 0, 0, 0, 0, 0, 236],
-    ["Ауто Ойлс", 0, 0, 0, 0, 0, 0, 86],
-    ["Диком ООД", 0, 0, 0, 0, 0, 0, 12],
-
-    ];
-      var vdMonthTotals = [162739, 221171, 281206, 175563, 99268, 127491, 72169];
+  ];
+      var vdMonthTotals = [172345, 273424, 746322, 56337, 157402, 143937, 79057];
       var vdCurrent = 0;
       var vdVisible = true;
 
@@ -3055,12 +3215,12 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   // [Jan, Feb, Mar, Apr, May, Jun]
   var v1 = [0, 0, 262686, 0, 0, 0, 0];  // ГРЕЙТ МАСТЪР ЕООД
   var v2 = [0, 108993, 256560, -107551, 0, 0, 0];  // ЕЙТ СЕЛ ООД
-  var v3 = [7067, 2038, 24509, 57354, 6146, 28764, 9551];  // ЕХНАТОН БЪЛГАРИЯ АД
+  var v3 = [7067, 2038, 24509, 57354, 6146, 30538, 9551];  // ЕХНАТОН БЪЛГАРИЯ АД
   var v4 = [16068, 45419, 1391, 17330, 7020, 2718, 102];  // WTO
-  var v5 = [0, 0, 60500, 0, 0, 0, 0];  // ФАНУК БЪЛГАРИЯ ЕООД
+  var v5 = [0, 0, 0, 0, 19915, 39820, 3304];  // ДИСКОРДИА АД
 
-  // Total materials per month (EUR) — Materials By Vendor sheet, Expenses (42)
-  var projTotal = [170476, 273424, 746322, 56337, 157402, 131975, 72169];
+  // Total materials per month (EUR) — Materials By Vendor sheet, Expenses (59)
+  var projTotal = [172345, 273424, 746322, 56337, 157402, 143937, 79057];
 
 
   // Others = total - top5 sum
@@ -3075,7 +3235,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     ["ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД", "ЕЙТ СЕЛ ООД"],
     ["ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ", "ЕХНАТОН БЪЛГАРИЯ"],
     ["WTO", "WTO", "WTO", "WTO", "WTO", "WTO", "WTO"],
-    ["ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ", "ФАНУК БЪЛГАРИЯ"],
+    ["ДИСКОРДИА", "ДИСКОРДИА", "ДИСКОРДИА", "ДИСКОРДИА", "ДИСКОРДИА", "ДИСКОРДИА", "ДИСКОРДИА"],
     ['Others', 'Others', 'Others', 'Others', 'Others', 'Others', 'Others'],
   ];
 
