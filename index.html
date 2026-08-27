@@ -1704,6 +1704,8 @@ const invDurinSvc   = ['Inv#35', 'Inv#38', 'Inv#41', 'Inv#46', 'Inv#51', 'Inv#54
 const invDurinMat   = ['Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', 'Inv#53', 'Inv#56', null];
 const invFrameSvc   = [null, 'Inv#37', 'Inv#42', 'Inv#45', 'Inv#50', 'Inv#0000000055', 'Inv#59'];
 const invFrameMat   = [null, 'Inv#39', 'Inv#44', 'Inv#47', 'Inv#52', 'Inv#57', null];
+// Mach: new client, first invoice Aug 3 2026 for Jul 16-31 services (DHR Inc Income 2026 row 28)
+const invMachSvc    = [null, null, null, null, null, null, 'Inv#58'];
 
 // Services / Materials revenue split by client (Jan–Jul 2026)
 // Hadrian: actual by-type from Revenue (20) rows 42-43 · materials keyed to service month
@@ -1743,13 +1745,13 @@ const REV_CLIENTS = {
                svcInv: () => invFrameSvc, matInv: () => invFrameMat,
                svcMargin: () => frameSvcMargin, matMargin: () => frameMatMargin,
                rateCard: ['6 engineers \u00d7 $110/hr \u00d7 173 hrs'], rateTotal: 114400 },
-  // revenueOnly: no services/materials split, no invoice refs, no rate card —
-  // the tooltip shows a single actual-revenue line and nothing else.
+  // revenueOnly: no services/materials split, no rate card — tooltip shows a
+  // single actual-revenue line, plus an invoice ref if one is on file (Mach).
   rainmaker: { name: 'Rainmaker',  svc: () => rainmaker2026, mat: null, revenueOnly: true,
                svcInv: null, matInv: null, svcMargin: null, matMargin: null,
                rateCard: null, rateTotal: null },
   mach:      { name: 'Mach',       svc: () => mach2026, mat: null, revenueOnly: true,
-               svcInv: null, matInv: null, svcMargin: null, matMargin: null,
+               svcInv: () => invMachSvc, matInv: null, svcMargin: null, matMargin: null,
                rateCard: null, rateTotal: null },
 };
 // Bar-dataset order on the revenue chart; the two target lines come after these.
@@ -1770,7 +1772,15 @@ function buildRevTooltip(key, idx, indent) {
   if (!total) return [pre + 'No revenue this month'];
 
   const L = [];
-  if (C.revenueOnly) return [pre + _pad('Actual Revenue:', 22) + _usd(total)];
+  if (C.revenueOnly) {
+    const Lr = [pre + _pad('Actual Revenue:', 22) + _usd(total)];
+    if (C.svcInv) {
+      const si = C.svcInv()[idx];
+      Lr.push(pre + REV_RULE);
+      Lr.push(pre + 'Invoice ref: ' + (si || '— not recorded'));
+    }
+    return Lr.map(function(l){ return l.replace(/\s+$/, ''); });
+  }
   L.push(pre + _pad('Total Revenue:', 22) + _usd(total));
   L.push(pre + '  ' + _pad('Services:', 20) + _pad(_usd(svc), 12) + _mgn(C.svcMargin ? C.svcMargin()[idx] : null));
   if (C.mat) L.push(pre + '  ' + _pad('Materials:', 20) + _pad(_usd(mat), 12) + _mgn(C.matMargin ? C.matMargin()[idx] : null));
