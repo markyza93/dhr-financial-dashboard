@@ -568,6 +568,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <button onclick="revSvcMatFilter('durin')" id="revSvcMatPill-durin" class="txn-pill">Durin</button>
           <button onclick="revSvcMatFilter('framework')" id="revSvcMatPill-framework" class="txn-pill">Framework</button>
           <button onclick="revSvcMatFilter('rainmaker')" id="revSvcMatPill-rainmaker" class="txn-pill">Rainmaker</button>
+          <button onclick="revSvcMatFilter('mach')" id="revSvcMatPill-mach" class="txn-pill">Mach</button>
         </div>
         <div class="legend">
           <div class="leg"><div class="dot" id="revSvcMatLegDot-svc" style="background:rgba(99,102,241,0.85)"></div>Services</div>
@@ -1830,7 +1831,7 @@ new Chart(document.getElementById('revTargetChart'), {
         label: 'Hadrian',
         data: [...hadrian2026, ...Array(5).fill(151147)],
         backgroundColor: [
-          ...Array(5).fill('rgb(52,211,153)'),
+          ...Array(7).fill('rgb(52,211,153)'),
           ...Array(5).fill('rgba(52,211,153,0.2)'),
         ],
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
@@ -1840,7 +1841,7 @@ new Chart(document.getElementById('revTargetChart'), {
         label: 'Durin',
         data: [...durin2026, ...Array(5).fill(109200)],
         backgroundColor: [
-          ...Array(5).fill('rgb(56,189,248)'),
+          ...Array(7).fill('rgb(56,189,248)'),
           ...Array(5).fill('rgba(56,189,248,0.2)'),
         ],
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
@@ -1850,7 +1851,7 @@ new Chart(document.getElementById('revTargetChart'), {
         label: 'Framework',
         data: [...frame2026, ...Array(5).fill(114400)],
         backgroundColor: [
-          ...Array(5).fill('rgb(129,140,248)'),
+          ...Array(7).fill('rgb(129,140,248)'),
           ...Array(5).fill('rgba(129,140,248,0.2)'),
         ],
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
@@ -1860,8 +1861,18 @@ new Chart(document.getElementById('revTargetChart'), {
         label: 'Rainmaker',
         data: [...rainmaker2026, ...Array(5).fill(0)],
         backgroundColor: [
-          ...Array(5).fill('rgb(251,146,60)'),
+          ...Array(7).fill('rgb(251,146,60)'),
           ...Array(5).fill('rgba(251,146,60,0.2)'),
+        ],
+        stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
+      },
+      {
+        // ds4 — Mach (new client, first invoice Jul 2026; no established run-rate → projected flat 0)
+        label: 'Mach',
+        data: [...mach2026, ...Array(5).fill(0)],
+        backgroundColor: [
+          ...Array(7).fill('rgb(250,204,21)'),
+          ...Array(5).fill('rgba(250,204,21,0.2)'),
         ],
         stack: 'rev', borderRadius:3, borderSkipped:false, order: 1,
       },
@@ -1948,7 +1959,7 @@ new Chart(document.getElementById('revTargetChart'), {
   },
   plugins: [stackTotalsPlugin]
 });
-(function(){ var c=Chart.getChart(document.getElementById('revTargetChart')); if(c) c._stp={totals:[...total2026,...Array(5).fill(374747)],colors:[...Array(5).fill('rgba(15,31,46,0.82)'),...Array(5).fill('rgba(71,85,105,0.88)')]};})();
+(function(){ var c=Chart.getChart(document.getElementById('revTargetChart')); if(c) c._stp={totals:[...total2026,...Array(5).fill(374747)],colors:[...Array(7).fill('rgba(15,31,46,0.82)'),...Array(5).fill('rgba(71,85,105,0.88)')]};})();
 
 // ── CHART 3b: Revenue Breakdown: Services vs Materials ──
 var revSvcMatActiveFilter = 'all';
@@ -1958,12 +1969,14 @@ var revSvcMatColors = {
   durin:     { svc: 'rgb(56,189,248)',  mat: 'rgb(179,230,252)'  },
   framework: { svc: 'rgb(129,140,248)', mat: 'rgb(207,211,252)'  },
   rainmaker: { svc: 'rgb(251,146,60)',  mat: 'rgba(251,146,60,0.35)' },
+  mach:      { svc: 'rgb(250,204,21)',  mat: 'rgba(250,204,21,0.35)' },
 };
 function revSvcMatGetData(f) {
   if (f === 'hadrian')   return { svc: hadrianSvc.slice(),    mat: hadrianMat.slice() };
   if (f === 'durin')     return { svc: durinSvc.slice(),      mat: durinMat.slice()   };
   if (f === 'framework') return { svc: frameSvc.slice(),      mat: frameMat.slice()   };
   if (f === 'rainmaker') return { svc: rainmaker2026.slice(), mat: [0,0,0,0,0,0,0]     };
+  if (f === 'mach')      return { svc: mach2026.slice(),      mat: [0,0,0,0,0,0,0]     };
   return {
     svc: months5.map(function(_,i){ return hadrianSvc[i]+durinSvc[i]+frameSvc[i]+rainmaker2026[i]+mach2026[i]; }),
     mat: months5.map(function(_,i){ return hadrianMat[i]+durinMat[i]+frameMat[i]; }),
@@ -2055,7 +2068,7 @@ window.revSvcMatFilter = function(f) {
   var dotMat = document.getElementById('revSvcMatLegDot-mat');
   if (dotSvc) dotSvc.style.background = c.svc;
   if (dotMat) dotMat.style.background = c.mat;
-  ['all','hadrian','durin','framework','rainmaker'].forEach(function(k) {
+  ['all','hadrian','durin','framework','rainmaker','mach'].forEach(function(k) {
     var el = document.getElementById('revSvcMatPill-' + k);
     if (el) el.className = 'txn-pill' + (k === f ? ' txn-pill-active' : '');
   });
@@ -2184,7 +2197,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
 (function() {
   const projRev  = Array(5).fill(374747);  // rate card services: Durin $109,200 + Framework $114,400 + Hadrian $151,147
   const revActual = [...total2026, ...Array(5).fill(null)];
-  const revProj   = [...Array(5).fill(null), ...projRev];
+  const revProj   = [...Array(7).fill(null), ...projRev];
   const profCosts = [...actExp];  // live from actExp — always in sync with eoodExp+usExp+bgOps+dhrExp
   const costsAll  = [...profCosts, ...Array(5).fill(monthlyExp)];
 
