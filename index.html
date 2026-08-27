@@ -2250,6 +2250,10 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var bgPaySS        = [49461,104585,119158,131366,151082,168506,188544];  // BG Ops - Payroll & Benefits — Source: Expenses (45) rows 23+24
   // ── Materials sub-categories (Source: Expenses - DHR Global (9).xlsx rows 36–61) ──
   var matCapEx       = [2195,51421,74128,5555,771,740,1270];  // Materials - Equipment & Robotics (EOOD) — Source: Expenses (44) row 47
+  // All item='CapEx'-tagged rows across Materials, any entity/sub-cat — DHR EOOD Equipment & Robotics
+  // (Expenses sheet row 54) + 3DHR Mechanical (Mar: filament extruder + 200x Bambu Lab P2S, $601K).
+  // A dedicated top-level pill so CapEx spend is visible without drilling into Mechanical (3DHR) > CapEx.
+  var matAllCapEx    = [2195,48796,604664,0,0,0,0];
   var usTaxes        = [5386,50,0,102486,849,44719,8992];  // US Ops - Taxes & Compliance — Source: Expenses (44) rows 12+20
   var matMarketing   = [11049,12236,11479,11696,12836,10901,10708];  // BG Ops - Marketing & Branding — SSOT (22) // BG Ops - Marketing & Branding — Source: Expenses (19) rows 36-37
   var matITSoftware  = [2034,16703,22518,11301,8480,4525,7020];  // BG Ops - IT & Software — SSOT (22) // BG Ops - IT & Software — Source: Expenses (19) rows 33-35
@@ -2358,6 +2362,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     // ── Sub-category level (shown when a specific category tab is active) ──
     { label:'BG Operations - Payroll & Benefits',  dhrCat:'BG Operations',  dhrSubCat:'Payroll & Benefits',      data: bgPaySS,       backgroundColor: 'rgb(192,132,252)', borderRadius:3, borderSkipped:false },
     { label:'Materials - Equipment & Robotics',    dhrCat:'Materials',      dhrSubCat:'Equipment & Robotics',    data: matCapEx,      backgroundColor: 'rgb(250,204,21)',  borderRadius:3, borderSkipped:false },
+    { label:'Materials - CapEx (all entities)',    dhrCat:'Materials',      dhrSubCat:'CapEx',                   data: matAllCapEx,   backgroundColor: 'rgb(220,38,38)',   borderRadius:3, borderSkipped:false },
     { label:'US Operations - Taxes & Compliance',  dhrCat:'US Operations',  dhrSubCat:'Taxes & Compliance',      data: usTaxes,       backgroundColor: 'rgb(248,113,113)', borderRadius:3, borderSkipped:false },
     { label:'BG Operations - Marketing & Branding',dhrCat:'BG Operations',  dhrSubCat:'Marketing & Branding',    data: matMarketing,  backgroundColor: 'rgb(244,114,182)', borderRadius:3, borderSkipped:false },
     { label:'BG Operations - IT & Software',       dhrCat:'BG Operations',  dhrSubCat:'IT & Software',           data: matITSoftware, backgroundColor: 'rgb(20,184,166)',   borderRadius:3, borderSkipped:false },
@@ -2650,7 +2655,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   // Sub-categories per category
   // Category → Sub-category mapping (drives pill display) — based on Expenses sheet taxonomy up to row 85
   var dhrCatSubcats = {
-    'Materials':       ['Electrical','Mechanical','Logistics','Equipment & Robotics','Consumables','VAT Refund','Mechanical (3DHR)','Electrical (3DHR)','Consumables (3DHR)'],
+    'Materials':       ['Electrical','Mechanical','Logistics','Equipment & Robotics','Consumables','VAT Refund','CapEx','Mechanical (3DHR)','Electrical (3DHR)','Consumables (3DHR)'],
     'BG Operations':   ['Payroll & Benefits','IT & Software','Marketing & Branding','Rent & Facilities',
                         'Travel','General & Administrative','Recruiting','Taxes & Compliance',
                         'Banking & Finance','Professional Services','Import Expense',
@@ -2763,7 +2768,7 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
     'Marketing & Branding':'📣 ','General & Administrative':'📋 ','Travel':'✈ ','Recruiting':'👥 ',
     'Insurance':'🛡 ','Banking & Finance':'🏦 ','Business Development':'🤝 ','Operations':'⚙ ','Land':'🏗 ','Other':'•',
     'Payroll & Benefits':'💼 ','Professional Services':'📄 ','Taxes & Compliance':'📊 ',
-    'Import Expense':'🚢 ','Payroll Expense':'💼 ','VAT Refund':'↩ ',
+    'Import Expense':'🚢 ','Payroll Expense':'💼 ','VAT Refund':'↩ ','CapEx':'🏭 ',
     'Mechanical (3DHR)':'⚙ ','Payroll Expense (3DHR)':'💼 ','Logistics (3DHR)':'📦 ',
     'Electrical (3DHR)':'⚡ ','Consumables (3DHR)':'🔧 ','Client Expense':'💳 ','Personal':'👤 '
   };
@@ -3257,13 +3262,18 @@ var ssotFX = [1.1743, 1.1823, 1.1568, 1.1696, 1.1684, 1.1507, 1.1426];
       // still counted in the unfiltered All/month/YTD totals (Total Expenses).
       if (catFilter !== 'All' && entityName === '3DHR' && catName === 'Materials' &&
           ssotSubcats[scIdx] === 'Mechanical' && ssotItems[itemIdx] === 'CapEx' &&
-          (window._itemFilter || null) !== 'CapEx') {
+          (window._itemFilter || null) !== 'CapEx' && (window._matSubFilter || null) !== 'CapEx') {
         return;
       }
 
       // Sub-cat filter — pills now use exact SSOT sub-category names
       var scFilter = window._matSubFilter || null;
-      if (scFilter) {
+      if (scFilter === 'CapEx') {
+        // Spans two different (entity, sub-cat) combos — DHR EOOD Equipment &
+        // Robotics and 3DHR Mechanical — so this pill filters by item name
+        // across all entities/sub-cats instead of one literal sub-cat match.
+        if (ssotItems[itemIdx] !== 'CapEx') return;
+      } else if (scFilter) {
         // Pill labels that differ from SSOT sub-category names
         var _scAliases = { 'VAT Refund': 'BG VAT Refund (20%)' };
         var _entAlias = (window.SUBCAT_ENTITY_ALIAS || {})[scFilter] || null;
