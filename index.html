@@ -774,7 +774,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
             <div class="card-head">
               <div>
                 <h3>Direct Method Cash Flow Waterfall</h3>
-                <p class="card-sub">Jan 1 &ndash; Jul 31, 2026 &middot; YTD &middot; Source: Profitability &amp; Cash Flows - DHR Global (21) &ndash; Direct Method &amp; Indirect Method SCF</p>
+                <p class="card-sub">Jan 1 &ndash; Jul 31, 2026 &middot; YTD &middot; Source: Profitability &amp; Cash Flows - DHR Global (22) &ndash; Direct Method SCF</p>
               </div>
               <div class="legend">
                 <div class="leg"><div class="dot" style="background:#60a5fa"></div>Balance</div>
@@ -4124,33 +4124,30 @@ function fetchLiveData() {
 })();
 
 // ── Direct Method SCF Waterfall Chart + KPI tiles + description (Jan 1 – Jul 31, 2026) ──
-// Source: Profitability & Cash Flows - DHR Global (21).xlsx — sheets "Direct Method - SCF" /
-// "Indirect Method - SCF" / "Cash Balance by Month". This is the single source of truth for
-// the whole Cash Flow card (description text, the 3 KPI tiles, and this waterfall) — do NOT
-// hand-type numbers into the HTML again. That's exactly how this section went stale before: it
-// was quietly still running off an older workbook snapshot ("Profitability (16)") for a full
-// session's worth of updates, so when the source model was corrected (Grants $216K -> $249K,
-// Operating $910K -> $917K for Jan-Jun) the dashboard never picked it up.
+// Source: Profitability & Cash Flows - DHR Global (22).xlsx — sheets "Direct Method - SCF" /
+// "Cash Balance by Month". This is the single source of truth for the whole Cash Flow card
+// (description text, the 3 KPI tiles, and this waterfall) — do NOT hand-type numbers into the
+// HTML again. That's exactly how this section went stale before: it was quietly still running
+// off an older workbook snapshot ("Profitability (16)") for a full session's worth of updates,
+// so when the source model was corrected (Grants $216K -> $249K, Operating $910K -> $917K for
+// Jan-Jun) the dashboard never picked it up.
 //
-// July financing note: "Direct Method - SCF"'s own July Owner Distributions/Injections rows
-// were still blank in the (21) export — that sheet lags "Indirect Method - SCF", which already
-// had July filled in (same underlying transactions; Financing doesn't differ by method). July's
-// Financing figure below (-$42,613) is sourced from Indirect Method - SCF for that reason; every
-// other July figure (Operating, Investing/CapEx) is sourced from Direct Method - SCF as usual.
+// (22) fixes "Direct Method - SCF" itself for July — its Owner Distributions/Injections rows
+// were still blank as of (21), so that one month was sourced from "Indirect Method - SCF"
+// instead (same transactions, just filled in earlier there). Now both sheets agree and every
+// figure below, including July, comes from Direct Method - SCF alone again.
 // Update cfYTD below from the latest workbook and everything re-renders together.
 var cfYTD = {
-  start:     950878,    // Starting Cash, Jan 1 — 'Direct Method - SCF' row 6, col Jan
-  operating: 1469833,   // Net Operating Cash Flow YTD (Jan-Jul) — Jan-Jun 917,199 (row 12, col K)
-                         // + Jul 552,634 (row 12, col Jul: recv 948,425 - paid 418,467 + VAT 22,676)
+  start:     950878,    // Starting Cash, Jan 1 — row 6, col Jan
+  operating: 1469833,   // Net Operating Cash Flow YTD (Jan-Jul) — row 12, col YTD (1,469,832.90)
   land:      -516494,   // Investing: Land Purchases YTD — row 15 (Jan -49,321 + Mar -467,174; $0 in Jul)
   equip:     -601388,   // Investing: Other CapEx YTD — row 16 (Mar -303,876 + Apr -297,513; $0 in Jul —
                          // cross-checked against the Expenses ledger rebuild, also $0 CapEx in Jul)
-  financing: -619452,   // Jan-Jun -576,839 (Distributions -2,882,139 + Injections +2,306,666 + Loan
-                         // -1,366) + Jul -42,613 (Distributions -411,428 + Injections +368,815, from
-                         // Indirect Method - SCF, see note above) — Grants kept separate below
-  grants:    248957,    // EU Grant received in June into OBB Bank — unchanged, $0 in Jul
-  actualEnd: 927054,    // Actual Closing (from bank), Jul 31 — 'Cash Balance by Month' "7_End" total;
-                         // ties exactly to the per-bank total below with no plug needed there
+  financing: -619452,   // Owner Distributions -3,293,567 + Injections +2,675,481 + Loan Proceeds/
+                         // (Repayments) -1,366 — rows 20+21+23, YTD — Grants kept separate below
+  grants:    248957,    // EU Grant received in June into OBB Bank — row 22, YTD; $0 in Jul
+  actualEnd: 927054,    // Actual Closing (from bank), Jul 31 — row 31, YTD; ties exactly to the
+                         // per-bank total below with no plug needed there
   banks: {               // 'Cash Balance by Month', July "End" column — same actualEnd total.
                           // Large reshuffle vs. June: OBB dropped from $217K to $1K, JPM rose from
                           // $2K to $483K and Bulbank flipped from -$15K to $314K — real money
