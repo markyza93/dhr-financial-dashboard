@@ -88,7 +88,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .ln { width: 18px; height: 2.5px; border-radius: 1px; }
 .lnd { width: 22px; height: 0; border-top: 2.5px dashed; }
 .wrap { position: relative; }
-.h380 { height: 380px; } .h340 { height: 340px; } .h300 { height: 300px; } .h280 { height: 280px; } .h240 { height: 240px; } .h200 { height: 200px; } .h180 { height: 180px; }
+.h380 { height: 380px; } .h340 { height: 340px; } .h300 { height: 300px; } .h280 { height: 280px; } .h240 { height: 240px; } .h200 { height: 200px; } .h180 { height: 180px; } .h50 { height: 50px; }
 .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
 
 /* BANK CARDS */
@@ -800,30 +800,9 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <div id="cs-total-value" class="cs-value">$265K USD</div>
       <div id="cs-total-sub" class="cs-sub">Mercury $1K · Revolut USD $209K · Bulbank $55K · Jun 30 — Chase excluded (Plaid disconnected)</div>
     </div>
-    <div class="cs-breakdown">
-      <div class="cs-item">
-        <div class="cs-item-label">Mercury (US)</div>
-        <div id="cs-mercury-val" class="cs-item-val" style="color:var(--blue);">$1K</div>
-        <div id="cs-mercury-pct" class="cs-item-note">— of total</div>
-      </div>
-      <div class="divider"></div>
-      <div class="cs-item">
-        <div class="cs-item-label">Revolut (BG)</div>
-        <div id="cs-revolut-val" class="cs-item-val" style="color:var(--purple);">$209K</div>
-        <div id="cs-revolut-note" class="cs-item-note">— USD + EUR</div>
-      </div>
-      <div class="divider"></div>
-      <div class="cs-item">
-        <div class="cs-item-label">Bulbank (BG)</div>
-        <div id="cs-bulbank-val" class="cs-item-val" style="color:var(--red);">$55K</div>
-        <div id="cs-bulbank-note" class="cs-item-note">Jun 30 closing</div>
-      </div>
-      <div class="divider"></div>
-      <div class="cs-item">
-        <div class="cs-item-label">JPMorgan Chase (US)</div>
-        <div id="cs-chase-val" class="cs-item-val" style="color:var(--muted2);">N/A</div>
-        <div id="cs-chase-note" class="cs-item-note">Plaid disconnected</div>
-      </div>
+    <div class="cs-breakdown-chart" style="flex:1;min-width:300px;">
+      <div class="wrap h50"><canvas id="cashBreakdownChart"></canvas></div>
+      <div id="cashBreakdownLegend" style="display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-size:11px;color:var(--muted2);"></div>
     </div>
   </div>
 
@@ -3908,34 +3887,72 @@ function updateCashTile(mercBal, revData, chaseBal, bulbBal, tsLabel) {
   // Total Consolidated Cash summary bar
   var csTotVal  = document.getElementById('cs-total-value');
   var csTotSub  = document.getElementById('cs-total-sub');
-  var csMercVal = document.getElementById('cs-mercury-val');
-  var csMercPct = document.getElementById('cs-mercury-pct');
-  var csRevVal  = document.getElementById('cs-revolut-val');
-  var csRevNote = document.getElementById('cs-revolut-note');
 
   if (csTotVal) csTotVal.textContent = '$' + grand.toLocaleString() + ' USD';
   var chaseNote = chaseBal != null ? ' · Chase $' + Math.round(chaseBal/1000) + 'K Live' : ' · Chase excluded (Plaid disconnected)';
   if (csTotSub) csTotSub.textContent = 'Mercury $' + Math.round(mBal/1000) + 'K · Revolut USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K · Bulbank $' + Math.round(bBal/1000) + 'K (' + (bulbBal != null ? 'live' : BULBANK_LABEL) + ') · ' + (mercBal != null || revData != null ? 'Live' : 'Jun 30') + chaseNote;
-  // Chase cs-item — conditional on whether Plaid is working
-  var csChaseVal  = document.getElementById('cs-chase-val');
-  var csChaseNote = document.getElementById('cs-chase-note');
-  if (chaseBal != null) {
-    if (csChaseVal) { csChaseVal.textContent = '$' + Math.round(chaseBal/1000) + 'K'; csChaseVal.style.color = '#0d6ec7'; }
-    if (csChaseNote) { csChaseNote.textContent = Math.round(chaseBal/grand*100) + '% of total · Live via Plaid'; }
-  } else {
-    if (csChaseVal) { csChaseVal.textContent = 'N/A'; csChaseVal.style.color = 'var(--muted2)'; }
-    if (csChaseNote) { csChaseNote.textContent = 'Plaid disconnected'; }
-  }
-  if (csMercVal) csMercVal.textContent = '$' + Math.round(mBal/1000) + 'K';
-  if (csMercPct) csMercPct.textContent = Math.round(mBal/grand*100) + '% of total' + (mercBal != null ? ' · Live' : '');
-  if (csRevVal)  csRevVal.textContent  = '$' + Math.round(rTot/1000) + 'K';
-  if (csRevNote) csRevNote.textContent = Math.round(rTot/grand*100) + '% — USD $' + Math.round(rUSD/1000) + 'K + EUR $' + Math.round(rEUR*1.1696/1000) + 'K + BGN $' + Math.round(rBGN*0.5979/1000) + 'K' + (revData != null ? ' · Live' : '');
 
-  // Bulbank cs-item — mirrors Mercury/Revolut/Chase above (was static-only before; now live)
-  var csBulbVal  = document.getElementById('cs-bulbank-val');
-  var csBulbNote = document.getElementById('cs-bulbank-note');
-  if (csBulbVal)  { csBulbVal.textContent = '$' + Math.round(bBal/1000) + 'K'; csBulbVal.style.color = bulbBal != null ? '#dc2626' : 'var(--red)'; }
-  if (csBulbNote) { csBulbNote.textContent = Math.round(bBal/grand*100) + '% of total' + (bulbBal != null ? ' · Live' : ' · ' + BULBANK_LABEL); }
+  // Bank breakdown — single horizontal stacked bar (replaces the old 4-tile row so the
+  // chart and the numbers can never disagree; both come from the same mBal/rTot/bBal/chBal here)
+  renderCashBreakdownChart(mBal, rTot, bBal, chBal, chaseBal != null);
+}
+
+function renderCashBreakdownChart(mBal, rTot, bBal, chBal, chaseLive) {
+  var canvas = document.getElementById('cashBreakdownChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+  var names  = ['Mercury', 'Revolut', 'Bulbank', 'Chase'];
+  var colors = ['rgb(56,189,248)', 'rgb(192,132,252)', 'rgb(251,146,60)', 'rgb(13,110,199)'];
+  var vals   = [Math.round(mBal), Math.round(rTot), Math.round(bBal), chaseLive ? Math.round(chBal) : 0];
+  var total  = vals.reduce(function(a, b) { return a + b; }, 0);
+
+  var chart = window._cashBreakdownChart;
+  if (chart) {
+    chart.data.datasets.forEach(function(ds, i) { ds.data = [vals[i]]; });
+    chart.update();
+  } else {
+    window._cashBreakdownChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: ['Cash'],
+        datasets: names.map(function(name, i) {
+          return { label: name, data: [vals[i]], backgroundColor: colors[i], borderRadius: 0, borderSkipped: false };
+        })
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: 0 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(c) {
+                var v = c.parsed.x;
+                var t = c.chart.data.datasets.reduce(function(s, ds) { return s + (ds.data[0] || 0); }, 0);
+                var pct = t ? Math.round(v / t * 100) : 0;
+                return ' ' + c.dataset.label + ':  $' + Math.round(v).toLocaleString() + ' (' + pct + '%)';
+              }
+            }
+          }
+        },
+        scales: {
+          x: { stacked: true, display: false, beginAtZero: true },
+          y: { stacked: true, display: false }
+        }
+      }
+    });
+  }
+
+  var legendEl = document.getElementById('cashBreakdownLegend');
+  if (legendEl) {
+    legendEl.innerHTML = names.map(function(name, i) {
+      if (name === 'Chase' && !chaseLive) {
+        return '<div class="leg"><div class="dot" style="background:var(--muted2)"></div>Chase: N/A · Plaid disconnected</div>';
+      }
+      var pct = total ? Math.round(vals[i] / total * 100) : 0;
+      return '<div class="leg"><div class="dot" style="background:' + colors[i] + '"></div>' + name + ': $' + Math.round(vals[i] / 1000) + 'K (' + pct + '%)</div>';
+    }).join('');
+  }
 }
 
 // Immediately mark Chase as disconnected — don't wait for balances.json fetch
