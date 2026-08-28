@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-27T18:07:18.002949+00:00",
+  "timestamp": "2026-08-28T00:42:08.005441+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 0.98,
-        "mtdOutflows": -74415.0,
+        "mtdOutflows": -34415.0,
         "recentTransactions": [
           {
             "date": "2026-08-25T14:24:14.384823Z",
@@ -50,12 +50,6 @@
             "description": "IO AUTOPAY",
             "amount": -65.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-29T14:22:14.811375Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -40000.0,
-            "kind": "outgoingPayment"
           }
         ]
       },
