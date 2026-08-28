@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-28T00:42:08.005441+00:00",
+  "timestamp": "2026-08-28T19:17:09.861613+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -83,25 +83,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 132021.02,
-    "usd": 113934.83,
-    "eur": 15463.57,
+    "total": 128731.68,
+    "usd": 113934.82,
+    "eur": 12651.21,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 15463.57,
-        "available": 15463.57,
+        "balance": 12651.21,
+        "available": 12651.21,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 113934.83,
-        "available": 113934.83,
+        "balance": 113934.82,
+        "available": 113934.82,
         "state": "active"
       },
       {
@@ -147,30 +147,30 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-27",
+    "statement_date": "2026-08-28",
     "total_eur": 268699.15,
     "total_usd": 314270.53,
     "accounts": [
-      {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
-        "currency": "EUR",
-        "closing_balance": 50748.63,
-        "value_date": "2026-08-27"
-      },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 308.78,
-        "value_date": "2026-08-27"
+        "value_date": "2026-08-28"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217641.74,
-        "value_date": "2026-08-27"
+        "value_date": "2026-08-28"
+      },
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 50748.63,
+        "value_date": "2026-08-28"
       }
     ]
   },
