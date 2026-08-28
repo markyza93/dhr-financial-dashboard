@@ -745,25 +745,27 @@ tbody tr:hover td { background: #f5f8fc !important; }
           <!-- Direct Method SCF description -->
           <div class="card" style="margin-bottom:14px;padding:14px 18px;font-size:12px;color:var(--muted2);line-height:1.7;">
             <strong style="color:var(--text);font-size:13px;">Direct Method Statement of Cash Flows &mdash; Jan 1 &ndash; Jun 30, 2026 (YTD)</strong><br>
-            Starting cash of $951K grew via operating inflows of +$910K, offset by -$1,117K of Investing (land -$516K plus $601K of capitalised equipment) and -$575K of net owner distributions &amp; intercompany transfers. A new inflow this period: the <strong style="color:var(--fg);">EU Grant of +$216K</strong> received in June into OBB Bank, shown separately from owner funding under Financing. The net cash decrease of -$566K yields a closing balance of $455K, with a $70K reconciliation plug covering timing and FX rounding between the sub-ledgers and actual bank statements.
+            <span id="cfDescText">&nbsp;</span>
           </div>
 
-          <!-- KPI tiles — SCF summary -->
+          <!-- KPI tiles — SCF summary. Values are rendered by JS from cfYTD (single source, see script
+               below) — do NOT hand-type numbers here again; that's exactly how this section went stale
+               (built from an older Cash Flow model snapshot) before. -->
           <div class="kpi-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:18px;">
             <div class="kpi k1">
               <div class="kpi-label">Starting Balance (Jan 1)</div>
-              <div class="kpi-value">$951K</div>
+              <div class="kpi-value" id="cfStartVal">&nbsp;</div>
               <div class="kpi-meta">Combined opening cash across Mercury, Revolut &amp; Bulbank</div>
             </div>
             <div class="kpi k2">
               <div class="kpi-label">Net Cash Change</div>
-              <div class="kpi-value" style="color:var(--red);">-$566K</div>
-              <div class="kpi-meta">Operating +$910K &middot; Investing -$1,117K &middot; Financing -$575K &middot; Grants +$216K</div>
+              <div class="kpi-value" style="color:var(--red);" id="cfNetVal">&nbsp;</div>
+              <div class="kpi-meta" id="cfNetMeta">&nbsp;</div>
             </div>
             <div class="kpi k4">
               <div class="kpi-label">Ending Balance (Jun 30)</div>
-              <div class="kpi-value">$455K</div>
-              <div class="kpi-meta">Mercury $1K &middot; Revolut $209K &middot; Bulbank $25K &middot; OBB $217K &middot; JPM $2K &middot; incl. $70K plug</div>
+              <div class="kpi-value" id="cfEndVal">&nbsp;</div>
+              <div class="kpi-meta" id="cfEndMeta">&nbsp;</div>
             </div>
           </div>
 
@@ -772,7 +774,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
             <div class="card-head">
               <div>
                 <h3>Direct Method Cash Flow Waterfall</h3>
-                <p class="card-sub">Jan 1 &ndash; Jun 30, 2026 &middot; YTD &middot; Source: Profitability (16) &ndash; Direct Method &amp; Indirect Method SCF</p>
+                <p class="card-sub">Jan 1 &ndash; Jun 30, 2026 &middot; YTD &middot; Source: Profitability &amp; Cash Flows - DHR Global (21) &ndash; Direct Method &amp; Indirect Method SCF</p>
               </div>
               <div class="legend">
                 <div class="leg"><div class="dot" style="background:#60a5fa"></div>Balance</div>
@@ -4121,49 +4123,88 @@ function fetchLiveData() {
   };
 })();
 
-// ── Direct Method SCF Waterfall Chart (Jan 1 – Jun 30, 2026) ──
-// Source: Profitability (16) — sheets "Direct Method - SCF" / "Indirect Method - SCF"
+// ── Direct Method SCF Waterfall Chart + KPI tiles + description (Jan 1 – Jun 30, 2026) ──
+// Source: Profitability & Cash Flows - DHR Global (21).xlsx — sheets "Direct Method - SCF" /
+// "Cash Balance by Month". This is the single source of truth for the whole Cash Flow card
+// (description text, the 3 KPI tiles, and this waterfall) — do NOT hand-type numbers into the
+// HTML again. That's exactly how this section went stale before: it was quietly still running
+// off an older workbook snapshot ("Profitability (16)") for a full session's worth of updates,
+// so when the source model was corrected (Grants $216K -> $249K, Operating $910K -> $917K,
+// Financing -$575K -> -$577K once Loan Proceeds/(Repayments) is folded in) the dashboard never
+// picked it up. Update cfYTD below from the latest workbook and everything re-renders together.
+var cfYTD = {
+  start:     950878,   // Starting Cash, Jan 1 — 'Direct Method - SCF' row 6, col Jan
+  operating: 917199,   // Net Operating Cash Flow YTD (Jan-Jun) — row 12, col K
+  land:      -516494,  // Investing: Land Purchases YTD — row 15, col K (Jan -49,321 + Mar -467,174)
+  equip:     -601388,  // Investing: Other CapEx YTD — row 16, col K (Mar -303,876 + Apr -297,513;
+                        // cash-paid timing per the SCF sheet — differs slightly from the Expenses
+                        // ledger's accrual timing of the same $600,664 3DHR purchase, booked in Mar)
+  financing: -576839,  // Owner Distributions -2,882,139 + Injections +2,306,666 + Loan Proceeds/
+                        // (Repayments) -1,366 — row 24 less the Grants line (kept separate below)
+  grants:    248957,   // EU Grant received in June into OBB Bank — row 22, col K
+  actualEnd: 415176,   // Actual Closing (from bank) YTD — row 31, col K; ties exactly to the
+                        // per-bank total below with no plug needed there
+  banks: {              // 'Cash Balance by Month', June "End" column — same actualEnd total
+    Mercury: 1353, Revolut: 209419, Bulbank: -15044, OBB: 217348, JPM: 2100,
+  },
+};
+cfYTD.investing  = cfYTD.land + cfYTD.equip;
+cfYTD.netChange  = cfYTD.operating + cfYTD.investing + cfYTD.financing + cfYTD.grants;
+cfYTD.expectedEnd = cfYTD.start + cfYTD.netChange;
+cfYTD.plug        = cfYTD.actualEnd - cfYTD.expectedEnd;
+
+(function() {
+  function k(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v) / 1000).toLocaleString() + 'K'; }
+  function kSigned(v) { return (v >= 0 ? '+$' : '-$') + Math.round(Math.abs(v) / 1000).toLocaleString() + 'K'; }
+
+  var descEl = document.getElementById('cfDescText');
+  if (descEl) {
+    descEl.innerHTML = 'Starting cash of ' + k(cfYTD.start) + ' grew via operating inflows of ' + kSigned(cfYTD.operating) +
+      ', offset by ' + kSigned(cfYTD.investing) + ' of Investing (land -$' + Math.round(Math.abs(cfYTD.land)/1000) +
+      'K plus $' + Math.round(Math.abs(cfYTD.equip)/1000) + 'K of capitalised equipment) and ' + kSigned(cfYTD.financing) +
+      ' of net owner distributions &amp; intercompany transfers (incl. loan activity). A new inflow this period: the ' +
+      '<strong style="color:var(--fg);">EU Grant of ' + kSigned(cfYTD.grants) + '</strong> received in June into OBB Bank, ' +
+      'shown separately from owner funding under Financing. The net cash ' + (cfYTD.netChange < 0 ? 'decrease' : 'increase') +
+      ' of ' + kSigned(cfYTD.netChange) + ' yields a closing balance of ' + k(cfYTD.expectedEnd) + ' modeled vs. ' + k(cfYTD.actualEnd) +
+      ' actual (bank statements) — a ' + kSigned(cfYTD.plug) + ' reconciliation plug covering timing and FX rounding between the sub-ledgers and actual bank statements.';
+  }
+  var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
+  setText('cfStartVal', k(cfYTD.start));
+  setText('cfNetVal', kSigned(cfYTD.netChange));
+  setText('cfNetMeta', 'Operating ' + kSigned(cfYTD.operating) + ' · Investing ' + kSigned(cfYTD.investing) +
+    ' · Financing ' + kSigned(cfYTD.financing) + ' · Grants ' + kSigned(cfYTD.grants));
+  setText('cfEndVal', k(cfYTD.actualEnd));
+  setText('cfEndMeta', 'Mercury ' + k(cfYTD.banks.Mercury) + ' · Revolut ' + k(cfYTD.banks.Revolut) +
+    ' · Bulbank ' + k(cfYTD.banks.Bulbank) + ' · OBB ' + k(cfYTD.banks.OBB) + ' · JPM ' + k(cfYTD.banks.JPM) +
+    ' · ' + kSigned(cfYTD.plug) + ' vs. modeled');
+})();
+
 (function() {
   var cfCanvas = document.getElementById('cfWaterfallChart');
   if (!cfCanvas || typeof Chart === 'undefined') return;
 
-  // Direct Method SCF YTD figures — Source: Profitability (16), sheets 'Direct Method - SCF' / 'Indirect Method - SCF'
-  // Starting: $950,878 | Operating: +$909,931 | Investing: -$1,117,158
-  // Financing (owner, net): -$575,473 | Grants & Subsidies: +$216,353
-  // Net Cash Change: -$566,348 | Plug: +$70,224 | Ending: $454,754
-  //
-  // Investing now carries BOTH land (-$516,494) and equipment CapEx (-$600,664).
-  // The equipment CapEx moved out of operating expenses into investing, which is why
-  // Operating rises and Investing falls by the same $600,664 — net zero on cash.
-  //
-  // Grants & Subsidies is the EU Grant received in June ($216,353, into OBB Bank).
-  // It is split out of Financing so the owner-funding position stays comparable:
-  // owner distributions -$2,882,139 + injections +$2,306,666 = -$575,473 (unchanged).
-  //
-  // Plug = SUM of the six monthly residual plugs (each month restarts from actual bank
-  // balance, so the YTD chain does not tie without it): 5,505 + 4,613 + 3,342 - 161 + 30,692 + 26,232.
+  // Running totals, built from cfYTD (see above) rather than hand-typed:
+  var afterOp   = cfYTD.start + cfYTD.operating;
+  var afterInv  = afterOp + cfYTD.investing;
+  var afterFin  = afterInv + cfYTD.financing;
+  var afterGr   = afterFin + cfYTD.grants;   // === cfYTD.expectedEnd
+  var afterPlug = afterGr + cfYTD.plug;      // === cfYTD.actualEnd
 
-  // Running total after each activity:
-  //   After Operating:  950878 + 909931  = 1,860,809
-  //   After Investing:  1860809 - 1117158 =   743,651
-  //   After Financing:  743651 - 575473  =   168,178
-  //   After Grants:     168178 + 216353  =   384,531
-  //   After Plug:       384531 + 70224   =   454,755  (actual bank $454,754)
   var wfData = [
-    [0,       950878],   // Starting Balance — anchor
-    [950878, 1860809],   // +Operating Activities +909,931 (rise)
-    [743651, 1860809],   // -Investing Activities -1,117,158 (fall)
-    [168178,  743651],   // -Financing (owner, net) -575,473 (fall)
-    [168178,  384531],   // +Grants & Subsidies +216,353 (rise)
-    [384531,  950878],   // Net Cash Change -566,348 (span shows total drop from start)
-    [384531,  454755],   // +Plug +70,224 (rise — reconciliation)
-    [0,       454754],   // Ending Balance Jun 30 — anchor
+    [0,       cfYTD.start],                                   // Starting Balance — anchor
+    [cfYTD.start, afterOp],                                   // +Operating Activities (rise)
+    [Math.min(afterOp, afterInv), Math.max(afterOp, afterInv)], // Investing Activities (fall)
+    [Math.min(afterInv, afterFin), Math.max(afterInv, afterFin)], // Financing (owner, net) (fall)
+    [afterFin, afterGr],                                      // +Grants & Subsidies (rise)
+    [Math.min(afterGr, cfYTD.start), Math.max(afterGr, cfYTD.start)], // Net Cash Change (span shows total move from start)
+    [Math.min(afterGr, afterPlug), Math.max(afterGr, afterPlug)],     // Reconciliation Plug
+    [0,       cfYTD.actualEnd],                                // Ending Balance — anchor
   ];
   var wfColors   = ['#60a5fa','#34d399','#f87171','#f87171','#34d399','#fb7185','#fbbf24','#38bdf8'];
   var wfOpacity  = ['dd','cc','cc','cc','cc','55','cc','dd'];  // Net Change bar semi-transparent
   var wfLabels   = ['Starting\nBalance\n(Jan 1)','Operating\nActivities','Investing\nActivities','Financing\n(owner, net)','Grants &\nSubsidies','Net Cash\nChange','Reconcil.\nPlug','Ending\nBalance\n(Jun 30)'];
   // Signed values for tooltips
-  var wfChanges  = [950878, 909931, -1117158, -575473, 216353, -566348, 70224, 454754];
+  var wfChanges  = [cfYTD.start, cfYTD.operating, cfYTD.investing, cfYTD.financing, cfYTD.grants, cfYTD.netChange, cfYTD.plug, cfYTD.actualEnd];
   var wfNetIdx   = 5;       // index of the "Net Cash Change" span bar
   var wfAnchors  = [0, 7];  // bars that are anchor (full balance bars, not bridges)
 
