@@ -440,6 +440,10 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <div class="top-kpi-label">Est. Tax</div>
         <div class="top-kpi-value" style="color:#c084fc">$329K</div>
       </div>
+      <div class="top-kpi">
+        <div class="top-kpi-label">EBITDA Proxy</div>
+        <div class="top-kpi-value" id="kpi-ebitda-topbar">&nbsp;</div>
+      </div>
     </div>
     <div class="pages-wrap">
       <!-- ── overview ── -->
@@ -741,12 +745,6 @@ tbody tr:hover td { background: #f5f8fc !important; }
       <div class="page" id="page-cashflow">
         <div class="main">
           <div class="sec"><h2>Cash Flow Bridge</h2><div class="rule"></div></div>
-
-          <!-- Direct Method SCF description -->
-          <div class="card" style="margin-bottom:14px;padding:14px 18px;font-size:12px;color:var(--muted2);line-height:1.7;">
-            <strong style="color:var(--text);font-size:13px;">Direct Method Statement of Cash Flows &mdash; Jan 1 &ndash; Jul 31, 2026 (YTD)</strong><br>
-            <span id="cfDescText">&nbsp;</span>
-          </div>
 
           <!-- KPI tiles — SCF summary. Values are rendered by JS from cfYTD (single source, see script
                below) — do NOT hand-type numbers here again; that's exactly how this section went stale
@@ -3170,6 +3168,17 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var ytdEbitda = ytdProfit + ytdAddbacks;
   var ytdEbitdaMargin = ytd.rev ? ytdEbitda / ytd.rev : 0;
 
+  // Exposed for the sticky top-bar EBITDA Proxy tile — single source of truth so that tile
+  // can never drift from the table it summarizes.
+  window._profYTD = { ebitda: ytdEbitda, ebitdaMargin: ytdEbitdaMargin };
+  (function() {
+    var el = document.getElementById('kpi-ebitda-topbar');
+    if (!el) return;
+    var m = ytdEbitda / 1e6;
+    el.textContent = (m < 0 ? '-$' : '$') + Math.abs(m).toFixed(2) + 'M (' + Math.round(ytdEbitdaMargin * 100) + '%)';
+    el.style.color = ytdEbitda < 0 ? 'var(--red)' : 'var(--green)';
+  })();
+
   function rowHtml(r, isYtd) {
     var pad = isYtd ? '6px 8px' : '5px 8px';
     var wrap = isYtd
@@ -4171,17 +4180,6 @@ cfYTD.actualNetChange = cfYTD.actualEnd - cfYTD.start;
   function k(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v) / 1000).toLocaleString() + 'K'; }
   function kSigned(v) { return (v >= 0 ? '+$' : '-$') + Math.round(Math.abs(v) / 1000).toLocaleString() + 'K'; }
 
-  var descEl = document.getElementById('cfDescText');
-  if (descEl) {
-    descEl.innerHTML = 'Starting cash of ' + k(cfYTD.start) + ' grew via operating inflows of ' + kSigned(cfYTD.operating) +
-      ', offset by ' + kSigned(cfYTD.investing) + ' of Investing (land -$' + Math.round(Math.abs(cfYTD.land)/1000) +
-      'K plus $' + Math.round(Math.abs(cfYTD.equip)/1000) + 'K of capitalised equipment) and ' + kSigned(cfYTD.financing) +
-      ' of net owner distributions &amp; intercompany transfers (incl. loan activity). A new inflow this period: the ' +
-      '<strong style="color:var(--fg);">EU Grant of ' + kSigned(cfYTD.grants) + '</strong> received in June into OBB Bank, ' +
-      'shown separately from owner funding under Financing. The net cash ' + (cfYTD.netChange < 0 ? 'decrease' : 'increase') +
-      ' of ' + kSigned(cfYTD.netChange) + ' yields a closing balance of ' + k(cfYTD.expectedEnd) + ' modeled vs. ' + k(cfYTD.actualEnd) +
-      ' actual (bank statements) — a ' + kSigned(cfYTD.plug) + ' reconciliation plug covering timing and FX rounding between the sub-ledgers and actual bank statements.';
-  }
   var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
   setText('cfStartVal', k(cfYTD.start));
   setText('cfNetVal', kSigned(cfYTD.actualNetChange));
