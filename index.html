@@ -429,20 +429,20 @@ tbody tr:hover td { background: #f5f8fc !important; }
         <div class="top-kpi-value" style="color:var(--red)">$3.75M</div>
       </div>
       <div class="top-kpi">
-        <div class="top-kpi-label">Profit</div>
-        <div class="top-kpi-value" style="color:var(--green)">$637K</div>
+        <div class="top-kpi-label">Profit YTD</div>
+        <div class="top-kpi-value" id="kpi-profit-topbar">&nbsp;</div>
       </div>
       <div class="top-kpi">
-        <div class="top-kpi-label">Total Cash</div>
+        <div class="top-kpi-label">EBITDA Proxy YTD</div>
+        <div class="top-kpi-value" id="kpi-ebitda-topbar">&nbsp;</div>
+      </div>
+      <div class="top-kpi">
+        <div class="top-kpi-label">Total Cash YTD</div>
         <div class="top-kpi-value" id="kpi-cash-topbar">$265K</div>
       </div>
       <div class="top-kpi">
-        <div class="top-kpi-label">Est. Tax</div>
+        <div class="top-kpi-label">Est. Tax Liability YTD</div>
         <div class="top-kpi-value" style="color:#c084fc">$329K</div>
-      </div>
-      <div class="top-kpi">
-        <div class="top-kpi-label">EBITDA Proxy</div>
-        <div class="top-kpi-value" id="kpi-ebitda-topbar">&nbsp;</div>
       </div>
     </div>
     <div class="pages-wrap">
@@ -3147,15 +3147,21 @@ if (document.getElementById('mercuryFlow')) new Chart(document.getElementById('m
   var ytdEbitda = ytdProfit + ytdAddbacks;
   var ytdEbitdaMargin = ytd.rev ? ytdEbitda / ytd.rev : 0;
 
-  // Exposed for the sticky top-bar EBITDA Proxy tile — single source of truth so that tile
-  // can never drift from the table it summarizes.
-  window._profYTD = { ebitda: ytdEbitda, ebitdaMargin: ytdEbitdaMargin };
+  // Exposed for the sticky top-bar Profit / EBITDA Proxy tiles — single source of truth so
+  // those tiles can never drift from the table they summarize.
+  window._profYTD = { profit: ytdProfit, margin: ytdMargin, ebitda: ytdEbitda, ebitdaMargin: ytdEbitdaMargin };
   (function() {
-    var el = document.getElementById('kpi-ebitda-topbar');
-    if (!el) return;
-    var m = ytdEbitda / 1e6;
-    el.textContent = (m < 0 ? '-$' : '$') + Math.abs(m).toFixed(2) + 'M (' + Math.round(ytdEbitdaMargin * 100) + '%)';
-    el.style.color = ytdEbitda < 0 ? 'var(--red)' : 'var(--green)';
+    function setTile(id, valUsd, marginPct) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var m = valUsd / 1e6;
+      var abbrev = Math.abs(valUsd) >= 1e6 ? ((m < 0 ? '-$' : '$') + Math.abs(m).toFixed(2) + 'M')
+                                            : ((valUsd < 0 ? '-$' : '$') + Math.round(Math.abs(valUsd) / 1000) + 'K');
+      el.textContent = abbrev + ' (' + Math.round(marginPct * 100) + '%)';
+      el.style.color = valUsd < 0 ? 'var(--red)' : 'var(--green)';
+    }
+    setTile('kpi-profit-topbar', ytdProfit, ytdMargin);
+    setTile('kpi-ebitda-topbar', ytdEbitda, ytdEbitdaMargin);
   })();
 
   function rowHtml(r, isYtd) {
