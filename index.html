@@ -4156,9 +4156,16 @@ var cfYTD = {
   },
 };
 cfYTD.investing  = cfYTD.land + cfYTD.equip;
-cfYTD.netChange  = cfYTD.operating + cfYTD.investing + cfYTD.financing + cfYTD.grants;
+cfYTD.netChange  = cfYTD.operating + cfYTD.investing + cfYTD.financing + cfYTD.grants;  // modeled (pre-plug) — drives the waterfall bridge
 cfYTD.expectedEnd = cfYTD.start + cfYTD.netChange;
 cfYTD.plug        = cfYTD.actualEnd - cfYTD.expectedEnd;
+// Actual net change = actual Ending − actual Starting (Indirect Method - SCF's own YTD "Net
+// Cash Change" row is the same pre-plug modeled figure as netChange above, NOT this — so this
+// is computed directly here). This is what the "Net Cash Change" KPI tile shows: it sits between
+// the Starting and Ending Balance tiles, so it must equal Ending − Starting or the three tiles
+// visibly don't add up. The modeled/pre-plug figure stays in the tile's meta line and drives the
+// waterfall's bridge bars, where the separate Reconcil. Plug bar accounts for the difference.
+cfYTD.actualNetChange = cfYTD.actualEnd - cfYTD.start;
 
 (function() {
   function k(v) { return (v < 0 ? '-$' : '$') + Math.round(Math.abs(v) / 1000).toLocaleString() + 'K'; }
@@ -4177,9 +4184,9 @@ cfYTD.plug        = cfYTD.actualEnd - cfYTD.expectedEnd;
   }
   var setText = function(id, text) { var el = document.getElementById(id); if (el) el.textContent = text; };
   setText('cfStartVal', k(cfYTD.start));
-  setText('cfNetVal', kSigned(cfYTD.netChange));
+  setText('cfNetVal', kSigned(cfYTD.actualNetChange));
   setText('cfNetMeta', 'Operating ' + kSigned(cfYTD.operating) + ' · Investing ' + kSigned(cfYTD.investing) +
-    ' · Financing ' + kSigned(cfYTD.financing) + ' · Grants ' + kSigned(cfYTD.grants));
+    ' · Financing ' + kSigned(cfYTD.financing) + ' · Grants ' + kSigned(cfYTD.grants) + ' · Plug ' + kSigned(cfYTD.plug));
   setText('cfEndVal', k(cfYTD.actualEnd));
   setText('cfEndMeta', 'Mercury ' + k(cfYTD.banks.Mercury) + ' · Revolut ' + k(cfYTD.banks.Revolut) +
     ' · Bulbank ' + k(cfYTD.banks.Bulbank) + ' · OBB ' + k(cfYTD.banks.OBB) + ' · JPM ' + k(cfYTD.banks.JPM) +
