@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-29T00:17:48.921577+00:00",
+  "timestamp": "2026-08-29T12:59:01.462884+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -124,22 +124,22 @@
   },
   "chase": {
     "status": "ok",
-    "total": 443418.26,
+    "total": 441619.46,
     "accounts": [
       {
         "name": "A. ANGELOV",
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 62201.2,
-        "current": 0.0
+        "available": 64000.0,
+        "current": 1798.8
       },
       {
         "name": "BUS COMPLETE CHK",
         "mask": "3582",
         "type": "depository",
         "subtype": "checking",
-        "available": 443418.26,
+        "available": 441619.46,
         "current": 443418.26
       }
     ]
