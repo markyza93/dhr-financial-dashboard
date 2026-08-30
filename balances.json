@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-30T12:38:14.710207+00:00",
+  "timestamp": "2026-08-30T18:58:09.818729+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 0,
-        "mtdOutflows": -34350.0,
+        "mtdOutflows": -14350.0,
         "recentTransactions": [
           {
             "date": "2026-08-25T14:24:14.384823Z",
@@ -32,12 +32,6 @@
             "description": "GREEN DESK LLC 2; SIGONFILE; DHR Inc",
             "amount": -950.0,
             "kind": "other"
-          },
-          {
-            "date": "2026-07-31T14:34:08.488329Z",
-            "description": "Send Money transaction initiated on Mercury",
-            "amount": -20000.0,
-            "kind": "outgoingPayment"
           }
         ]
       },
@@ -71,17 +65,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 128674.38,
+    "total": 128653.32,
     "usd": 113934.82,
-    "eur": 12602.22,
+    "eur": 12584.22,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 12602.22,
-        "available": 12602.22,
+        "balance": 12584.22,
+        "available": 12584.22,
         "state": "active"
       },
       {
