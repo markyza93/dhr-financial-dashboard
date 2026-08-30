@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-29T19:02:44.272066+00:00",
+  "timestamp": "2026-08-30T12:38:14.710207+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -12,8 +12,8 @@
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 0.98,
-        "mtdOutflows": -34415.0,
+        "mtdInflows": 0,
+        "mtdOutflows": -34350.0,
         "recentTransactions": [
           {
             "date": "2026-08-25T14:24:14.384823Z",
@@ -38,18 +38,6 @@
             "description": "Send Money transaction initiated on Mercury",
             "amount": -20000.0,
             "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-07-31T00:07:31.169389Z",
-            "description": null,
-            "amount": 0.98,
-            "kind": "other"
-          },
-          {
-            "date": "2026-07-31T00:05:17.547707Z",
-            "description": "IO AUTOPAY",
-            "amount": -65.0,
-            "kind": "other"
           }
         ]
       },
@@ -83,17 +71,17 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 128716.48,
+    "total": 128674.38,
     "usd": 113934.82,
-    "eur": 12638.22,
+    "eur": 12602.22,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 12638.22,
-        "available": 12638.22,
+        "balance": 12602.22,
+        "available": 12602.22,
         "state": "active"
       },
       {
