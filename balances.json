@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-31T14:53:25.965200+00:00",
+  "timestamp": "2026-08-31T21:14:44.791278+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -141,30 +141,30 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-28",
-    "total_eur": 268699.15,
-    "total_usd": 314270.53,
+    "statement_date": "2026-08-31",
+    "total_eur": 373699.15,
+    "total_usd": 437078.53,
     "accounts": [
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 155748.63,
+        "value_date": "2026-08-31"
+      },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 308.78,
-        "value_date": "2026-08-28"
+        "value_date": "2026-08-31"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217641.74,
-        "value_date": "2026-08-28"
-      },
-      {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
-        "currency": "EUR",
-        "closing_balance": 50748.63,
-        "value_date": "2026-08-28"
+        "value_date": "2026-08-31"
       }
     ]
   },
