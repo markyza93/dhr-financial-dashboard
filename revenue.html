@@ -410,7 +410,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
     <div class="card-head">
       <div>
         <h3>Total Monthly Revenue vs Target — All Clients</h3>
-        <p>Jan–Jul 2026 actuals · Aug–Dec projected (services only) · Adaptive target from Revenue (20) sheet row 23 · <strong>$993K/mo needed Aug–Dec</strong></p>
+        <p>Jan–Jul 2026 actuals · Aug–Dec projected (services only) · Adaptive target from Revenue (20) sheet row 23 · <strong>$953K/mo needed Aug–Dec</strong></p>
         <div style="display:inline-flex;flex-direction:column;gap:4px;margin-top:8px;">
           <div style="display:flex;align-items:center;gap:8px;padding:5px 12px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:6px;font-size:11px;color:#334155;">
             <span>🎯</span>
@@ -457,7 +457,7 @@ tbody tr:hover td { background: #f5f8fc !important; }
       </div>
     </div>
     <div class="wrap h380"><canvas id="revSvcMatChart"></canvas></div>
-    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Jul actual by-type from Revenue (20), keyed to service month. Services #448/#459/#471/#491/#507/#529/#539 · Materials #467/#474/#492/#509/#531/#541 — each materials invoice is issued the month after the service month it belongs to. Rainmaker and Mach are pure services with no materials component.</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--muted2);">⚹ Hadrian Jan–Jul actual by-type from Revenue (20), keyed to service month. Services #448/#459/#471/#491/#507/#529/#539 · Materials #467/#474/#492/#509/#531/#541/#561 — each materials invoice is issued the month after the service month it belongs to. Rainmaker and Mach are pure services with no materials component.</div>
   </div>
 
   <!-- EXPENSES -->
@@ -562,9 +562,9 @@ const stackTotalsPlugin = {
 // Jan–Jul 2026 actuals · Bulbank N5/2026 statement confirmed (close €172,334.77)
 // ALL revenue arrays are keyed by SERVICE MONTH (not invoice-issue month).
 // Materials invoices are typically issued the month AFTER the service month.
-const durin2026    = [123694.79, 136947.08, 124526.30, 152971.44, 123889.19, 135616.38, 115920];  // Revenue (20) row 14
-const frame2026    = [0,         199847.31, 231545.83, 281158.14, 231967.90, 365172.93, 161920];  // Revenue (20) row 15
-const hadrian2026  = [303834.93, 371849.14, 300448.84, 260146.28, 248602.82, 267682.54, 166612];  // Revenue (20) row 13 — materials re-keyed to service month
+const durin2026    = [123694.79, 136947.08, 124526.30, 152971.44, 123889.19, 135616.38, 165720.57];  // Revenue (20) row 14
+const frame2026    = [0,         199847.31, 231545.83, 281158.14, 231967.90, 365172.93, 260543.23];  // Revenue (20) row 15
+const hadrian2026  = [303834.93, 371849.14, 300448.84, 260146.28, 248602.82, 267682.54, 219407.18];  // Revenue (20) row 13 — materials re-keyed to service month
 const rainmaker2026 = [1843.12, 70210.03, 0, 0, 0, 0, 0];   // Revenue (20) row 16 — all services
 const mach2026 = [0, 0, 0, 0, 0, 0, 12500];   // Revenue (20) row 16 — new client, first invoice Jul 2026
 
@@ -573,11 +573,11 @@ const mach2026 = [0, 0, 0, 0, 0, 0, 12500];   // Revenue (20) row 16 — new cli
 // NOTE: these were previously keyed by invoice-ISSUE month, which is one month later
 // for materials (and for all Framework invoices). Source: Revenue (20) service-month cols.
 const invHadrianSvc = ['#0000000448', '#0000000459', '#0000000471', '#0000000491', '#0000000507', '#0000000529', '#0000000539'];
-const invHadrianMat = ['#0000000467', '#0000000474', '#0000000492', '#0000000509', '#0000000531', '#0000000541', null];
+const invHadrianMat = ['#0000000467', '#0000000474', '#0000000492', '#0000000509', '#0000000531', '#0000000541', '#0000000561'];
 const invDurinSvc   = ['Inv#35', 'Inv#38', 'Inv#41', 'Inv#46', 'Inv#51', 'Inv#54', 'Inv#60'];
-const invDurinMat   = ['Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', 'Inv#53', 'Inv#56', null];
+const invDurinMat   = ['Inv#36', 'Inv#40', 'Inv#43', 'Inv#48', 'Inv#53', 'Inv#56', 'Inv#62'];
 const invFrameSvc   = [null, 'Inv#37', 'Inv#42', 'Inv#45', 'Inv#50', 'Inv#0000000055', 'Inv#59'];
-const invFrameMat   = [null, 'Inv#39', 'Inv#44', 'Inv#47', 'Inv#52', 'Inv#57', null];
+const invFrameMat   = [null, 'Inv#39', 'Inv#44', 'Inv#47', 'Inv#52', 'Inv#57', 'Inv#61'];
 // Mach: new client, first invoice Aug 3 2026 for Jul 16-31 services (DHR Inc Income 2026 row 28)
 const invMachSvc    = [null, null, null, null, null, null, 'Inv#58'];
 
@@ -585,23 +585,23 @@ const invMachSvc    = [null, null, null, null, null, null, 'Inv#58'];
 // Hadrian: actual by-type from Revenue (20) rows 42-43 · materials keyed to service month
 // Hadrian May: INV-507 (services) + INV-509 (materials) · Jun: INV-529 (services) + INV-530 (materials)
 const hadrianSvc = [59358.78, 144880, 159368, 159368, 152124, 159368, 166612];  // Revenue (20) row 42
-const hadrianMat = [244476.15, 226969.14, 141080.84, 100778.28, 96478.82, 108314.54, 0];  // Revenue (20) row 43 — service month
+const hadrianMat = [244476.15, 226969.14, 141080.84, 100778.28, 96478.82, 108314.54, 52795.18];  // Revenue (20) row 43 — service month
 // Durin & Framework: actual per-invoice breakdown from Revenue (20)
 const durinSvc   = [100800, 100800, 110880, 110880, 105840, 110880, 115920];  // Revenue (20) row 47
-const durinMat   = [22894.79, 36147.08, 13646.30, 42091.44, 18049.19, 24736.38, 0];   // Revenue (20) row 48
+const durinMat   = [22894.79, 36147.08, 13646.30, 42091.44, 18049.19, 24736.38, 49800.57];   // Revenue (20) row 48
 const frameSvc   = [0, 105600, 116160, 116160, 147840, 154880, 161920];  // Revenue (20) row 52
-const frameMat   = [0, 94247.31, 115385.83, 164998.14, 84127.90, 210292.93, 0];  // Revenue (20) row 53
+const frameMat   = [0, 94247.31, 115385.83, 164998.14, 84127.90, 210292.93, 98623.23];  // Revenue (20) row 53
 
 // ── MARGIN BY CLIENT BY MONTH — Source: Client Margin Analysis.xlsx · sheet 'Margin Analysis' ──
 // Services margin = (revenue − fully-loaded labor − overhead allocation) ÷ revenue
 // Materials margin = (revenue − materials cost post-VAT − 3D printing labor) ÷ revenue
 // null = no revenue that month. Rainmaker is not in the margin model.
 const hadrianSvcMargin = [0.5883, 0.8101, 0.8145, 0.7812, 0.7789, 0.8350, 0.8035];
-const hadrianMatMargin = [0.2895, 0.2972, 0.3612, 0.2120, 0.2701, 0.2425, null];
+const hadrianMatMargin = [0.2895, 0.2972, 0.3612, 0.2120, 0.2701, 0.2425, 0.2118];
 const durinSvcMargin   = [0.8701, 0.8433, 0.8528, 0.8447, 0.7904, 0.8386, 0.8126];
-const durinMatMargin   = [0.4132, 0.2830, 0.3477, 0.4001, 0.3930, 0.3701, null];
+const durinMatMargin   = [0.4132, 0.2830, 0.3477, 0.4001, 0.3930, 0.3701, 0.4071];
 const frameSvcMargin   = [null, 0.7481, 0.7458, 0.7401, 0.7965, 0.8365, 0.8298];
-const frameMatMargin   = [null, 0.2624, 0.2791, 0.3401, -0.2747, 0.2534, null];
+const frameMatMargin   = [null, 0.2624, 0.2791, 0.3401, -0.2747, 0.2534, 0.3186];
 // ── UNIVERSAL REVENUE TOOLTIP BUILDER ──────────────────────────────
 // One structure for every client. Gates ONLY on revenue — never on the presence
 // of an invoice ref (that was the Framework-February bug: refs were keyed by
@@ -777,10 +777,11 @@ new Chart(document.getElementById('revTargetChart'), {
         // Revenue (20) sheet 'Revenue' Row 23 — "Adjusted Monthly Target at EOM"
         // Row 23 = Row 22 (Remaining to Target) ÷ months left in the year, recomputed each month.
         // Jan: $811K | Feb: $815K | Mar: $832K | Apr: $849K | May: $884K | Jun: $904K
-        // Jul–Dec held flat at the Jun figure — $903,608/mo is what the remaining
-        // $5,421,645 requires over the 6 months left to hit the $9.35M annual goal.
-        data: [811293, 814537, 832095, 849322, 884302, 903608, 992549,
-               992549, 992549, 992549, 992549],
+        // Jul is its own BOM target; Aug–Dec then holds flat at the new required rate —
+        // $952,695/mo is what the remaining $4,763,474 requires over the 5 months left
+        // to hit the $9.35M annual goal (recomputed after Jul materials invoices landed).
+        data: [811293, 814537, 832095, 849322, 884302, 903608, 903608,
+               952695, 952695, 952695, 952695, 952695],
         type: 'line',
         borderColor: 'rgb(251,191,36)',
         borderWidth: 3,
