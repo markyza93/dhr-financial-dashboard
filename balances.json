@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-30T18:58:09.818729+00:00",
+  "timestamp": "2026-09-01T12:23:42.259975+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -7,14 +7,26 @@
         "id": "db31e18e-e3cb-11ef-a011-6bd77594a82a",
         "name": "Mercury Checking \u2022\u20221661",
         "accountNumber": "202534271661",
-        "currentBalance": 93426.15,
-        "availableBalance": 93426.15,
+        "currentBalance": 92821.67,
+        "availableBalance": 42821.67,
         "currency": "USD",
         "type": "mercury",
         "status": "active",
-        "mtdInflows": 0,
-        "mtdOutflows": -14350.0,
+        "mtdInflows": 9.21,
+        "mtdOutflows": -14963.69,
         "recentTransactions": [
+          {
+            "date": "2026-08-31T00:06:50.234703Z",
+            "description": null,
+            "amount": 9.21,
+            "kind": "other"
+          },
+          {
+            "date": "2026-08-31T00:05:40.081319Z",
+            "description": "IO AUTOPAY",
+            "amount": -613.69,
+            "kind": "other"
+          },
           {
             "date": "2026-08-25T14:24:14.384823Z",
             "description": "Send Money transaction initiated on Mercury",
@@ -65,25 +77,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 128653.32,
-    "usd": 113934.82,
-    "eur": 12584.22,
+    "total": 2968.03,
+    "usd": 0.87,
+    "eur": 2536.9,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 12584.22,
-        "available": 12584.22,
+        "balance": 2536.9,
+        "available": 2536.9,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 113934.82,
-        "available": 113934.82,
+        "balance": 0.87,
+        "available": 0.87,
         "state": "active"
       },
       {
@@ -113,8 +125,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 64000.0,
-        "current": 1798.8
+        "available": 63228.85,
+        "current": 0.0
       },
       {
         "name": "BUS COMPLETE CHK",
@@ -122,37 +134,37 @@
         "type": "depository",
         "subtype": "checking",
         "available": 441619.46,
-        "current": 443418.26
+        "current": 441619.46
       }
     ]
   },
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-08-28",
-    "total_eur": 268699.15,
-    "total_usd": 314270.53,
+    "statement_date": "2026-08-31",
+    "total_eur": 373660.81,
+    "total_usd": 437033.68,
     "accounts": [
       {
-        "iban": "BG88UNCR70001526079989",
-        "label": "BG88",
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
         "currency": "EUR",
-        "closing_balance": 308.78,
-        "value_date": "2026-08-28"
+        "closing_balance": 155735.85,
+        "value_date": "2026-08-31"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
-        "closing_balance": 217641.74,
-        "value_date": "2026-08-28"
+        "closing_balance": 217628.96,
+        "value_date": "2026-08-31"
       },
       {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
+        "iban": "BG88UNCR70001526079989",
+        "label": "BG88",
         "currency": "EUR",
-        "closing_balance": 50748.63,
-        "value_date": "2026-08-28"
+        "closing_balance": 296.0,
+        "value_date": "2026-08-31"
       }
     ]
   },
