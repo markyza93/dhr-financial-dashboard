@@ -976,23 +976,14 @@ window.revSvcMatFilter = function(f) {
   firebase.initializeApp(firebaseConfig);
   var auth = firebase.auth();
 
-  // Accounts listed here can sign in (same Firebase project as the full
-  // dashboard) but only get the Revenue-only view — see revenue.html.
-  // Add an email here any time you create a Revenue-only account.
-  var REVENUE_ONLY_EMAILS = ['lyubomir@dhr.is'];
-
+  // No email restriction here — this page is intentionally reachable by
+  // ANY valid account on this Firebase project (both full-dashboard users
+  // and Revenue-only accounts). The restriction lives only in index.html,
+  // which redirects Revenue-only accounts here.
   auth.onAuthStateChanged(function(user) {
     var loginPage = document.getElementById('login-page');
     var app       = document.getElementById('app');
     if (user) {
-      if (REVENUE_ONLY_EMAILS.indexOf((user.email || '').toLowerCase()) !== -1) {
-        auth.signOut();
-        var errEl = document.getElementById('login-error');
-        var btn   = document.getElementById('login-btn');
-        if (errEl) { errEl.textContent = 'This account only has access to the Revenue dashboard — open revenue.html instead.'; errEl.style.display = 'block'; }
-        if (btn)   { btn.disabled = false; btn.textContent = 'Sign in'; }
-        return;
-      }
       loginPage.style.display = 'none';
       app.style.display = 'block';
       // populate user pill
