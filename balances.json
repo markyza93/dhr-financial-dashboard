@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-02T11:58:54.853889+00:00",
+  "timestamp": "2026-09-02T19:08:00.413210+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -83,25 +83,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 24930.91,
-    "usd": 17000.87,
-    "eur": 6780.13,
+    "total": 23185.04,
+    "usd": 16338.87,
+    "eur": 5853.43,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 6780.13,
-        "available": 6780.13,
+        "balance": 5853.43,
+        "available": 5853.43,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 17000.87,
-        "available": 17000.87,
+        "balance": 16338.87,
+        "available": 16338.87,
         "state": "active"
       },
       {
@@ -147,30 +147,30 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-09-01",
+    "statement_date": "2026-09-02",
     "total_eur": 273584.54,
     "total_usd": 319984.48,
     "accounts": [
-      {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
-        "currency": "EUR",
-        "closing_balance": 55659.58,
-        "value_date": "2026-09-01"
-      },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 296.0,
-        "value_date": "2026-09-01"
+        "value_date": "2026-09-02"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217628.96,
-        "value_date": "2026-09-01"
+        "value_date": "2026-09-02"
+      },
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 55659.58,
+        "value_date": "2026-09-02"
       }
     ]
   },
