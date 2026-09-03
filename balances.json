@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-03T11:58:03.637798+00:00",
+  "timestamp": "2026-09-03T19:00:15.199321+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -101,25 +101,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 20232.12,
-    "usd": 13893.66,
-    "eur": 5419.34,
+    "total": 68873.91,
+    "usd": 66688.84,
+    "eur": 1868.22,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 5419.34,
-        "available": 5419.34,
+        "balance": 1868.22,
+        "available": 1868.22,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 13893.66,
-        "available": 13893.66,
+        "balance": 66688.84,
+        "available": 66688.84,
         "state": "active"
       },
       {
@@ -165,30 +165,30 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-09-02",
-    "total_eur": 273584.54,
-    "total_usd": 319984.48,
+    "statement_date": "2026-09-03",
+    "total_eur": 282348.19,
+    "total_usd": 330234.44,
     "accounts": [
+      {
+        "iban": "BG86UNCR70001526136673",
+        "label": "BG86 \u2014 Operating",
+        "currency": "EUR",
+        "closing_balance": 64423.23,
+        "value_date": "2026-09-03"
+      },
       {
         "iban": "BG88UNCR70001526079989",
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 296.0,
-        "value_date": "2026-09-02"
+        "value_date": "2026-09-03"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217628.96,
-        "value_date": "2026-09-02"
-      },
-      {
-        "iban": "BG86UNCR70001526136673",
-        "label": "BG86 \u2014 Operating",
-        "currency": "EUR",
-        "closing_balance": 55659.58,
-        "value_date": "2026-09-02"
+        "value_date": "2026-09-03"
       }
     ]
   },
