@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-05T17:50:22.768968+00:00",
+  "timestamp": "2026-09-06T11:33:05.292146+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -13,7 +13,7 @@
         "type": "mercury",
         "status": "active",
         "mtdInflows": 9.21,
-        "mtdOutflows": -100481.79,
+        "mtdOutflows": -100281.79,
         "recentTransactions": [
           {
             "date": "2026-09-03T01:10:01.712666Z",
@@ -62,12 +62,6 @@
             "description": "Send Money transaction initiated on Mercury",
             "amount": -13200.0,
             "kind": "outgoingPayment"
-          },
-          {
-            "date": "2026-08-07T01:09:55.007726Z",
-            "description": "PEOPLE CENTER; BILL; DHR INC",
-            "amount": -200.0,
-            "kind": "other"
           }
         ]
       },
