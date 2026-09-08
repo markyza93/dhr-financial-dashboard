@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-08T12:00:13.855343+00:00",
+  "timestamp": "2026-09-08T19:10:19.012544+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -95,25 +95,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 54456.05,
-    "usd": 51502.56,
-    "eur": 2525.21,
+    "total": 52242.87,
+    "usd": 50917.95,
+    "eur": 1132.8,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 2525.21,
-        "available": 2525.21,
+        "balance": 1132.8,
+        "available": 1132.8,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 51502.56,
-        "available": 51502.56,
+        "balance": 50917.95,
+        "available": 50917.95,
         "state": "active"
       },
       {
@@ -159,7 +159,7 @@
   "bulbank": {
     "status": "ok",
     "source": "email-mt940",
-    "statement_date": "2026-09-04",
+    "statement_date": "2026-09-08",
     "total_eur": 282348.19,
     "total_usd": 330234.44,
     "accounts": [
@@ -168,21 +168,21 @@
         "label": "BG88",
         "currency": "EUR",
         "closing_balance": 296.0,
-        "value_date": "2026-09-04"
+        "value_date": "2026-09-08"
       },
       {
         "iban": "BG16UNCR70001526136672",
         "label": "BG16 \u2014 Reserve",
         "currency": "EUR",
         "closing_balance": 217628.96,
-        "value_date": "2026-09-04"
+        "value_date": "2026-09-08"
       },
       {
         "iban": "BG86UNCR70001526136673",
         "label": "BG86 \u2014 Operating",
         "currency": "EUR",
         "closing_balance": 64423.23,
-        "value_date": "2026-09-04"
+        "value_date": "2026-09-08"
       }
     ]
   },
