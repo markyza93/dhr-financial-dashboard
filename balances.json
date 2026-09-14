@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-13T18:26:56.698054+00:00",
+  "timestamp": "2026-09-14T13:42:28.129126+00:00",
   "mercury": {
     "status": "ok",
     "accounts": [
@@ -101,25 +101,25 @@
   },
   "revolut": {
     "status": "ok",
-    "total": 69561.73,
-    "usd": 54702.35,
-    "eur": 12704.67,
+    "total": 67868.1,
+    "usd": 54683.56,
+    "eur": 11272.69,
     "bgn": 0.0,
     "accounts": [
       {
         "id": "6d6e2ed2-8b47-4f35-b299-0e8a07c58649",
         "name": "Main",
         "currency": "EUR",
-        "balance": 12704.67,
-        "available": 12704.67,
+        "balance": 11272.69,
+        "available": 11272.69,
         "state": "active"
       },
       {
         "id": "bd3e8f6b-05ef-4056-915e-a5a17dd70e71",
         "name": "Main",
         "currency": "USD",
-        "balance": 54702.35,
-        "available": 54702.35,
+        "balance": 54683.56,
+        "available": 54683.56,
         "state": "active"
       },
       {
@@ -149,8 +149,8 @@
         "mask": "2733",
         "type": "credit",
         "subtype": "credit card",
-        "available": 60355.64,
-        "current": 1436.87
+        "available": 61566.44,
+        "current": 2036.87
       },
       {
         "name": "BUS COMPLETE CHK",
